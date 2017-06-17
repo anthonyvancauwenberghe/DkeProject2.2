@@ -1,24 +1,34 @@
 package Menu;
 
-/**
- * Created by s120619 on 17-6-2017.
- */
+import Editor.EditorPanelOld;
+import Game.Game;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Scanner;
+
+
 public class StartMenu {
-    /*
 
     final int FRAME_WIDTH = 1200;
     final int FRAME_HEIGHT = 900;
-
-    private JFrame frame;
-    private GridObjects editor;
     public Game game;
-
     public BackgroundPanel main;
+    public JPanel gamePanel;
+    private JFrame frame;
+    private EditorPanelOld editor;
     private JPanel startMenu;
     private JPanel playerMenu;
     private JPanel pauseMenu;
     private JPanel editorPanel;
-    public JPanel gamePanel;
     private JPanel pausePanel;
     private JPanel backPanel;
     private JPanel backMenu;
@@ -591,7 +601,7 @@ public class StartMenu {
         editorPanel.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 
 
-        editor = new EditorPanel();
+        editor = new EditorPanelOld();
         //saveButton = editor.getSaveButton();
         //loadButton= editor.getLoadButton();
         //saveButton.addActionListener(listener);
@@ -657,5 +667,8 @@ public class StartMenu {
         }
         return file;
     }
-*/
+//	public static JButton getResumeb() {
+//		return resumeb;
+//	}
+
 }
