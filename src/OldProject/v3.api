@@ -51,7 +51,7 @@ Master:Editdata
 <x>;<y>;<z>;<data>
 //##############################################################// Not in file
 Master:Brutefinder
-<Grid Size>
+<Map Size>
 <# Nodes X>;<# Nodes Y>;<# Nodes Z>
 <Offset nodes X>;<Offset nodes Y>;<Offset nodes Z>
 <Amount of directions>;<Amount of directions>

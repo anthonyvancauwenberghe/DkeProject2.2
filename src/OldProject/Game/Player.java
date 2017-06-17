@@ -40,7 +40,7 @@ public class Player {
 
     public void launch() {
         if (launchSort == 0) {
-            if (World.DEBUG) System.out.println("Player: Ball " + ballId + " pushed: " + pushVector);
+            if (World.DEBUG) System.out.println("Players: Ball " + ballId + " pushed: " + pushVector);
             game.world.pushBall(ballId, pushVector);
         } else if (launchSort == 1 && game.brutefinder != null) {
             game.brutefinder.calcNextShot(ballId);

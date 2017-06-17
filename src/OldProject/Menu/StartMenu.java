@@ -326,7 +326,7 @@ public class StartMenu {
         playerMenu.setLayout(new GridLayout(7, 10, 0, vGap));
 
 
-        //One Player button
+        //One Players button
         if (f1.exists() && !f1.isDirectory()) {
             oneP = new JButton("LEVEL 1");
         } else
@@ -527,7 +527,7 @@ public class StartMenu {
         loadTitle.setHorizontalAlignment(SwingConstants.CENTER);
 
 
-        //One Player button
+        //One Players button
         if (f1.exists() && !f1.isDirectory()) {
             level1b = new JButton("LEVEL 1");
         } else

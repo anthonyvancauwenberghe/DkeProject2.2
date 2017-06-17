@@ -117,7 +117,7 @@ public class Brutefinder implements BotInterface {
                             }
                             //if (World.DEBUG) System.out.println(" - Min Path to hole: "+newBestPlace);
                         } else {
-                            //if (World.DEBUG) System.out.println(" - Grid not calculated...");
+                            //if (World.DEBUG) System.out.println(" - Map not calculated...");
                         }
                     } else {
                         //if(World.DEBUG)System.out.println(" - Outside grid");

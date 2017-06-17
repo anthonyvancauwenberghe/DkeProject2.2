@@ -169,7 +169,7 @@ public class Game extends GolfPanelOpenGL implements Runnable {
                             if (world.checkBallInHole(i)) {
                                 keepPlaying = false;
                                 if (World.DEBUG) {
-                                    System.out.println("Game: Player " + i + " Won with " + players.get(i).turns + " turns!");
+                                    System.out.println("Game: Players " + i + " Won with " + players.get(i).turns + " turns!");
                                 }
                                 winner = i;
                                 winnerTurns = players.get(i).turns;
