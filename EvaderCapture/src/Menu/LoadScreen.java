@@ -8,12 +8,12 @@ import java.awt.*;
  */
 public class LoadScreen extends JWindow {
 
-    private JLabel imageLabel = new JLabel();
-    private JPanel southPanel = new JPanel();
-
     public LoadScreen(ImageIcon imageIcon) {
         try {
+            JLabel imageLabel = new JLabel();
             imageLabel.setIcon(imageIcon);
+            JPanel southPanel = new JPanel();
+
             getContentPane().setLayout(new BorderLayout());
             southPanel.setLayout(new FlowLayout());
             southPanel.setBackground(Color.WHITE);
