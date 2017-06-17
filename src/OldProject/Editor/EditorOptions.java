@@ -6,10 +6,11 @@ import java.awt.*;
  * Created by Tony on 6/8/2017.
  */
 public enum EditorOptions {
+    FLOOR("FLOOR", Color.lightGray),
     WALL("WALL", Color.darkGray),
     EVADER("EVADER", Color.blue),
-    PURSUITER("PURSUITER", Color.yellow),
-    FLOOR("FLOOR", Color.lightGray);
+    PURSUITER("PURSUITER", Color.yellow);
+
 
     private String option;
     private Color color;
