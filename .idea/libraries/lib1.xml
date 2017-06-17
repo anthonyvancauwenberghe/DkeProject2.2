@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="lib1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/vecmath-1.5.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JOCL-0.2.0RC.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jogl-all-natives-windows-amd64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jogl-all.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gluegen-rt-natives-windows-amd64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gluegen-rt.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
