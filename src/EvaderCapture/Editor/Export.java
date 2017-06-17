@@ -17,48 +17,48 @@ public class Export implements Runnable {
     private LinkedList<String> returnData;
     private Brutefinder brutefinder;
 
-    public Export(Grid[] g,double gs,String[] pc){
-        grid=g;
-        gridSize=gs;
-        playerChoice=pc;
-        done=false;
+    public Export(Grid[] g, double gs, String[] pc) {
+        grid = g;
+        gridSize = gs;
+        playerChoice = pc;
+        done = false;
     }
-    @Override public void run() {
+
+    @Override
+    public void run() {
         ArrayList<String> brutefinderData = null;
         WorldData world = new WorldData(false);
-        for(int i=0;i<grid.length;i++) {
+        for (int i = 0; i < grid.length; i++) {
             //world.load(grid[i].getStringGrid(), gridSize, new Point3D(0,0,i*60+80));
         }
         ArrayList<String> worldData = world.save();
 
         boolean calcDatabase = false;
 
-        for(int i=0;i<playerChoice.length;i++)
-        {
-            if(playerChoice[i].equals("1"))
-            {
-                calcDatabase=true;
+        for (int i = 0; i < playerChoice.length; i++) {
+            if (playerChoice[i].equals("1")) {
+                calcDatabase = true;
             }
         }
 
-        if (calcDatabase){
-            long time=System.currentTimeMillis();
+        if (calcDatabase) {
+            long time = System.currentTimeMillis();
             brutefinder = new Brutefinder();
             brutefinder.init(world);
             brutefinder.makeDatabase();
             brutefinderData = brutefinder.ouputDatabase();
-            System.out.println("Time in seconds to create database: "+(System.currentTimeMillis()-time));
+            System.out.println("Time in seconds to create database: " + (System.currentTimeMillis() - time));
         }
 
         returnData = new LinkedList<>();
         returnData.add("Master:World");
-        for(int i=0;i<worldData.size();i++) {
+        for (int i = 0; i < worldData.size(); i++) {
             returnData.add(worldData.get(i));
         }
 
         returnData.add("Master:Gamemode");
-        for (int i=0; i<playerChoice.length; i++){
-            if(playerChoice[i]!="4") {
+        for (int i = 0; i < playerChoice.length; i++) {
+            if (playerChoice[i] != "4") {
                 returnData.add(playerChoice[i]);
             }
         }
@@ -89,16 +89,20 @@ public class Export implements Runnable {
         done=true;
         */
     }
-    public boolean isDone(){return done;}
-    public LinkedList<String> getData(){
-        if(done){
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public LinkedList<String> getData() {
+        if (done) {
             return returnData;
         }
         return null;
     }
-    public String getProgress(){
-        if(brutefinder!=null)
-        {
+
+    public String getProgress() {
+        if (brutefinder != null) {
             return brutefinder.getProgress();
         }
         return "Exporting...";

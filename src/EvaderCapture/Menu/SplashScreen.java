@@ -12,15 +12,14 @@ public class SplashScreen extends JWindow {
     JPanel southPanel = new JPanel();
     //    JProgressBar progressBar = new JProgressBar();
     ImageIcon imageIcon;
-    Color bluepic = new Color(77, 151,154);
-    Color darkpic = new Color(63, 123,126);
+    Color bluepic = new Color(77, 151, 154);
+    Color darkpic = new Color(63, 123, 126);
 
     public SplashScreen(ImageIcon imageIcon) {
         this.imageIcon = imageIcon;
         try {
             jbInit();
-        }
-        catch(Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -65,8 +64,7 @@ public class SplashScreen extends JWindow {
 //        });
 //    }
 
-    public void setScreenVisible(boolean b)
-    {
+    public void setScreenVisible(boolean b) {
         final boolean boo = b;
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {

@@ -12,18 +12,18 @@ public class BrutefinderBall extends Ball {
     public int k;
     public int dir;
     public int pow;
-    public int velocityCounter=0;
-    public int totalCounter=0;
+    public int velocityCounter = 0;
+    public int totalCounter = 0;
     public boolean corrector;
     public Point3D predictorLocation;
 
-    public BrutefinderBall(double tsize, Point3D tplace, int ti,int tj,int tk,int tdir,int tpow) {
+    public BrutefinderBall(double tsize, Point3D tplace, int ti, int tj, int tk, int tdir, int tpow) {
         super(tsize, tplace);
-        i=ti;
-        j=tj;
-        k=tk;
-        dir=tdir;
-        pow=tpow;
-        corrector=false;
+        i = ti;
+        j = tj;
+        k = tk;
+        dir = tdir;
+        pow = tpow;
+        corrector = false;
     }
 }

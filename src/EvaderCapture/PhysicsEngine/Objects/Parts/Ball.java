@@ -18,23 +18,22 @@ public class Ball {
 
     public Point3D windVector;
 
-    public static final float minVelocity=0.3f;
-    public static final int thresholdCounter=10;
+    public static final float minVelocity = 0.3f;
+    public static final int thresholdCounter = 10;
     public static final float minZ = -100;
 
     public Point3D normalTotal;
     public double normalCounter;
 
-    public Ball(double tsize,Point3D tplace)
-    {
-        mass=1;
-        size=tsize;
-        place=tplace;
-        velocity=new Point3D(0,0,0);
-        acceleration=new Point3D(0,0,0);
-        windVector=new Point3D(0,0,0);
-        oldPlace=tplace;
-        friction=0;
-        zeroCounter=0;
+    public Ball(double tsize, Point3D tplace) {
+        mass = 1;
+        size = tsize;
+        place = tplace;
+        velocity = new Point3D(0, 0, 0);
+        acceleration = new Point3D(0, 0, 0);
+        windVector = new Point3D(0, 0, 0);
+        oldPlace = tplace;
+        friction = 0;
+        zeroCounter = 0;
     }
 }

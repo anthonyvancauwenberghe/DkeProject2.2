@@ -16,13 +16,13 @@ public class VAONormal {
     int colorBufferId[];
     int normalBufferId[];
 
-    public VAONormal(GL3 gl, float[] points, float [] tColors,float[] tNormals, int verticeLoc, int colorLoc,int normalLoc) {
+    public VAONormal(GL3 gl, float[] points, float[] tColors, float[] tNormals, int verticeLoc, int colorLoc, int normalLoc) {
         VAO = generateVAOId(gl);
         vertices = points;
         colors = tColors;
-        normals=tNormals;
+        normals = tNormals;
 
-        gl.glBindVertexArray( VAO[0]);
+        gl.glBindVertexArray(VAO[0]);
         vertexBufferId = this.generateBufferId(gl);
         colorBufferId = this.generateBufferId(gl);
         normalBufferId = generateBufferId(gl);
@@ -32,14 +32,15 @@ public class VAONormal {
         this.bindBuffer(gl, normalBufferId[0], normals, normalLoc);
 
     }
-    public void cleanUp(GL3 gl){
-        gl.glDeleteBuffers(1, vertexBufferId,0);
-        gl.glDeleteBuffers(1, colorBufferId,0);
-        gl.glDeleteBuffers(1, normalBufferId,0);
-        gl.glDeleteVertexArrays(1, VAO,0);
+
+    public void cleanUp(GL3 gl) {
+        gl.glDeleteBuffers(1, vertexBufferId, 0);
+        gl.glDeleteBuffers(1, colorBufferId, 0);
+        gl.glDeleteBuffers(1, normalBufferId, 0);
+        gl.glDeleteVertexArrays(1, VAO, 0);
     }
 
-    void bindBuffer(GL3 gl, int bufferId, float[] dataArray, int dataLoc){
+    void bindBuffer(GL3 gl, int bufferId, float[] dataArray, int dataLoc) {
         // bind buffer for vertices and copy data into buffer
         gl.glBindBuffer(GL.GL_ARRAY_BUFFER, bufferId);
         gl.glBufferData(GL.GL_ARRAY_BUFFER, dataArray.length * Float.SIZE / 8, Buffers.newDirectFloatBuffer(dataArray), GL.GL_STATIC_DRAW);
@@ -47,6 +48,7 @@ public class VAONormal {
         gl.glVertexAttribPointer(dataLoc, 4, GL.GL_FLOAT, false, 0, 0);
 
     }
+
     protected int[] generateVAOId(GL3 gl) {
         // allocate an array of one element in order to strore
         // the generated id
@@ -56,12 +58,13 @@ public class VAONormal {
         // return the id
         return idArray;
     }
+
     protected int[] generateBufferId(GL3 gl) {
         // allocate an array of one element in order to strore
         // the generated id
         int[] idArray = new int[1];
         // let's generate
-        gl.glGenBuffers( 1, idArray, 0);
+        gl.glGenBuffers(1, idArray, 0);
 
         // return the id
         return idArray;

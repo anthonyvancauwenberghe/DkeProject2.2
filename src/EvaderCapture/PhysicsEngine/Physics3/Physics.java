@@ -10,15 +10,22 @@ import java.util.ArrayList;
  */
 public interface Physics {
     void step(boolean useBallBallCollision);
-    void stepSimulated(ArrayList<Ball> simBalls, boolean useBallBallCollision,boolean noise);
+
+    void stepSimulated(ArrayList<Ball> simBalls, boolean useBallBallCollision, boolean noise);
 
     int getAmountBalls();
+
     Ball getBall(int i);
+
     void pushBall(int i, Point3D dir);
+
     boolean checkBallInHole(int i);
+
     boolean ballStoppedMoving(int i);
+
     void addNewBall();
 
     Point3D getHolePosition();
+
     Point3D getStartPosition();
 }

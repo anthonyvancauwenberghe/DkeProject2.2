@@ -8,8 +8,9 @@ import javafx.geometry.Point3D;
 public class Water {
     public Point3D[] place;
     public int color;
-    public Water(Point3D[] tPlace,int c){
-        place=tPlace;
-        color=c;
+
+    public Water(Point3D[] tPlace, int c) {
+        place = tPlace;
+        color = c;
     }
 }

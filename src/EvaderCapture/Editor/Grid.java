@@ -10,11 +10,11 @@ import javax.swing.*;
 public class Grid extends JComponent {
     private GridElement[][] grid;
 
-    public Grid(){
+    public Grid() {
         grid = new GridElement[82][50];
-        for(int i = 0; i< grid.length; i++) {
-            for (int j = 0; j< grid[i].length; j++) {
-                grid[i][j] = new GridElement(EditorOptions.FLOOR, new Position(i,j));
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                grid[i][j] = new GridElement(EditorOptions.FLOOR, new Position(i, j));
             }
         }
     }

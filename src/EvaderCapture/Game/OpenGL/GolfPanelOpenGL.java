@@ -20,80 +20,101 @@ import javafx.geometry.Point3D;
 
 /**
  * inspired from http://www.lighthouse3d.com/cg-topics/code-samples/opengl-3-3-glsl-1-5-sample/
- *
  */
-public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMotionListener,MouseListener,MouseWheelListener,KeyListener{
-    @Override public void mouseDragged(MouseEvent e) {
+public class GolfPanelOpenGL extends JPanel implements GLEventListener, MouseMotionListener, MouseListener, MouseWheelListener, KeyListener {
+    @Override
+    public void mouseDragged(MouseEvent e) {
         xAngle -= (xAngleStart - e.getX()) * 0.2;
         yAngle += (yAngleStart - e.getY()) * 0.2;
         if (yAngle < -89) yAngle = -89;
         if (yAngle > 89) yAngle = 89;
-        xAngleStart=e.getX();
-        yAngleStart=e.getY();
+        xAngleStart = e.getX();
+        yAngleStart = e.getY();
     }
-    @Override public void mouseMoved(MouseEvent e) {
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
 
     }
-    @Override public void mouseClicked(MouseEvent e) {
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
 
     }
-    @Override public void mousePressed(MouseEvent e) {
-        xAngleStart=e.getX();
-        yAngleStart=e.getY();
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        xAngleStart = e.getX();
+        yAngleStart = e.getY();
     }
-    @Override public void mouseReleased(MouseEvent e) {
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
 
     }
-    @Override public void mouseEntered(MouseEvent e) {
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
 
     }
-    @Override public void mouseExited(MouseEvent e) {
+
+    @Override
+    public void mouseExited(MouseEvent e) {
 
     }
-    @Override public void mouseWheelMoved(MouseWheelEvent e) {
-        zoom+=e.getPreciseWheelRotation()*0.5;
-        if(zoom<0.1)zoom=0.1;
-        if(zoom>20)zoom=20;
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        zoom += e.getPreciseWheelRotation() * 0.5;
+        if (zoom < 0.1) zoom = 0.1;
+        if (zoom > 20) zoom = 20;
     }
-    @Override public void keyTyped(KeyEvent e) {
+
+    @Override
+    public void keyTyped(KeyEvent e) {
 
     }
-    @Override public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_A)aPressed=true;
-        if(e.getKeyCode() == KeyEvent.VK_S)sPressed=true;
-        if(e.getKeyCode() == KeyEvent.VK_D)dPressed=true;
-        if(e.getKeyCode() == KeyEvent.VK_W)wPressed=true;
-        if(e.getKeyCode() == KeyEvent.VK_E)showDatabase=!showDatabase;
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_A) aPressed = true;
+        if (e.getKeyCode() == KeyEvent.VK_S) sPressed = true;
+        if (e.getKeyCode() == KeyEvent.VK_D) dPressed = true;
+        if (e.getKeyCode() == KeyEvent.VK_W) wPressed = true;
+        if (e.getKeyCode() == KeyEvent.VK_E) showDatabase = !showDatabase;
     }
-    @Override public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_A)aPressed=false;
-        if(e.getKeyCode() == KeyEvent.VK_S)sPressed=false;
-        if(e.getKeyCode() == KeyEvent.VK_D)dPressed=false;
-        if(e.getKeyCode() == KeyEvent.VK_W)wPressed=false;
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_A) aPressed = false;
+        if (e.getKeyCode() == KeyEvent.VK_S) sPressed = false;
+        if (e.getKeyCode() == KeyEvent.VK_D) dPressed = false;
+        if (e.getKeyCode() == KeyEvent.VK_W) wPressed = false;
     }
-    public void updateKeys(){
-        double scaler=50;
-        if(wPressed){
-            xOffset-=Math.cos(xAngle/180.0*Math.PI)*zoom/scaler;
-            yOffset-=Math.sin(xAngle/180.0*Math.PI)*zoom/scaler;
+
+    public void updateKeys() {
+        double scaler = 50;
+        if (wPressed) {
+            xOffset -= Math.cos(xAngle / 180.0 * Math.PI) * zoom / scaler;
+            yOffset -= Math.sin(xAngle / 180.0 * Math.PI) * zoom / scaler;
         }
-        if(sPressed){
-            xOffset+=Math.cos(xAngle/180.0*Math.PI)*zoom/scaler;
-            yOffset+=Math.sin(xAngle/180.0*Math.PI)*zoom/scaler;
+        if (sPressed) {
+            xOffset += Math.cos(xAngle / 180.0 * Math.PI) * zoom / scaler;
+            yOffset += Math.sin(xAngle / 180.0 * Math.PI) * zoom / scaler;
         }
-        if(aPressed){
-            xOffset+=Math.cos((xAngle+90)/180.0*Math.PI)*zoom/scaler;
-            yOffset+=Math.sin((xAngle+90)/180.0*Math.PI)*zoom/scaler;
+        if (aPressed) {
+            xOffset += Math.cos((xAngle + 90) / 180.0 * Math.PI) * zoom / scaler;
+            yOffset += Math.sin((xAngle + 90) / 180.0 * Math.PI) * zoom / scaler;
         }
-        if(dPressed){
-            xOffset+=Math.cos((xAngle-90)/180.0*Math.PI)*zoom/scaler;
-            yOffset+=Math.sin((xAngle-90)/180.0*Math.PI)*zoom/scaler;
+        if (dPressed) {
+            xOffset += Math.cos((xAngle - 90) / 180.0 * Math.PI) * zoom / scaler;
+            yOffset += Math.sin((xAngle - 90) / 180.0 * Math.PI) * zoom / scaler;
         }
     }
 
-    enum ShaderType{ VertexShader, FragmentShader}
+    enum ShaderType {VertexShader, FragmentShader}
 
-    int programID,programID2;
+    int programID, programID2;
     int vertexLoc, colorLoc;
     int vertexLoc2, colorLoc2, normalLoc2;
     int projMatrixLoc, viewMatrixLoc;
@@ -104,29 +125,29 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
     float viewMatrix[] = new float[16];
 
     World world;
-    Map<Integer,VAO> triangles;
-    Map<Integer,VAONormal> trianglesWithPointNormals;
-    Point3D arrowStart=null;
+    Map<Integer, VAO> triangles;
+    Map<Integer, VAONormal> trianglesWithPointNormals;
+    Point3D arrowStart = null;
     double angleX;
     double angleY;
     double power;
-    float scale=200;
+    float scale = 200;
     public GLCanvas glCanvas;
-    ArrayList<VAO> database=null;
-    Brutefinder brutefinder=null;
+    ArrayList<VAO> database = null;
+    Brutefinder brutefinder = null;
 
-    public int xAngle=45;
-    public int yAngle=0;
-    public int xAngleStart=0;
-    public int yAngleStart=0;
-    public double zoom=5;
-    public float xOffset=0;
-    public float yOffset=0;
-    public boolean aPressed=false;
-    public boolean sPressed=false;
-    public boolean dPressed=false;
-    public boolean wPressed=false;
-    public boolean showDatabase=false;
+    public int xAngle = 45;
+    public int yAngle = 0;
+    public int xAngleStart = 0;
+    public int yAngleStart = 0;
+    public double zoom = 5;
+    public float xOffset = 0;
+    public float yOffset = 0;
+    public boolean aPressed = false;
+    public boolean sPressed = false;
+    public boolean dPressed = false;
+    public boolean wPressed = false;
+    public boolean showDatabase = false;
 
     void crossProduct(float a[], float b[], float res[]) {
 
@@ -134,6 +155,7 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
         res[1] = a[2] * b[0] - b[2] * a[0];
         res[2] = a[0] * b[1] - b[0] * a[1];
     }
+
     void normalize(float a[]) {
 
         float mag = (float) Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);
@@ -153,6 +175,7 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
         for (int i = 0; i < size; ++i)
             mat[i + i * size] = 1.0f;
     }
+
     void multMatrix(float[] a, float[] b) {
 
         float[] res = new float[16];
@@ -167,6 +190,7 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
         }
         System.arraycopy(res, 0, a, 0, 16);
     }
+
     void setTranslationMatrix(float[] mat, float x, float y, float z) {
 
         setIdentityMatrix(mat, 4);
@@ -174,6 +198,7 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
         mat[13] = y;
         mat[14] = z;
     }
+
     float[] buildProjectionMatrix(float fov, float ratio, float nearP, float farP, float[] projMatrix) {
 
         float f = 1.0f / (float) Math.tan(fov * (Math.PI / 360.0));
@@ -189,6 +214,7 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
 
         return projMatrix;
     }
+
     float[] setCamera(float posX, float posY, float posZ, float lookAtX, float lookAtY, float lookAtZ, float[] viewMatrix) {
 
         float[] dir = new float[3];
@@ -242,26 +268,25 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
     protected void renderScene(GL3 gl) {
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         gl.glUseProgram(this.programID);
-        gl.glUniformMatrix4fv( this.projMatrixLoc, 1, false, this.projMatrix, 0);
-        gl.glUniformMatrix4fv( this.viewMatrixLoc, 1, false, this.viewMatrix, 0);
+        gl.glUniformMatrix4fv(this.projMatrixLoc, 1, false, this.projMatrix, 0);
+        gl.glUniformMatrix4fv(this.viewMatrixLoc, 1, false, this.viewMatrix, 0);
 
 
-        triangles.values().forEach(e->{
+        triangles.values().forEach(e -> {
             gl.glBindVertexArray(e.VAO[0]);
-            gl.glDrawArrays(GL.GL_TRIANGLES, 0, e.vertices.length/4);
+            gl.glDrawArrays(GL.GL_TRIANGLES, 0, e.vertices.length / 4);
         });
 
 
-
-        if(arrowStart!=null){
-            VAO set1 = new VAO(gl, Arrow.getArrow(arrowStart, (float)angleX, (float) angleY, (float) power,scale), Arrow.getColor(0,0,1),
+        if (arrowStart != null) {
+            VAO set1 = new VAO(gl, Arrow.getArrow(arrowStart, (float) angleX, (float) angleY, (float) power, scale), Arrow.getColor(0, 0, 1),
                     vertexLoc, colorLoc);
             gl.glBindVertexArray(set1.VAO[0]);
-            gl.glDrawArrays(GL.GL_TRIANGLES, 0, set1.vertices.length/4);
+            gl.glDrawArrays(GL.GL_TRIANGLES, 0, set1.vertices.length / 4);
             set1.cleanUp(gl);
         }
 
-        if(showDatabase) {
+        if (showDatabase) {
             if (database != null) {
                 for (int i = 0; i < database.size(); i++) {
                     gl.glBindVertexArray(database.get(i).VAO[0]);
@@ -270,40 +295,42 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
             }
         }
 
-        for(int i=0;i<world.getAmountBalls();i++){
-            VAO set2 = new VAO(gl,new float[]{(float)world.getBall(i).place.getX(),(float) world.getBall(i).place.getZ(),(float) world.getBall(i).place.getY(),scale,
-                    (float) (world.getBall(i).windVector.getX()*50000+world.getBall(i).place.getX()),
-                    (float) (world.getBall(i).windVector.getZ()*50000+world.getBall(i).place.getZ()),
-                    (float) (world.getBall(i).windVector.getY()*50000+world.getBall(i).place.getY()),scale},new float[]{0,0,0,0,0,0,0,0},vertexLoc, colorLoc);
+        for (int i = 0; i < world.getAmountBalls(); i++) {
+            VAO set2 = new VAO(gl, new float[]{(float) world.getBall(i).place.getX(), (float) world.getBall(i).place.getZ(), (float) world.getBall(i).place.getY(), scale,
+                    (float) (world.getBall(i).windVector.getX() * 50000 + world.getBall(i).place.getX()),
+                    (float) (world.getBall(i).windVector.getZ() * 50000 + world.getBall(i).place.getZ()),
+                    (float) (world.getBall(i).windVector.getY() * 50000 + world.getBall(i).place.getY()), scale}, new float[]{0, 0, 0, 0, 0, 0, 0, 0}, vertexLoc, colorLoc);
             gl.glBindVertexArray(set2.VAO[0]);
             gl.glDrawArrays(GL.GL_LINES, 0, 2);
             set2.cleanUp(gl);
         }
 
         gl.glUseProgram(this.programID2);
-        gl.glUniformMatrix4fv( this.projMatrixLoc2, 1, false, this.projMatrix, 0);
-        gl.glUniformMatrix4fv( this.viewMatrixLoc2, 1, false, this.viewMatrix, 0);
+        gl.glUniformMatrix4fv(this.projMatrixLoc2, 1, false, this.projMatrix, 0);
+        gl.glUniformMatrix4fv(this.viewMatrixLoc2, 1, false, this.viewMatrix, 0);
 
-        for(int i=0;i<world.getAmountBalls();i++){
-            VAONormal set1 = new VAONormal(gl, Sphere.getSphere(world.getBall(i).place, (float) world.getBall(i).size,scale), Sphere.getSphereColor(1,0,0),Sphere.getNormals()
-                    , vertexLoc2, colorLoc2,normalLoc2);
+        for (int i = 0; i < world.getAmountBalls(); i++) {
+            VAONormal set1 = new VAONormal(gl, Sphere.getSphere(world.getBall(i).place, (float) world.getBall(i).size, scale), Sphere.getSphereColor(1, 0, 0), Sphere.getNormals()
+                    , vertexLoc2, colorLoc2, normalLoc2);
             gl.glBindVertexArray(set1.VAO[0]);
-            gl.glDrawArrays(GL.GL_TRIANGLES, 0, set1.vertices.length/4);
+            gl.glDrawArrays(GL.GL_TRIANGLES, 0, set1.vertices.length / 4);
             set1.cleanUp(gl);
         }
 
-        trianglesWithPointNormals.values().forEach(e->{
+        trianglesWithPointNormals.values().forEach(e -> {
             gl.glBindVertexArray(e.VAO[0]);
-            gl.glDrawArrays(GL.GL_TRIANGLES, 0, e.vertices.length/4);
+            gl.glDrawArrays(GL.GL_TRIANGLES, 0, e.vertices.length / 4);
         });
 
         // Check out error
         int error = gl.glGetError();
-        if(error!=0){
-            System.err.println("ERROR on render : " + error);}
+        if (error != 0) {
+            System.err.println("ERROR on render : " + error);
+        }
     }
 
-    @Override public void init(GLAutoDrawable drawable) {
+    @Override
+    public void init(GLAutoDrawable drawable) {
         GL3 gl = drawable.getGL().getGL3();
         gl.glEnable(GL.GL_DEPTH_TEST);
         gl.glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
@@ -312,7 +339,9 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
         this.programID2 = newProgram2(gl);
         this.setupBuffers(gl);
     }
-    @Override public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
+
+    @Override
+    public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
         float ratio;
         // Prevent a divide by zero, when window is too short
         // (you can't make a window of zero width).
@@ -322,23 +351,25 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
         ratio = (1.0f * width) / height;
         this.projMatrix = buildProjectionMatrix(53.13f, ratio, 0.5f, 60.0f, this.projMatrix);
     }
-    @Override public void display(GLAutoDrawable drawable) {
 
-        setCamera((float) (xOffset + Math.cos(xAngle * Math.PI / 180.0)*zoom), (float)(zoom),  (float) (yOffset + Math.sin(xAngle * Math.PI / 180.0)*zoom),
-                xOffset, 0,yOffset,
+    @Override
+    public void display(GLAutoDrawable drawable) {
+
+        setCamera((float) (xOffset + Math.cos(xAngle * Math.PI / 180.0) * zoom), (float) (zoom), (float) (yOffset + Math.sin(xAngle * Math.PI / 180.0) * zoom),
+                xOffset, 0, yOffset,
                 this.viewMatrix);
 
         GL3 gl = drawable.getGL().getGL3();
 
-        world.updateTerain(new Point3D(xOffset*scale,yOffset*scale,0));
+        world.updateTerain(new Point3D(xOffset * scale, yOffset * scale, 0));
 
         Integer wo2 = world.getNextRemoveObject();
-        while(wo2!=null){
-            if(triangles.containsKey(wo2)){
+        while (wo2 != null) {
+            if (triangles.containsKey(wo2)) {
                 triangles.get(wo2).cleanUp(gl);
                 triangles.remove(wo2);
             }
-            if(trianglesWithPointNormals.containsKey(wo2)){
+            if (trianglesWithPointNormals.containsKey(wo2)) {
                 trianglesWithPointNormals.get(wo2).cleanUp(gl);
                 trianglesWithPointNormals.remove(wo2);
             }
@@ -346,22 +377,22 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
         }
 
         WorldObject wo1 = world.getNextNewObject();
-        while(wo1!=null){
-            addObject(gl,wo1);
+        while (wo1 != null) {
+            addObject(gl, wo1);
             wo1 = world.getNextNewObject();
         }
 
-        if(brutefinder!=null && database==null){
-            database=new ArrayList<>();
-            for(int i=0;i<brutefinder.nodes.length;i++){
-                for(int j=0;j<brutefinder.nodes[i].length;j++){
-                    for(int k=0;k<brutefinder.nodes[i][j].length;k++){
-                        if(brutefinder.nodes[i][j][k]!=null){
-                            VAO set = new VAO(gl, Sphere.getSphere(new Point3D(i*20,j*20,k*20), 5,scale),
+        if (brutefinder != null && database == null) {
+            database = new ArrayList<>();
+            for (int i = 0; i < brutefinder.nodes.length; i++) {
+                for (int j = 0; j < brutefinder.nodes[i].length; j++) {
+                    for (int k = 0; k < brutefinder.nodes[i][j].length; k++) {
+                        if (brutefinder.nodes[i][j][k] != null) {
+                            VAO set = new VAO(gl, Sphere.getSphere(new Point3D(i * 20, j * 20, k * 20), 5, scale),
                                     //Sphere.getSphereColor((float) Math.sqrt(1.0f/brutefinder.nodes[i][j][k].minPath),0,0), vertexLoc, colorLoc);
-                                    Sphere.getSphereColor(getColor(0,10,brutefinder.nodes[i][j][k].minPath).getX(),
-                                            getColor(0,10,brutefinder.nodes[i][j][k].minPath).getY(),
-                                            getColor(0,10,brutefinder.nodes[i][j][k].minPath).getZ()), vertexLoc, colorLoc);
+                                    Sphere.getSphereColor(getColor(0, 10, brutefinder.nodes[i][j][k].minPath).getX(),
+                                            getColor(0, 10, brutefinder.nodes[i][j][k].minPath).getY(),
+                                            getColor(0, 10, brutefinder.nodes[i][j][k].minPath).getZ()), vertexLoc, colorLoc);
                             database.add(set);
                         }
                     }
@@ -371,7 +402,9 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
 
         renderScene(gl);
     }
-    @Override public void dispose(GLAutoDrawable drawable) {
+
+    @Override
+    public void dispose(GLAutoDrawable drawable) {
 
     }
 
@@ -384,14 +417,15 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
 
         gl.glBindFragDataLocation(p, 0, "outColor");
 
-        this.vertexLoc = gl.glGetAttribLocation( p, "position");
-        this.colorLoc = gl.glGetAttribLocation( p, "color");
+        this.vertexLoc = gl.glGetAttribLocation(p, "position");
+        this.colorLoc = gl.glGetAttribLocation(p, "color");
 
-        this.projMatrixLoc = gl.glGetUniformLocation( p, "projMatrix");
-        this.viewMatrixLoc = gl.glGetUniformLocation( p, "viewMatrix");
+        this.projMatrixLoc = gl.glGetUniformLocation(p, "projMatrix");
+        this.viewMatrixLoc = gl.glGetUniformLocation(p, "viewMatrix");
 
         return p;
     }
+
     int newProgram2(GL3 gl) {
         // create the two shader and compile them
 
@@ -402,15 +436,16 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
 
         gl.glBindFragDataLocation(p, 0, "outColor");
 
-        this.vertexLoc2 = gl.glGetAttribLocation( p, "position");
-        this.colorLoc2 = gl.glGetAttribLocation( p, "color");
-        this.normalLoc2 = gl.glGetAttribLocation( p, "normal");
+        this.vertexLoc2 = gl.glGetAttribLocation(p, "position");
+        this.colorLoc2 = gl.glGetAttribLocation(p, "color");
+        this.normalLoc2 = gl.glGetAttribLocation(p, "normal");
 
-        this.projMatrixLoc2 = gl.glGetUniformLocation( p, "projMatrix");
-        this.viewMatrixLoc2 = gl.glGetUniformLocation( p, "viewMatrix");
+        this.projMatrixLoc2 = gl.glGetUniformLocation(p, "projMatrix");
+        this.viewMatrixLoc2 = gl.glGetUniformLocation(p, "viewMatrix");
 
         return p;
     }
+
     private int createProgram(GL3 gl, int vertexShaderId, int fragmentShaderId) {
         // generate the id of the program
         int programId = gl.glCreateProgram();
@@ -422,20 +457,22 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
 
         return programId;
     }
-    int newShaderFromCurrentClass(GL3 gl, String fileName, ShaderType type){
+
+    int newShaderFromCurrentClass(GL3 gl, String fileName, ShaderType type) {
         // load the source
-        String shaderSource = this.readFile( fileName);
+        String shaderSource = this.readFile(fileName);
         // define the shaper type from the enum
-        int shaderType = type==ShaderType.VertexShader?GL3.GL_VERTEX_SHADER:GL3.GL_FRAGMENT_SHADER;
+        int shaderType = type == ShaderType.VertexShader ? GL3.GL_VERTEX_SHADER : GL3.GL_FRAGMENT_SHADER;
         // create the shader id
         int id = gl.glCreateShader(shaderType);
         //  link the id and the source
-        gl.glShaderSource(id, 1, new String[] { shaderSource }, null);
+        gl.glShaderSource(id, 1, new String[]{shaderSource}, null);
         //compile the shader
         gl.glCompileShader(id);
 
         return id;
     }
+
     protected String readFile(String fileName) {
         BufferedReader br = null;
         try {
@@ -465,8 +502,8 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
     }
 
     void setupBuffers(GL3 gl) {
-        triangles=new HashMap<>();
-        trianglesWithPointNormals=new HashMap<>();
+        triangles = new HashMap<>();
+        trianglesWithPointNormals = new HashMap<>();
         /*for(int i=0;i<world.getAmountWorldObjects();i++){
             addObject(gl,world.getWorldObject(i));
         }
@@ -482,14 +519,15 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
         this.newFloatVertexAndColorBuffers(gl, this.axisVAO,
                 this.verticesAxis, this.colorAxis, this.vertexLoc, this.colorLoc);*/
     }
-    void addObject(GL3 gl, WorldObject object){
-        if(!object.mergeParent && object.containsNonObjectData()) {
-            if(object.useShaders) {
+
+    void addObject(GL3 gl, WorldObject object) {
+        if (!object.mergeParent && object.containsNonObjectData()) {
+            if (object.useShaders) {
                 float[] points = getObjectPoints(object);
                 float[] colors = getObjectColors(object);
                 float[] normals = getObjectNormals(object);
                 trianglesWithPointNormals.put(object.getID(), new VAONormal(gl, points, colors, normals, vertexLoc2, colorLoc2, normalLoc2));
-            }else{
+            } else {
                 float[] points = getObjectPoints(object);
                 float[] colors = getObjectColors(object);
                 triangles.put(object.getID(), new VAO(gl, points, colors, vertexLoc, colorLoc));
@@ -499,155 +537,159 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
             addObject(gl, object.getSubObject(i));
         }
     }
-    public float[] getObjectPoints(WorldObject object){
-        float[] points = new float[object.getAmountSides()*12+object.getAmountWaters()*24];
-        for(int i=0;i<object.getAmountSides();i++) {
-            points[i * 12 + 0] = (float) object.getTriangle(i,0).getX();
-            points[i * 12 + 1] = (float) object.getTriangle(i,0).getZ();
-            points[i * 12 + 2] = (float) object.getTriangle(i,0).getY();
+
+    public float[] getObjectPoints(WorldObject object) {
+        float[] points = new float[object.getAmountSides() * 12 + object.getAmountWaters() * 24];
+        for (int i = 0; i < object.getAmountSides(); i++) {
+            points[i * 12 + 0] = (float) object.getTriangle(i, 0).getX();
+            points[i * 12 + 1] = (float) object.getTriangle(i, 0).getZ();
+            points[i * 12 + 2] = (float) object.getTriangle(i, 0).getY();
             points[i * 12 + 3] = scale;
-            points[i * 12 + 4] = (float) object.getTriangle(i,1).getX();
-            points[i * 12 + 5] = (float) object.getTriangle(i,1).getZ();
-            points[i * 12 + 6] = (float) object.getTriangle(i,1).getY();
+            points[i * 12 + 4] = (float) object.getTriangle(i, 1).getX();
+            points[i * 12 + 5] = (float) object.getTriangle(i, 1).getZ();
+            points[i * 12 + 6] = (float) object.getTriangle(i, 1).getY();
             points[i * 12 + 7] = scale;
-            points[i * 12 + 8] = (float) object.getTriangle(i,2).getX();
-            points[i * 12 + 9] = (float) object.getTriangle(i,2).getZ();
-            points[i * 12 + 10] = (float) object.getTriangle(i,2).getY();
+            points[i * 12 + 8] = (float) object.getTriangle(i, 2).getX();
+            points[i * 12 + 9] = (float) object.getTriangle(i, 2).getZ();
+            points[i * 12 + 10] = (float) object.getTriangle(i, 2).getY();
             points[i * 12 + 11] = scale;
         }
-        for(int i=0;i<object.getAmountWaters();i++) {
-            points[object.getAmountSides()*12 + i * 24 + 0] = (float) object.getWaterPlace(i)[0].getX();
-            points[object.getAmountSides()*12 + i * 24 + 1] = (float) object.getWaterPlace(i)[1].getZ();
-            points[object.getAmountSides()*12 + i * 24 + 2] = (float) object.getWaterPlace(i)[0].getY();
-            points[object.getAmountSides()*12 + i * 24 + 3] = scale;
-            points[object.getAmountSides()*12 + i * 24 + 4] = (float) object.getWaterPlace(i)[1].getX();
-            points[object.getAmountSides()*12 + i * 24 + 5] = (float) object.getWaterPlace(i)[1].getZ();
-            points[object.getAmountSides()*12 + i * 24 + 6] = (float) object.getWaterPlace(i)[0].getY();
-            points[object.getAmountSides()*12 + i * 24 + 7] = scale;
-            points[object.getAmountSides()*12 + i * 24 + 8] = (float) object.getWaterPlace(i)[0].getX();
-            points[object.getAmountSides()*12 + i * 24 + 9] = (float) object.getWaterPlace(i)[1].getZ();
-            points[object.getAmountSides()*12 + i * 24 + 10] = (float) object.getWaterPlace(i)[1].getY();
-            points[object.getAmountSides()*12 + i * 24 + 11] = scale;
-            points[object.getAmountSides()*12 + i * 24 + 12] = (float) object.getWaterPlace(i)[1].getX();
-            points[object.getAmountSides()*12 + i * 24 + 13] = (float) object.getWaterPlace(i)[1].getZ();
-            points[object.getAmountSides()*12 + i * 24 + 14] = (float) object.getWaterPlace(i)[1].getY();
-            points[object.getAmountSides()*12 + i * 24 + 15] = scale;
-            points[object.getAmountSides()*12 + i * 24 + 16] = (float) object.getWaterPlace(i)[1].getX();
-            points[object.getAmountSides()*12 + i * 24 + 17] = (float) object.getWaterPlace(i)[1].getZ();
-            points[object.getAmountSides()*12 + i * 24 + 18] = (float) object.getWaterPlace(i)[0].getY();
-            points[object.getAmountSides()*12 + i * 24 + 19] = scale;
-            points[object.getAmountSides()*12 + i * 24 + 20] = (float) object.getWaterPlace(i)[0].getX();
-            points[object.getAmountSides()*12 + i * 24 + 21] = (float) object.getWaterPlace(i)[1].getZ();
-            points[object.getAmountSides()*12 + i * 24 + 22] = (float) object.getWaterPlace(i)[1].getY();
-            points[object.getAmountSides()*12 + i * 24 + 23] = scale;
+        for (int i = 0; i < object.getAmountWaters(); i++) {
+            points[object.getAmountSides() * 12 + i * 24 + 0] = (float) object.getWaterPlace(i)[0].getX();
+            points[object.getAmountSides() * 12 + i * 24 + 1] = (float) object.getWaterPlace(i)[1].getZ();
+            points[object.getAmountSides() * 12 + i * 24 + 2] = (float) object.getWaterPlace(i)[0].getY();
+            points[object.getAmountSides() * 12 + i * 24 + 3] = scale;
+            points[object.getAmountSides() * 12 + i * 24 + 4] = (float) object.getWaterPlace(i)[1].getX();
+            points[object.getAmountSides() * 12 + i * 24 + 5] = (float) object.getWaterPlace(i)[1].getZ();
+            points[object.getAmountSides() * 12 + i * 24 + 6] = (float) object.getWaterPlace(i)[0].getY();
+            points[object.getAmountSides() * 12 + i * 24 + 7] = scale;
+            points[object.getAmountSides() * 12 + i * 24 + 8] = (float) object.getWaterPlace(i)[0].getX();
+            points[object.getAmountSides() * 12 + i * 24 + 9] = (float) object.getWaterPlace(i)[1].getZ();
+            points[object.getAmountSides() * 12 + i * 24 + 10] = (float) object.getWaterPlace(i)[1].getY();
+            points[object.getAmountSides() * 12 + i * 24 + 11] = scale;
+            points[object.getAmountSides() * 12 + i * 24 + 12] = (float) object.getWaterPlace(i)[1].getX();
+            points[object.getAmountSides() * 12 + i * 24 + 13] = (float) object.getWaterPlace(i)[1].getZ();
+            points[object.getAmountSides() * 12 + i * 24 + 14] = (float) object.getWaterPlace(i)[1].getY();
+            points[object.getAmountSides() * 12 + i * 24 + 15] = scale;
+            points[object.getAmountSides() * 12 + i * 24 + 16] = (float) object.getWaterPlace(i)[1].getX();
+            points[object.getAmountSides() * 12 + i * 24 + 17] = (float) object.getWaterPlace(i)[1].getZ();
+            points[object.getAmountSides() * 12 + i * 24 + 18] = (float) object.getWaterPlace(i)[0].getY();
+            points[object.getAmountSides() * 12 + i * 24 + 19] = scale;
+            points[object.getAmountSides() * 12 + i * 24 + 20] = (float) object.getWaterPlace(i)[0].getX();
+            points[object.getAmountSides() * 12 + i * 24 + 21] = (float) object.getWaterPlace(i)[1].getZ();
+            points[object.getAmountSides() * 12 + i * 24 + 22] = (float) object.getWaterPlace(i)[1].getY();
+            points[object.getAmountSides() * 12 + i * 24 + 23] = scale;
         }
-        for(int i=0;i<object.getAmountSubObjects();i++) {
-            if(object.getSubObject(i).mergeParent){
-                points=merge(points,getObjectPoints(object.getSubObject(i)));
+        for (int i = 0; i < object.getAmountSubObjects(); i++) {
+            if (object.getSubObject(i).mergeParent) {
+                points = merge(points, getObjectPoints(object.getSubObject(i)));
             }
         }
         return points;
     }
-    public float[] getObjectColors(WorldObject object){
-        float[] colors = new float[object.getAmountSides()*12+object.getAmountWaters()*24];
-        for(int i=0;i<object.getAmountSides();i++) {
-            colors[i*12+0]=(float) object.getTriangleColor(i).getX();
-            colors[i*12+1]=(float) object.getTriangleColor(i).getY();
-            colors[i*12+2]=(float) object.getTriangleColor(i).getZ();
-            colors[i*12+3]=1.0f;
-            colors[i*12+4]=(float) object.getTriangleColor(i).getX();
-            colors[i*12+5]=(float) object.getTriangleColor(i).getY();
-            colors[i*12+6]=(float) object.getTriangleColor(i).getZ();
-            colors[i*12+7]=1.0f;
-            colors[i*12+8]=(float) object.getTriangleColor(i).getX();
-            colors[i*12+9]=(float) object.getTriangleColor(i).getY();
-            colors[i*12+10]=(float) object.getTriangleColor(i).getZ();
-            colors[i*12+11]=1.0f;
+
+    public float[] getObjectColors(WorldObject object) {
+        float[] colors = new float[object.getAmountSides() * 12 + object.getAmountWaters() * 24];
+        for (int i = 0; i < object.getAmountSides(); i++) {
+            colors[i * 12 + 0] = (float) object.getTriangleColor(i).getX();
+            colors[i * 12 + 1] = (float) object.getTriangleColor(i).getY();
+            colors[i * 12 + 2] = (float) object.getTriangleColor(i).getZ();
+            colors[i * 12 + 3] = 1.0f;
+            colors[i * 12 + 4] = (float) object.getTriangleColor(i).getX();
+            colors[i * 12 + 5] = (float) object.getTriangleColor(i).getY();
+            colors[i * 12 + 6] = (float) object.getTriangleColor(i).getZ();
+            colors[i * 12 + 7] = 1.0f;
+            colors[i * 12 + 8] = (float) object.getTriangleColor(i).getX();
+            colors[i * 12 + 9] = (float) object.getTriangleColor(i).getY();
+            colors[i * 12 + 10] = (float) object.getTriangleColor(i).getZ();
+            colors[i * 12 + 11] = 1.0f;
         }
-        for(int i=0;i<object.getAmountWaters();i++) {
-            colors[object.getAmountSides()*12 +i*12+0]=(float) object.getWaterColor(i).getX();
-            colors[object.getAmountSides()*12 +i*12+1]=(float) object.getWaterColor(i).getY();
-            colors[object.getAmountSides()*12 +i*12+2]=(float) object.getWaterColor(i).getZ();
-            colors[object.getAmountSides()*12 +i*12+3]=1.0f;
-            colors[object.getAmountSides()*12 +i*12+4]=(float) object.getWaterColor(i).getX();
-            colors[object.getAmountSides()*12 +i*12+5]=(float) object.getWaterColor(i).getY();
-            colors[object.getAmountSides()*12 +i*12+6]=(float) object.getWaterColor(i).getZ();
-            colors[object.getAmountSides()*12 +i*12+7]=1.0f;
-            colors[object.getAmountSides()*12 +i*12+8]=(float) object.getWaterColor(i).getX();
-            colors[object.getAmountSides()*12 +i*12+9]=(float) object.getWaterColor(i).getY();
-            colors[object.getAmountSides()*12 +i*12+10]=(float) object.getWaterColor(i).getZ();
-            colors[object.getAmountSides()*12 +i*12+11]=1.0f;
-            colors[object.getAmountSides()*12 +i*12+12]=(float) object.getWaterColor(i).getX();
-            colors[object.getAmountSides()*12 +i*12+13]=(float) object.getWaterColor(i).getY();
-            colors[object.getAmountSides()*12 +i*12+14]=(float) object.getWaterColor(i).getZ();
-            colors[object.getAmountSides()*12 +i*12+15]=1.0f;
-            colors[object.getAmountSides()*12 +i*12+16]=(float) object.getWaterColor(i).getX();
-            colors[object.getAmountSides()*12 +i*12+17]=(float) object.getWaterColor(i).getY();
-            colors[object.getAmountSides()*12 +i*12+18]=(float) object.getWaterColor(i).getZ();
-            colors[object.getAmountSides()*12 +i*12+19]=1.0f;
-            colors[object.getAmountSides()*12 +i*12+20]=(float) object.getWaterColor(i).getX();
-            colors[object.getAmountSides()*12 +i*12+21]=(float) object.getWaterColor(i).getY();
-            colors[object.getAmountSides()*12 +i*12+22]=(float) object.getWaterColor(i).getZ();
-            colors[object.getAmountSides()*12 +i*12+23]=1.0f;
+        for (int i = 0; i < object.getAmountWaters(); i++) {
+            colors[object.getAmountSides() * 12 + i * 12 + 0] = (float) object.getWaterColor(i).getX();
+            colors[object.getAmountSides() * 12 + i * 12 + 1] = (float) object.getWaterColor(i).getY();
+            colors[object.getAmountSides() * 12 + i * 12 + 2] = (float) object.getWaterColor(i).getZ();
+            colors[object.getAmountSides() * 12 + i * 12 + 3] = 1.0f;
+            colors[object.getAmountSides() * 12 + i * 12 + 4] = (float) object.getWaterColor(i).getX();
+            colors[object.getAmountSides() * 12 + i * 12 + 5] = (float) object.getWaterColor(i).getY();
+            colors[object.getAmountSides() * 12 + i * 12 + 6] = (float) object.getWaterColor(i).getZ();
+            colors[object.getAmountSides() * 12 + i * 12 + 7] = 1.0f;
+            colors[object.getAmountSides() * 12 + i * 12 + 8] = (float) object.getWaterColor(i).getX();
+            colors[object.getAmountSides() * 12 + i * 12 + 9] = (float) object.getWaterColor(i).getY();
+            colors[object.getAmountSides() * 12 + i * 12 + 10] = (float) object.getWaterColor(i).getZ();
+            colors[object.getAmountSides() * 12 + i * 12 + 11] = 1.0f;
+            colors[object.getAmountSides() * 12 + i * 12 + 12] = (float) object.getWaterColor(i).getX();
+            colors[object.getAmountSides() * 12 + i * 12 + 13] = (float) object.getWaterColor(i).getY();
+            colors[object.getAmountSides() * 12 + i * 12 + 14] = (float) object.getWaterColor(i).getZ();
+            colors[object.getAmountSides() * 12 + i * 12 + 15] = 1.0f;
+            colors[object.getAmountSides() * 12 + i * 12 + 16] = (float) object.getWaterColor(i).getX();
+            colors[object.getAmountSides() * 12 + i * 12 + 17] = (float) object.getWaterColor(i).getY();
+            colors[object.getAmountSides() * 12 + i * 12 + 18] = (float) object.getWaterColor(i).getZ();
+            colors[object.getAmountSides() * 12 + i * 12 + 19] = 1.0f;
+            colors[object.getAmountSides() * 12 + i * 12 + 20] = (float) object.getWaterColor(i).getX();
+            colors[object.getAmountSides() * 12 + i * 12 + 21] = (float) object.getWaterColor(i).getY();
+            colors[object.getAmountSides() * 12 + i * 12 + 22] = (float) object.getWaterColor(i).getZ();
+            colors[object.getAmountSides() * 12 + i * 12 + 23] = 1.0f;
 
         }
-        for(int i=0;i<object.getAmountSubObjects();i++) {
-            if(object.getSubObject(i).mergeParent){
-                colors=merge(colors,getObjectColors(object.getSubObject(i)));
+        for (int i = 0; i < object.getAmountSubObjects(); i++) {
+            if (object.getSubObject(i).mergeParent) {
+                colors = merge(colors, getObjectColors(object.getSubObject(i)));
             }
         }
         return colors;
     }
-    public float[] getObjectNormals(WorldObject object){
-        float[] normals = new float[object.getAmountSides()*12+object.getAmountWaters()*24];
-        for(int i=0;i<object.getAmountSides();i++) {
-            normals[i*12+0]=(float) object.getTriangleNormal(i,0).getX();
-            normals[i*12+1]=(float) object.getTriangleNormal(i,0).getZ();
-            normals[i*12+2]=(float) object.getTriangleNormal(i,0).getY();
-            normals[i*12+3]=0;
-            normals[i*12+4]=(float) object.getTriangleNormal(i,1).getX();
-            normals[i*12+5]=(float) object.getTriangleNormal(i,1).getZ();
-            normals[i*12+6]=(float) object.getTriangleNormal(i,1).getY();
-            normals[i*12+7]=0;
-            normals[i*12+8]=(float) object.getTriangleNormal(i,2).getX();
-            normals[i*12+9]=(float) object.getTriangleNormal(i,2).getZ();
-            normals[i*12+10]=(float) object.getTriangleNormal(i,2).getY();
-            normals[i*12+11]=0;
+
+    public float[] getObjectNormals(WorldObject object) {
+        float[] normals = new float[object.getAmountSides() * 12 + object.getAmountWaters() * 24];
+        for (int i = 0; i < object.getAmountSides(); i++) {
+            normals[i * 12 + 0] = (float) object.getTriangleNormal(i, 0).getX();
+            normals[i * 12 + 1] = (float) object.getTriangleNormal(i, 0).getZ();
+            normals[i * 12 + 2] = (float) object.getTriangleNormal(i, 0).getY();
+            normals[i * 12 + 3] = 0;
+            normals[i * 12 + 4] = (float) object.getTriangleNormal(i, 1).getX();
+            normals[i * 12 + 5] = (float) object.getTriangleNormal(i, 1).getZ();
+            normals[i * 12 + 6] = (float) object.getTriangleNormal(i, 1).getY();
+            normals[i * 12 + 7] = 0;
+            normals[i * 12 + 8] = (float) object.getTriangleNormal(i, 2).getX();
+            normals[i * 12 + 9] = (float) object.getTriangleNormal(i, 2).getZ();
+            normals[i * 12 + 10] = (float) object.getTriangleNormal(i, 2).getY();
+            normals[i * 12 + 11] = 0;
         }
-        for(int i=0;i<object.getAmountWaters();i++) {
-            normals[object.getAmountSides()*12 +i*12+0]=0;
-            normals[object.getAmountSides()*12 +i*12+1]=1;
-            normals[object.getAmountSides()*12 +i*12+2]=0;
-            normals[object.getAmountSides()*12 +i*12+3]=0;
-            normals[object.getAmountSides()*12 +i*12+4]=0;
-            normals[object.getAmountSides()*12 +i*12+5]=1;
-            normals[object.getAmountSides()*12 +i*12+6]=0;
-            normals[object.getAmountSides()*12 +i*12+7]=0;
-            normals[object.getAmountSides()*12 +i*12+8]=0;
-            normals[object.getAmountSides()*12 +i*12+9]=1;
-            normals[object.getAmountSides()*12 +i*12+10]=0;
-            normals[object.getAmountSides()*12 +i*12+11]=0;
-            normals[object.getAmountSides()*12 +i*12+12]=0;
-            normals[object.getAmountSides()*12 +i*12+13]=1;
-            normals[object.getAmountSides()*12 +i*12+14]=0;
-            normals[object.getAmountSides()*12 +i*12+15]=0;
-            normals[object.getAmountSides()*12 +i*12+16]=0;
-            normals[object.getAmountSides()*12 +i*12+17]=1;
-            normals[object.getAmountSides()*12 +i*12+18]=0;
-            normals[object.getAmountSides()*12 +i*12+19]=0;
-            normals[object.getAmountSides()*12 +i*12+20]=0;
-            normals[object.getAmountSides()*12 +i*12+21]=1;
-            normals[object.getAmountSides()*12 +i*12+22]=0;
-            normals[object.getAmountSides()*12 +i*12+23]=0;
+        for (int i = 0; i < object.getAmountWaters(); i++) {
+            normals[object.getAmountSides() * 12 + i * 12 + 0] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 1] = 1;
+            normals[object.getAmountSides() * 12 + i * 12 + 2] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 3] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 4] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 5] = 1;
+            normals[object.getAmountSides() * 12 + i * 12 + 6] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 7] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 8] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 9] = 1;
+            normals[object.getAmountSides() * 12 + i * 12 + 10] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 11] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 12] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 13] = 1;
+            normals[object.getAmountSides() * 12 + i * 12 + 14] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 15] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 16] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 17] = 1;
+            normals[object.getAmountSides() * 12 + i * 12 + 18] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 19] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 20] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 21] = 1;
+            normals[object.getAmountSides() * 12 + i * 12 + 22] = 0;
+            normals[object.getAmountSides() * 12 + i * 12 + 23] = 0;
 
         }
-        for(int i=0;i<object.getAmountSubObjects();i++) {
-            if(object.getSubObject(i).mergeParent){
-                normals=merge(normals,getObjectNormals(object.getSubObject(i)));
+        for (int i = 0; i < object.getAmountSubObjects(); i++) {
+            if (object.getSubObject(i).mergeParent) {
+                normals = merge(normals, getObjectNormals(object.getSubObject(i)));
             }
         }
         return normals;
     }
+
     public static float[] merge(float[] first, float[] second) {
         float[] result = Arrays.copyOf(first, first.length + second.length);
         System.arraycopy(second, 0, result, first.length, second.length);
@@ -668,6 +710,7 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
 
         return logMessage;
     }
+
     public String getShaderInfoLog(GL3 gl, int obj) {
         // Otherwise, we'll get the GL info log
         final int logLen = getShaderParameter(gl, obj, GL3.GL_INFO_LOG_LENGTH);
@@ -682,34 +725,39 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
 
         return String.format("ShaderLog: %s", logMessage);
     }
+
     public int getProgramParameter(GL3 gl, int obj, int paramName) {
         final int params[] = new int[1];
         gl.glGetProgramiv(obj, paramName, params, 0);
         return params[0];
     }
+
     private int getShaderParameter(GL3 gl, int obj, int paramName) {
         final int params[] = new int[1];
         gl.glGetShaderiv(obj, paramName, params, 0);
         return params[0];
     }
 
-    public void update(){
+    public void update() {
         updateKeys();
         glCanvas.repaint();
     }
-    public void createArrow(Point3D start,double tangleX,double tangleY,double tpower){
-        arrowStart=start;
-        angleX=tangleX;
-        angleY=tangleY;
-        power=tpower;
+
+    public void createArrow(Point3D start, double tangleX, double tangleY, double tpower) {
+        arrowStart = start;
+        angleX = tangleX;
+        angleY = tangleY;
+        power = tpower;
     }
-    public void removeArrow(){
-        arrowStart=null;
+
+    public void removeArrow() {
+        arrowStart = null;
     }
-    public void load(WorldData w){
-        world =w;
-        xOffset = (float) (w.getStartPosition().getX()/scale);
-        yOffset = (float) (w.getStartPosition().getY()/scale);
+
+    public void load(WorldData w) {
+        world = w;
+        xOffset = (float) (w.getStartPosition().getX() / scale);
+        yOffset = (float) (w.getStartPosition().getY() / scale);
         GLProfile glp = GLProfile.get(GLProfile.GL3);
         GLCapabilities glCapabilities = new GLCapabilities(glp);
         glCanvas = new GLCanvas(glCapabilities);
@@ -721,13 +769,15 @@ public class GolfPanelOpenGL extends JPanel implements GLEventListener,MouseMoti
         glCanvas.addKeyListener(this);
         this.add(glCanvas);
     }
-    public void load(Brutefinder bf){
-        brutefinder=bf;
+
+    public void load(Brutefinder bf) {
+        brutefinder = bf;
     }
-    public Color3f getColor(float min,float max,float value){
-        float ratio = 2 * (value-min) / (max - min);
-        float r=Math.max(0,ratio-1);
-        float b=Math.max(0,1-ratio);
-        return new Color3f(r,1-b-r,b);
+
+    public Color3f getColor(float min, float max, float value) {
+        float ratio = 2 * (value - min) / (max - min);
+        float r = Math.max(0, ratio - 1);
+        float b = Math.max(0, 1 - ratio);
+        return new Color3f(r, 1 - b - r, b);
     }
 }

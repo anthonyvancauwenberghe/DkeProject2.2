@@ -12,7 +12,7 @@ import static org.jocl.CL.*;
 /**
  * Created by pmmde on 5/16/2016.
  */
-public abstract class PhysicsGPU extends Physics{
+public abstract class PhysicsGPU extends Physics {
     protected String kernelFile;
     protected cl_context context;
     protected cl_command_queue commandQueue;
@@ -27,9 +27,11 @@ public abstract class PhysicsGPU extends Physics{
         loadDefaultMemObjects();
         loadKernalsAndMemObjects();
     }
+
     protected abstract void loadKernalsAndMemObjects();
-    private final void loadDefaultMemObjects(){
-        float srcPoints[] = new float[points.size()*3];
+
+    private final void loadDefaultMemObjects() {
+        float srcPoints[] = new float[points.size() * 3];
         int srcEdges[] = new int[edges.size() * 2];
         int srcSides[] = new int[sides.size() * 3];
         for (int i = 0; i < points.size(); i++) {
@@ -63,7 +65,7 @@ public abstract class PhysicsGPU extends Physics{
             srcSidesData[i * 9 + 5] = (float) sides.get(i).normal.getX();
             srcSidesData[i * 9 + 6] = (float) sides.get(i).normal.getY();
             srcSidesData[i * 9 + 7] = (float) sides.get(i).normal.getZ();
-            srcSidesData[i * 9 + 8] = (float )sides.get(i).friction;
+            srcSidesData[i * 9 + 8] = (float) sides.get(i).friction;
         }
         Pointer pPoints = Pointer.to(srcPoints);
         Pointer pEdges = Pointer.to(srcEdges);
@@ -78,20 +80,21 @@ public abstract class PhysicsGPU extends Physics{
         memObjectsDefault[3] = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, Sizeof.cl_int * srcSides.length, pSides, null);
         memObjectsDefault[4] = clCreateBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, Sizeof.cl_float * srcSidesData.length, pSidesData, null);
     }
+
     public final void cleanUp() {
         clFinish(commandQueue);
         releaseMemObjects();
-        for(int i=0;i<kernels.length;i++)
-        {
+        for (int i = 0; i < kernels.length; i++) {
             clReleaseKernel(kernels[i]);
         }
         clReleaseProgram(program);
         clReleaseCommandQueue(commandQueue);
         clReleaseContext(context);
-        if(DEBUG) {
+        if (DEBUG) {
             System.out.println("OpenCl released.");
         }
     }
+
     protected final void startOpenGL() {
         kernelFile = readFile("open.cl");
 
@@ -140,23 +143,25 @@ public abstract class PhysicsGPU extends Physics{
         program = clCreateProgramWithSource(context, 1, new String[]{kernelFile}, null, null);
         clBuildProgram(program, 0, null, null, null, null);
     }
+
     protected final void releaseMemObjects() {
         clFinish(commandQueue);
-        if(memObjectsDefault!=null) {
+        if (memObjectsDefault != null) {
             for (int i = 0; i < memObjectsDefault.length; i++) {
-                if(i!=3 && i!=6) {
+                if (i != 3 && i != 6) {
                     clReleaseMemObject(memObjectsDefault[i]);
                 }
             }
         }
-        if(memObjectsDedi!=null) {
+        if (memObjectsDedi != null) {
             for (int i = 0; i < memObjectsDedi.length; i++) {
-                if(i!=3 && i!=6) {
+                if (i != 3 && i != 6) {
                     clReleaseMemObject(memObjectsDedi[i]);
                 }
             }
         }
     }
+
     protected String readFile(String fileName) {
         BufferedReader br = null;
         try {

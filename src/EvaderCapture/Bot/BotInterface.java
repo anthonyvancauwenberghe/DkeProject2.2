@@ -9,9 +9,12 @@ import java.util.ArrayList;
  */
 public interface BotInterface {
     void init(Physics p);
+
     void calcNextShot(int playerNumber);
 
     void makeDatabase();
+
     ArrayList<String> ouputDatabase();
+
     void loadDatabase(ArrayList<String> input);
 }

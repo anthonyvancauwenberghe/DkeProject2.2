@@ -15,46 +15,47 @@ import java.util.LinkedList;
  * Created by pmmde on 5/28/2016.
  */
 public class WorldObject {
-    public static final double gravity=1;
+    public static final double gravity = 1;
 
     protected ArrayList<Point3D> points;
     protected ArrayList<Point3D> pointsOriginal;
     protected ArrayList<Color3f> colors;
     protected ArrayList<Side> sides;
-    protected ArrayList<Edge>edges;
+    protected ArrayList<Edge> edges;
     protected ArrayList<Water> waters;
 
     public ArrayList<WorldObject> subObjects;
     public WorldData world;
 
     private int ID;
-    private static int nextID=0;
+    private static int nextID = 0;
 
     protected Point3D center;
     protected Matrix rotation;
     protected Point3D[] boxing;
 
-    public boolean mergeParent=false;
-    public boolean hasPointNormals=false;
-    public boolean useShaders=true;
+    public boolean mergeParent = false;
+    public boolean hasPointNormals = false;
+    public boolean useShaders = true;
 
-    public WorldObject(WorldData w){
-        ID=nextID;
+    public WorldObject(WorldData w) {
+        ID = nextID;
         nextID++;
-        center = new Point3D(0,0,0);
-        rotation = Matrix.getRotatoinMatrix(0,0,0);
-        subObjects=new ArrayList<>();
-        world=w;
+        center = new Point3D(0, 0, 0);
+        rotation = Matrix.getRotatoinMatrix(0, 0, 0);
+        subObjects = new ArrayList<>();
+        world = w;
     }
-    public void load(LinkedList<String> field){
-        int sort=0;
-        String copyEnd="";
-        boolean copyLock=false;
+
+    public void load(LinkedList<String> field) {
+        int sort = 0;
+        String copyEnd = "";
+        boolean copyLock = false;
         Class copyObject = null;
-        boolean nativeClassError=false;
-        LinkedList<String>copyData = null;
+        boolean nativeClassError = false;
+        LinkedList<String> copyData = null;
         for (int i = 0; i < field.size(); i++) {
-            if(!copyLock) {
+            if (!copyLock) {
                 if (field.get(i).equals("points")) {
                     sort = 1;
                     pointsOriginal = new ArrayList(Integer.parseInt(field.get(i + 1)));
@@ -131,49 +132,49 @@ public class WorldObject {
                         }
                     }
                 }
-            }else{
-                if(field.get(i).equals(copyEnd)){
-                    if(sort==6){
-                        copyLock=false;
+            } else {
+                if (field.get(i).equals(copyEnd)) {
+                    if (sort == 6) {
+                        copyLock = false;
                         WorldObject wo = new WorldObject(world);
                         wo.load(copyData);
                         subObjects.add(wo);
-                    }else if(sort==7)
-                    {
-                        copyLock=false;
-                        if(!nativeClassError && copyObject!=null){
-                            Object obj=null;
+                    } else if (sort == 7) {
+                        copyLock = false;
+                        if (!nativeClassError && copyObject != null) {
+                            Object obj = null;
                             try {
                                 obj = copyObject.newInstance();
                             } catch (InstantiationException e) {
-                                System.out.println("Class not found (2): "+copyObject.getName());
-                                nativeClassError=true;
+                                System.out.println("Class not found (2): " + copyObject.getName());
+                                nativeClassError = true;
                             } catch (IllegalAccessException e) {
-                                System.out.println("Class not found (3): "+copyObject.getName());
-                                nativeClassError=true;
+                                System.out.println("Class not found (3): " + copyObject.getName());
+                                nativeClassError = true;
                             }
-                            if(!nativeClassError && obj!=null){
-                                if(obj instanceof WorldObject){
-                                    WorldObject wo = (WorldObject)obj;
+                            if (!nativeClassError && obj != null) {
+                                if (obj instanceof WorldObject) {
+                                    WorldObject wo = (WorldObject) obj;
                                     wo.load(copyData);
                                     subObjects.add(wo);
-                                }else{
-                                    System.out.println("Class is not an instance of WorldObject: "+copyObject.getName());
+                                } else {
+                                    System.out.println("Class is not an instance of WorldObject: " + copyObject.getName());
                                 }
                             }
                         }
                     }
-                }else{
+                } else {
                     copyData.add(field.get(i));
                 }
             }
         }
     }
-    public LinkedList<String> save(){
-        LinkedList<String> data =new LinkedList<>();
+
+    public LinkedList<String> save() {
+        LinkedList<String> data = new LinkedList<>();
         data.add("ObjectStart");
         data.add(String.valueOf(ID));
-        if(pointsOriginal!=null && pointsOriginal.size()>0) {
+        if (pointsOriginal != null && pointsOriginal.size() > 0) {
             data.add("points");
             data.add(String.valueOf(points.size()));
             for (int i = 0; i < points.size(); i++) {
@@ -204,15 +205,15 @@ public class WorldObject {
                         waters.get(i).color);
             }
         }
-        for(int i=0;i<subObjects.size();i++){
+        for (int i = 0; i < subObjects.size(); i++) {
             data.addAll(subObjects.get(i).save());
         }
-        data.add("ObjectEnd-"+ID);
+        data.add("ObjectEnd-" + ID);
         return data;
     }
 
-    private void setupBoxing(boolean recursively){
-        if(points!=null && points.size()>0) {
+    private void setupBoxing(boolean recursively) {
+        if (points != null && points.size() > 0) {
             boxing = new Point3D[2];
             boxing[0] = points.get(0);
             boxing[1] = points.get(0);
@@ -244,7 +245,7 @@ public class WorldObject {
                     boxing[0] = new Point3D(boxing[0].getX(), waters.get(i).place[0].getY(), boxing[0].getZ());
                 }
                 if (waters.get(i).place[0].getZ() < boxing[0].getZ()) {
-                    boxing[0] = new Point3D(boxing[0].getX(), boxing[0].getY(),waters.get(i).place[0].getZ());
+                    boxing[0] = new Point3D(boxing[0].getX(), boxing[0].getY(), waters.get(i).place[0].getZ());
                 }
                 if (waters.get(i).place[1].getX() > boxing[1].getX()) {
                     boxing[1] = new Point3D(waters.get(i).place[1].getX(), boxing[1].getY(), boxing[1].getZ());
@@ -256,18 +257,17 @@ public class WorldObject {
                     boxing[1] = new Point3D(boxing[1].getX(), boxing[1].getY(), waters.get(i).place[1].getZ());
                 }
             }
-        }
-        else {
+        } else {
             boxing = new Point3D[2];
-            if(subObjects.size()>0){
+            if (subObjects.size() > 0) {
                 boxing[0] = subObjects.get(0).boxing[0];
                 boxing[1] = subObjects.get(0).boxing[1];
-            }else{
-                boxing[0] = new Point3D(0,0,0);
-                boxing[1] = new Point3D(0,0,0);
+            } else {
+                boxing[0] = new Point3D(0, 0, 0);
+                boxing[1] = new Point3D(0, 0, 0);
             }
         }
-        if(recursively) {
+        if (recursively) {
             for (int i = 0; i < subObjects.size(); i++) {
                 if (subObjects.get(i).boxing[0].getX() < boxing[0].getX()) {
                     boxing[0] = new Point3D(subObjects.get(i).boxing[0].getX(), boxing[0].getY(), boxing[0].getZ());
@@ -290,36 +290,37 @@ public class WorldObject {
             }
         }
     }
-    public void setup(boolean recursively){
-        if(recursively){
-            for(int i=0;i<subObjects.size();i++){
+
+    public void setup(boolean recursively) {
+        if (recursively) {
+            for (int i = 0; i < subObjects.size(); i++) {
                 subObjects.get(i).setup(recursively);
             }
         }
-        if(pointsOriginal!=null && pointsOriginal.size()>0) {
+        if (pointsOriginal != null && pointsOriginal.size() > 0) {
             if (points == null || points.size() != pointsOriginal.size()) {
                 points = new ArrayList<>(pointsOriginal.size());
                 for (int i = 0; i < pointsOriginal.size(); i++) {
                     points.add(rotation.multiply(pointsOriginal.get(i)).add(center));
                 }
-            }else {
+            } else {
                 for (int i = 0; i < pointsOriginal.size(); i++) {
                     points.set(i, rotation.multiply(pointsOriginal.get(i)).add(center));
                 }
             }
-            for(int i=0;i<sides.size();i++) {
+            for (int i = 0; i < sides.size(); i++) {
                 sides.get(i).updateData(this);
             }
-            for(int i=0;i<edges.size();i++) {
+            for (int i = 0; i < edges.size(); i++) {
                 edges.get(i).updateData(this);
             }
         }
         setupBoxing(recursively);
     }
 
-    public void applyCollision(Ball ball,double subframeInv){
-        if(ball.place.getX()+ball.size>boxing[0].getX()&&ball.place.getY()+ball.size>boxing[0].getY()&&ball.place.getZ()+ball.size>boxing[0].getZ()&&
-                ball.place.getX()-ball.size<boxing[1].getX()&&ball.place.getY()-ball.size<boxing[1].getY()&&ball.place.getZ()-ball.size<boxing[1].getZ()) {
+    public void applyCollision(Ball ball, double subframeInv) {
+        if (ball.place.getX() + ball.size > boxing[0].getX() && ball.place.getY() + ball.size > boxing[0].getY() && ball.place.getZ() + ball.size > boxing[0].getZ() &&
+                ball.place.getX() - ball.size < boxing[1].getX() && ball.place.getY() - ball.size < boxing[1].getY() && ball.place.getZ() - ball.size < boxing[1].getZ()) {
             if (pointsOriginal != null) {
                 for (int j = 0; j < waters.size(); j++) {
                     ballWater(waters.get(j), ball, subframeInv);
@@ -335,13 +336,13 @@ public class WorldObject {
 
                 }
             }
-            for(int i=0;i<subObjects.size();i++)
-            {
-                subObjects.get(i).applyCollision(ball,subframeInv);
+            for (int i = 0; i < subObjects.size(); i++) {
+                subObjects.get(i).applyCollision(ball, subframeInv);
             }
         }
     }
-    protected void sideCollision(Side side, Ball ball){
+
+    protected void sideCollision(Side side, Ball ball) {
         double Nr0 = side.abc.dotProduct(ball.place);
 
         double t = (side.d - Nr0) / side.Nv;
@@ -359,9 +360,9 @@ public class WorldObject {
 
                 //ball.velocity = ball.velocity.subtract(side.normal.multiply(ball.velocity.dotProduct(side.normal) * 1.8));
 
-                double angle=Math.asin(side.normal.multiply(-dir).dotProduct(ball.velocity.normalize()));
-                ball.normalTotal=ball.normalTotal.add(side.normal.multiply(dir*angle));
-                ball.normalCounter+=angle;
+                double angle = Math.asin(side.normal.multiply(-dir).dotProduct(ball.velocity.normalize()));
+                ball.normalTotal = ball.normalTotal.add(side.normal.multiply(dir * angle));
+                ball.normalCounter += angle;
 
                 if (side.friction > ball.friction) {
                     ball.friction = (float) side.friction;
@@ -369,7 +370,8 @@ public class WorldObject {
             }
         }
     }
-    protected void edgeCollision(Edge edge, Ball ball){
+
+    protected void edgeCollision(Edge edge, Ball ball) {
         double t = edge.unit.dotProduct(ball.place.subtract(points.get(edge.points[0])));
         if (t > 0 && t < edge.lenght) {
             Point3D clossest = points.get(edge.points[0]).add(edge.unit.multiply(t));
@@ -378,58 +380,58 @@ public class WorldObject {
                 unit = unit.normalize();
                 ball.place = clossest.add(unit.multiply(ball.size));
                 //ball.velocity = ball.velocity.subtract(unit.multiply(ball.velocity.dotProduct(unit) * 1.8));
-                double angle=Math.asin(unit.multiply(-1).dotProduct(ball.velocity.normalize()));
-                ball.normalTotal=ball.normalTotal.add(unit.multiply(angle));
-                ball.normalCounter+=angle;
+                double angle = Math.asin(unit.multiply(-1).dotProduct(ball.velocity.normalize()));
+                ball.normalTotal = ball.normalTotal.add(unit.multiply(angle));
+                ball.normalCounter += angle;
             }
         }
     }
-    protected void pointCollision(int i, Ball ball){
+
+    protected void pointCollision(int i, Ball ball) {
         Point3D ballEndPoint = ball.place.subtract(points.get(i));
         if (ballEndPoint.magnitude() < ball.size) {
             Point3D unit = ballEndPoint.normalize();
             ball.place = points.get(i).add(unit.multiply(ball.size));
             //ball.velocity = ball.velocity.subtract(unit.multiply(ball.velocity.dotProduct(unit) * 1.8));
-            double angle=Math.asin(unit.multiply(-1).dotProduct(ball.velocity.normalize()));
-            ball.normalTotal=ball.normalTotal.add(unit.multiply(angle));
-            ball.normalCounter+=angle;
+            double angle = Math.asin(unit.multiply(-1).dotProduct(ball.velocity.normalize()));
+            ball.normalTotal = ball.normalTotal.add(unit.multiply(angle));
+            ball.normalCounter += angle;
         }
     }
-    protected void ballWater(Water w, Ball ball,double subFrameInv){
-        if(ball.place.getX()>w.place[0].getX()&&
-                ball.place.getX()<w.place[1].getX()&&
-                ball.place.getY()>w.place[0].getY()&&
-                ball.place.getY()<w.place[1].getY())
-        {
-            if(ball.place.getZ()>(w.place[1].getZ()+ball.size)||
-                    ball.place.getZ()<(w.place[0].getZ()-ball.size)){
+
+    protected void ballWater(Water w, Ball ball, double subFrameInv) {
+        if (ball.place.getX() > w.place[0].getX() &&
+                ball.place.getX() < w.place[1].getX() &&
+                ball.place.getY() > w.place[0].getY() &&
+                ball.place.getY() < w.place[1].getY()) {
+            if (ball.place.getZ() > (w.place[1].getZ() + ball.size) ||
+                    ball.place.getZ() < (w.place[0].getZ() - ball.size)) {
                 //Ball is outside water
-            }else{
-                double volume=0.0;
-                double completeVolume = (4/3)*Math.PI*Math.pow(ball.size,3);
-                if(ball.place.getZ()<w.place[1].getZ()){
-                    volume+=completeVolume/2;
-                    if(ball.place.getZ()+ball.size<w.place[1].getZ()){
-                        volume+=completeVolume/2;
+            } else {
+                double volume = 0.0;
+                double completeVolume = (4 / 3) * Math.PI * Math.pow(ball.size, 3);
+                if (ball.place.getZ() < w.place[1].getZ()) {
+                    volume += completeVolume / 2;
+                    if (ball.place.getZ() + ball.size < w.place[1].getZ()) {
+                        volume += completeVolume / 2;
+                    } else {
+                        volume += completeVolume / 2;
+                        double h = ball.size - (w.place[1].getZ() - ball.place.getZ());
+                        volume -= ((Math.PI * h * h) / 3.0) * (3 * ball.size - h);
                     }
-                    else {
-                        volume+=completeVolume/2;
-                        double h=ball.size-(w.place[1].getZ()-ball.place.getZ());
-                        volume-=((Math.PI*h*h)/3.0)*(3*ball.size-h);
-                    }
+                } else {
+                    double h = w.place[1].getZ() - (ball.place.getZ() - ball.size);
+                    volume += ((Math.PI * h * h) / 3.0) * (3 * ball.size - h);
                 }
-                else {
-                    double h=w.place[1].getZ()-(ball.place.getZ()-ball.size);
-                    volume+=((Math.PI*h*h)/3.0)*(3*ball.size-h);
-                }
-                float f = (float) (volume/completeVolume)/2f;
-                ball.acceleration=ball.acceleration.add(0,0,volume*gravity*subFrameInv*0.0001);
-                if(f>ball.friction){
-                    ball.friction=f;
+                float f = (float) (volume / completeVolume) / 2f;
+                ball.acceleration = ball.acceleration.add(0, 0, volume * gravity * subFrameInv * 0.0001);
+                if (f > ball.friction) {
+                    ball.friction = f;
                 }
             }
         }
     }
+
     private boolean PointInTriangle(Point3D p, Point3D a, Point3D b, Point3D c) {
         Point3D v0 = c.subtract(a);
         Point3D v1 = b.subtract(a);
@@ -450,57 +452,81 @@ public class WorldObject {
         }
     }
 
-    public int getAmountSides(){return sides.size();}
+    public int getAmountSides() {
+        return sides.size();
+    }
+
     public Point3D getPoint(int i) {
         return points.get(i);
     }
-    public Point3D getTriangle(int i,int j) {
+
+    public Point3D getTriangle(int i, int j) {
         return points.get(sides.get(i).points[j]);
     }
+
     public Color3f getTriangleColor(int i) {
         return colors.get(sides.get(i).color);
     }
-    public Point3D getTriangleNormal(int i,int j){
-        if(hasPointNormals) {
+
+    public Point3D getTriangleNormal(int i, int j) {
+        if (hasPointNormals) {
             return sides.get(i).normals[j];
-        }else{
+        } else {
             return sides.get(i).normal;
         }
     }
-    public int getAmountSubObjects(){return subObjects.size();}
-    public WorldObject getSubObject(int i){return subObjects.get(i);}
-    public boolean containsNonObjectData(){
-        if(pointsOriginal!=null && pointsOriginal.size()>0)
-        {
+
+    public int getAmountSubObjects() {
+        return subObjects.size();
+    }
+
+    public WorldObject getSubObject(int i) {
+        return subObjects.get(i);
+    }
+
+    public boolean containsNonObjectData() {
+        if (pointsOriginal != null && pointsOriginal.size() > 0) {
             return true;
         }
         return false;
     }
-    public int getAmountWaters(){return waters.size();}
-    public Point3D[] getWaterPlace(int i){return waters.get(i).place;}
-    public Color3f getWaterColor(int i){return colors.get(waters.get(i).color);}
 
-    public int getID(){return ID;}
+    public int getAmountWaters() {
+        return waters.size();
+    }
+
+    public Point3D[] getWaterPlace(int i) {
+        return waters.get(i).place;
+    }
+
+    public Color3f getWaterColor(int i) {
+        return colors.get(waters.get(i).color);
+    }
+
+    public int getID() {
+        return ID;
+    }
 
     protected void addSquare(Point3D p1, Point3D p2, Point3D p3, Point3D p4, int c, double f) {
-        pointsOriginal.add(p1.add(0,0,0));
-        pointsOriginal.add(p2.add(0,0,0));
-        pointsOriginal.add(p3.add(0,0,0));
-        pointsOriginal.add(p4.add(0,0,0));
-        sides.add(new Side(pointsOriginal.size()-4, pointsOriginal.size()-3, pointsOriginal.size()-2, c,f));
-        sides.add(new Side(pointsOriginal.size()-4, pointsOriginal.size()-1, pointsOriginal.size()-2, c,f));
-        edges.add(new Edge(pointsOriginal.size()-4, pointsOriginal.size()-3));
-        edges.add(new Edge(pointsOriginal.size()-3, pointsOriginal.size()-2));
-        edges.add(new Edge(pointsOriginal.size()-2, pointsOriginal.size()-1));
-        edges.add(new Edge(pointsOriginal.size()-1, pointsOriginal.size()-4));
+        pointsOriginal.add(p1.add(0, 0, 0));
+        pointsOriginal.add(p2.add(0, 0, 0));
+        pointsOriginal.add(p3.add(0, 0, 0));
+        pointsOriginal.add(p4.add(0, 0, 0));
+        sides.add(new Side(pointsOriginal.size() - 4, pointsOriginal.size() - 3, pointsOriginal.size() - 2, c, f));
+        sides.add(new Side(pointsOriginal.size() - 4, pointsOriginal.size() - 1, pointsOriginal.size() - 2, c, f));
+        edges.add(new Edge(pointsOriginal.size() - 4, pointsOriginal.size() - 3));
+        edges.add(new Edge(pointsOriginal.size() - 3, pointsOriginal.size() - 2));
+        edges.add(new Edge(pointsOriginal.size() - 2, pointsOriginal.size() - 1));
+        edges.add(new Edge(pointsOriginal.size() - 1, pointsOriginal.size() - 4));
     }
+
     protected void addTriangle(Point3D p1, Point3D p2, Point3D p3, int c, double f) {
         pointsOriginal.add(p1);
         pointsOriginal.add(p2);
         pointsOriginal.add(p3);
-        sides.add(new Side(pointsOriginal.size()-3, pointsOriginal.size()-2, pointsOriginal.size()-1, c,f));
-        edges.add(new Edge(pointsOriginal.size()-3, pointsOriginal.size()-2));
-        edges.add(new Edge(pointsOriginal.size()-2, pointsOriginal.size()-1));
-        edges.add(new Edge(pointsOriginal.size()-1, pointsOriginal.size()-3));
+        sides.add(new Side(pointsOriginal.size() - 3, pointsOriginal.size() - 2, pointsOriginal.size() - 1, c, f));
+        edges.add(new Edge(pointsOriginal.size() - 3, pointsOriginal.size() - 2));
+        edges.add(new Edge(pointsOriginal.size() - 2, pointsOriginal.size() - 1));
+        edges.add(new Edge(pointsOriginal.size() - 1, pointsOriginal.size() - 3));
     }
 }

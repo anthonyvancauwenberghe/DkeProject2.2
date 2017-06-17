@@ -17,12 +17,12 @@ public class RadioButtons extends JPanel {
     private Icon selectedIcon;
     private final int FONTSIZE = 25;
 
-    public RadioButtons(){
+    public RadioButtons() {
         setLayout(new BorderLayout());
         createControlPanel();
     }
 
-    public Icon getEmptyIcon(){
+    public Icon getEmptyIcon() {
         BufferedImage img = new BufferedImage(BI_WIDTH, BI_WIDTH, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = img.createGraphics();
         g2.setStroke(new BasicStroke(4f));
@@ -39,7 +39,7 @@ public class RadioButtons extends JPanel {
     }
 
 
-    public Icon getSelectedIcon(EditorOptions option){
+    public Icon getSelectedIcon(EditorOptions option) {
         BufferedImage img = new BufferedImage(BI_WIDTH, BI_WIDTH, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = img.createGraphics();
         g2.setStroke(new BasicStroke(4f));
@@ -61,11 +61,11 @@ public class RadioButtons extends JPanel {
 
     public void createControlPanel() {
         JPanel choicePanel = createButtons();
-        choicePanel.setLayout(new GridLayout(this.buttons.size(),1));
+        choicePanel.setLayout(new GridLayout(this.buttons.size(), 1));
         add(choicePanel, BorderLayout.CENTER);
     }
 
-    public JPanel createButtons(){
+    public JPanel createButtons() {
 
         this.buttons = new ArrayList<>();
         for (EditorOptions option : EditorOptions.values()) {
@@ -73,15 +73,15 @@ public class RadioButtons extends JPanel {
             button.setSelectedIcon(getSelectedIcon(option));
             button.setBackground(Color.white);
             button.setForeground(Color.darkGray);
-            button.setFont(new Font("Century Gothic",Font.BOLD,FONTSIZE));
+            button.setFont(new Font("Century Gothic", Font.BOLD, FONTSIZE));
             button.addActionListener(e -> chosenOption = option);
             buttons.add(button);
         }
 
         ButtonGroup group = new ButtonGroup();
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(11,1));
-        for(JRadioButton button : this.buttons){
+        panel.setLayout(new GridLayout(11, 1));
+        for (JRadioButton button : this.buttons) {
             group.add(button);
             panel.add(button);
         }
@@ -92,7 +92,7 @@ public class RadioButtons extends JPanel {
         return panel;
     }
 
-    public EditorOptions getSelectedOption(){
+    public EditorOptions getSelectedOption() {
         return chosenOption;
     }
 

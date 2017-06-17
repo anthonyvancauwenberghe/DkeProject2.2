@@ -9,12 +9,12 @@ import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class EditorPanel extends JPanel{
+public class EditorPanel extends JPanel {
 
     private JButton saveButton;
     private JButton loadButton;
 
-    public int pixelSIZE  = 20;
+    public int pixelSIZE = 20;
 
     private RadioButtons buttons;
 
@@ -22,7 +22,7 @@ public class EditorPanel extends JPanel{
 
     private Grid grid;
 
-    public EditorPanel(){
+    public EditorPanel() {
         this.grid = new Grid();
         setLayout(new BorderLayout());
 
@@ -30,38 +30,38 @@ public class EditorPanel extends JPanel{
         settingPanel.setLayout(new BorderLayout());
 
         JPanel loadSave = new JPanel();
-        loadSave.setLayout(new GridLayout(2,1));
+        loadSave.setLayout(new GridLayout(2, 1));
 
         JPanel settings = new JPanel();
-        settings.setLayout(new GridLayout(6,1));
+        settings.setLayout(new GridLayout(6, 1));
 
         buttons = new RadioButtons();
         initLoadSavePanel();
 
     }
 
-    public void initLoadSavePanel(){
+    public void initLoadSavePanel() {
         JPanel settingPanel = new JPanel();
         settingPanel.setLayout(new BorderLayout());
 
         JPanel loadSave = new JPanel();
-        loadSave.setLayout(new GridLayout(2,1));
+        loadSave.setLayout(new GridLayout(2, 1));
 
         JPanel settings = new JPanel();
-        settings.setLayout(new GridLayout(6,1));
+        settings.setLayout(new GridLayout(6, 1));
 
         this.saveButton = new JButton("SAVE");
         this.saveButton.setBackground(Color.lightGray);
         this.saveButton.setForeground(Color.darkGray);
         this.saveButton.setBorderPainted(false);
-        this.saveButton.setFont(new Font("Century Gothic",Font.BOLD,30));
-        this.saveButton.setSize(new Dimension(20,20));
+        this.saveButton.setFont(new Font("Century Gothic", Font.BOLD, 30));
+        this.saveButton.setSize(new Dimension(20, 20));
 
         this.loadButton = new JButton("LOAD");
         this.loadButton.setBackground(Color.lightGray);
         this.loadButton.setForeground(Color.darkGray);
         this.loadButton.setBorderPainted(false);
-        this.loadButton.setFont(new Font("Century Gothic",Font.BOLD,30));
+        this.loadButton.setFont(new Font("Century Gothic", Font.BOLD, 30));
 
 
         settingPanel.add(settings, BorderLayout.NORTH);
@@ -73,10 +73,9 @@ public class EditorPanel extends JPanel{
         add(settingPanel, BorderLayout.EAST);
     }
 
-    public EditorOptions getSelectionEditorOption(){
+    public EditorOptions getSelectionEditorOption() {
         return this.buttons.getSelectedOption();
     }
-
 
 
     public JLayeredPane drawGrid() {
@@ -111,8 +110,8 @@ public class EditorPanel extends JPanel{
         return new JLayeredPane();
     }
 
-    public void writeItDown(LinkedList<String> list, int i){
-        File field= new File("Slot"+i+".txt");
+    public void writeItDown(LinkedList<String> list, int i) {
+        File field = new File("Slot" + i + ".txt");
         FileWriter writeFile = null;
 
         // allows us to write the file
@@ -125,7 +124,7 @@ public class EditorPanel extends JPanel{
             inWriteDown = new Scanner(field);
 
             for (String str : list) {
-                writer.write(str+ "\r\n");
+                writer.write(str + "\r\n");
             }
         } catch (Exception e) {
             // errors
@@ -215,7 +214,7 @@ public class EditorPanel extends JPanel{
         */
     }
 
-    public Grid getGrid(){
+    public Grid getGrid() {
         return grid;
     }
 

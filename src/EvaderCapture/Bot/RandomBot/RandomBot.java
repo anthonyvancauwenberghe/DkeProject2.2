@@ -14,18 +14,18 @@ import java.lang.Math;
 public class RandomBot implements BotInterface {
 
     Physics world;
-    double scalar =80;
+    double scalar = 80;
 
     @Override
     public void init(Physics p) {
-        world=p;
+        world = p;
     }
 
     @Override
     public void calcNextShot(int playerNumber) {
-        double i = (Math.random() * scalar) - scalar/2;
-        double j = (Math.random() * scalar) - scalar/2;
-        Point3D randomShot = new Point3D(i,j,0);
+        double i = (Math.random() * scalar) - scalar / 2;
+        double j = (Math.random() * scalar) - scalar / 2;
+        Point3D randomShot = new Point3D(i, j, 0);
         world.pushBall(playerNumber, randomShot);
     }
 

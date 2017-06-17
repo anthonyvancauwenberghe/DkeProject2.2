@@ -10,21 +10,28 @@ import java.util.ArrayList;
  */
 public interface World {
     int getAmountWorldObjects();
+
     WorldObject getWorldObject(int i);
 
     void updateTerain(Point3D center);
+
     WorldObject getNextNewObject();
+
     WorldObject getNextUpdateObject();
+
     Integer getNextRemoveObject();
 
     int getAmountBalls();
+
     Ball getBall(int i);
 
     void swapTerainPhysics();
 
     void load(ArrayList<String> data);
-    void load(String[][]data,double gs,Point3D offset);
+
+    void load(String[][] data, double gs, Point3D offset);
+
     ArrayList<String> save();
 
-    boolean DEBUG=true;
+    boolean DEBUG = true;
 }

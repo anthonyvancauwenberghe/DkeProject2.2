@@ -8,16 +8,14 @@ import java.util.ArrayList;
 public class Node {
     public Node[][] forward;
     public ArrayList<Node> backward;
-    public int minPath=-1;
+    public int minPath = -1;
 
-    public Node(int amountDirections,int amountPowers)
-    {
-        forward=new Node[amountDirections][amountPowers];
-        backward= new ArrayList<>();
+    public Node(int amountDirections, int amountPowers) {
+        forward = new Node[amountDirections][amountPowers];
+        backward = new ArrayList<>();
     }
 
-    public Node(int tMinPath)
-    {
-        minPath=tMinPath;
+    public Node(int tMinPath) {
+        minPath = tMinPath;
     }
 }
