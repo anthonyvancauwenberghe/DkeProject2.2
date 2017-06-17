@@ -35,8 +35,7 @@ public class StyledButtonUI extends BasicButtonUI {
         if (roll) {
             c.setBackground(new Color(210, 210, 210, 200));
             c.setForeground(Color.BLACK);
-        }
-        if (!roll) {
+        } else {
             c.setBackground(new Color(0, 0, 0, 200));
             c.setForeground(Color.WHITE);
         }

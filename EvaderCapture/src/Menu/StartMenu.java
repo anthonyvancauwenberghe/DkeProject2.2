@@ -683,8 +683,5 @@ public class StartMenu {
         }
         return file;
     }
-//	public static JButton getResumeb() {
-//		return resumeb;
-//	}
 
 }
