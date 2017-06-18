@@ -38,7 +38,7 @@ public class Loader {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }, "DestroyLoadingScreen").start();
+        }, "Boot Actual Menu").start();
     }
 
 
