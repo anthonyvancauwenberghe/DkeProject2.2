@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EvaderCapture/EvaderCapture.iml" filepath="$PROJECT_DIR$/EvaderCapture/EvaderCapture.iml" />
-      <module fileurl="file://$PROJECT_DIR$/OldProject/OldProject.iml" filepath="$PROJECT_DIR$/OldProject/OldProject.iml" />
     </modules>
   </component>
 </project>

@@ -10,7 +10,7 @@ public class StartMenu {
     final int FRAME_HEIGHT = 900;
 
     private JFrame frame;
-    private GridObjects editor;
+    private GridObject editor;
     public Game game;
 
     public BackgroundPanel main;

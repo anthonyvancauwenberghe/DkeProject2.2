@@ -10,7 +10,7 @@ public class Grid {
 
     private int width;
     private int height;
-    private GridObjects[][] grid;
+    private GridObject[][] grid;
 
     public Grid() {
         this.width = 20;
@@ -31,7 +31,7 @@ public class Grid {
     }
 
     private void initGrid() {
-        this.grid = new GridObjects[this.width][this.height];
+        this.grid = new GridObject[this.width][this.height];
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 grid[i][j] = new Floor();
@@ -47,7 +47,7 @@ public class Grid {
         return height;
     }
 
-    public GridObjects[][] getGridArray() {
+    public GridObject[][] getGridArray() {
         return grid;
     }
 }

@@ -10,13 +10,13 @@ import java.awt.*;
 /**
  * Created by Tony on 17/06/2017.
  */
-abstract public class GridObjects {
+abstract public class GridObject {
 
     private String option;
     private Color color;
     private int id;
 
-    public GridObjects(int id, String option, Color color) {
+    public GridObject(int id, String option, Color color) {
         this.id = id;
         this.option = option;
         this.color = color;

@@ -1,6 +1,6 @@
 package Editor.Panels;
 
-import Map.GridObjects;
+import Map.GridObject;
 import Map.Objects.Evader;
 import Map.Objects.Floor;
 import Map.Objects.Pursuiter;
@@ -19,7 +19,7 @@ public class SelectObjectPanel extends JPanel {
     private final int BI_WIDTH = 50;
     private final int FONTSIZE = 25;
     public ArrayList<JRadioButton> buttons;
-    private GridObjects selectedObject;
+    private GridObject selectedObject;
     private Icon selectedIcon;
 
     public SelectObjectPanel() {
@@ -44,7 +44,7 @@ public class SelectObjectPanel extends JPanel {
     }
 
 
-    public Icon getSelectedIcon(GridObjects option) {
+    public Icon getSelectedIcon(GridObject option) {
         BufferedImage img = new BufferedImage(BI_WIDTH, BI_WIDTH, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = img.createGraphics();
         g2.setStroke(new BasicStroke(4f));
@@ -74,13 +74,13 @@ public class SelectObjectPanel extends JPanel {
 
         this.buttons = new ArrayList<>();
 
-        ArrayList<GridObjects> objects = new ArrayList<>();
+        ArrayList<GridObject> objects = new ArrayList<>();
         objects.add(new Floor());
         objects.add(new Wall());
         objects.add(new Pursuiter());
         objects.add(new Evader());
 
-        for (GridObjects object : objects) {
+        for (GridObject object : objects) {
             JRadioButton button = new JRadioButton(object.toString(), getEmptyIcon());
             button.setSelectedIcon(getSelectedIcon(object));
             button.setBackground(Color.white);
@@ -104,7 +104,7 @@ public class SelectObjectPanel extends JPanel {
         return panel;
     }
 
-    public GridObjects getSelectedOption() {
+    public GridObject getSelectedOption() {
         return selectedObject;
     }
 }
