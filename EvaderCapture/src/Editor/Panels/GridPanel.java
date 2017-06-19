@@ -8,15 +8,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 /**
  * Created by Tony on 17/06/2017.
  */
-public class GridPanel extends JPanel implements MouseListener {
+public class GridPanel extends JPanel implements MouseListener, MouseMotionListener {
     private final int RECTANGLE_SIZE = 30;
     private Grid grid;
     private MouseEvent mouse;
-
     private SelectObjectPanel selectObjectPanel;
 
     /**
@@ -32,6 +32,7 @@ public class GridPanel extends JPanel implements MouseListener {
     public GridPanel() {
         initGrid(20, 20);
         addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
     public void initGrid(int width, int height) {
@@ -81,9 +82,11 @@ public class GridPanel extends JPanel implements MouseListener {
 
         if ((x != -1 && y != -1)) { //TODO ERROR CHECKING ON THE SIDES
             GridObject selectedObject = selectObjectPanel != null ? selectObjectPanel.getSelectedOption() : new Wall();
-            grid.getGridArray()[x][y] = selectedObject;
+            if (grid.getWidth() > x && grid.getHeight() > y) {
+                grid.getGridArray()[x][y] = selectedObject;
+                this.repaint();
+            }
         }
-        this.repaint();
     }
 
     @Override
@@ -98,6 +101,25 @@ public class GridPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        int x = Math.round(e.getX() / RECTANGLE_SIZE) - 1;
+        int y = Math.round(e.getY() / RECTANGLE_SIZE) - 1;
+
+        if ((x != -1 && y != -1)) {
+            GridObject selectedObject = selectObjectPanel != null ? selectObjectPanel.getSelectedOption() : new Wall();
+            if (grid.getWidth() > x && grid.getHeight() > y) {
+                grid.getGridArray()[x][y] = selectedObject;
+                this.repaint();
+            }
+        }
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
 
     }
 }
