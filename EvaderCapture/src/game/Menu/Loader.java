@@ -27,24 +27,15 @@ public class Loader {
         loadScreen.setScreenVisible(true);
     }
 
-    private void startMainFrame() {
-        ImageIcon background = new ImageIcon("game.jpg");
-        BackgroundPanel bgp = new BackgroundPanel(background.getImage(), BackgroundPanel.SCALED, 0.0f, 0.0f);
-        bgp.setLayout(new BorderLayout());
-        bgp.setFocusable(true);
-        game.setMainFrame(new MainFrame(bgp));
-    }
-
-    private void startMainMenu() {
-        MainMenu mainMenu = new MainMenu();
-        game.getMainFrame().addMainMenu(mainMenu);
-    }
-
     private void bootMenu() {
         final Runnable bootMenu = () -> {
             loadScreen.dispose();
-            startMainFrame();
-            startMainMenu();
+            game.setMainFrame(new MainFrame());
+
+            /*
+            Start main frame with main menu, can be changed if you want to directly go somewhere and skip menu.
+             */
+            game.getMainFrame().startMainMenu();
         };
         new Thread(() -> {
             try {

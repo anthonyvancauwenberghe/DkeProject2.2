@@ -1,6 +1,8 @@
 package game.Menu;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 /**
@@ -11,8 +13,10 @@ public class MainMenu extends Menu {
     private JButton playButton;
     private JButton createButton;
     private JButton exitButton;
+    private MainFrame mainFrame;
 
-    public MainMenu() {
+    public MainMenu(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
         //PLAY button
         playButton = new JButton("PLAY");
         addButton(playButton);
@@ -22,6 +26,14 @@ public class MainMenu extends Menu {
         //EXIT button
         exitButton = new JButton("EXIT");
         addButton(exitButton);
+
+        createButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.startEditorPanel();
+                setVisible(false);
+            }
+        });
     }
 
     public JButton getPlayButton() {

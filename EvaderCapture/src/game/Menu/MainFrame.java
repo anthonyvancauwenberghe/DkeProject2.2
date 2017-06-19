@@ -1,5 +1,7 @@
 package game.Menu;
 
+import game.Editor.Panels.EditorPanel;
+
 import javax.swing.*;
 
 /**
@@ -9,10 +11,10 @@ public class MainFrame extends JFrame {
 
     private BackgroundPanel bgp;
     private MainMenu mainMenu;
+    private EditorPanel editorPanel;
 
-    public MainFrame(BackgroundPanel backgroundPanel) {
-        addBackgroundPanel(backgroundPanel);
-
+    public MainFrame() {
+        startBackgroundPanel();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -20,14 +22,24 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-    public void addBackgroundPanel(BackgroundPanel backgroundPanel) {
-        this.bgp = backgroundPanel;
-        add(this.bgp);
+    /**
+     * gets called automatically since the main frame needs a background.
+     */
+    public void startBackgroundPanel() {
+        ImageIcon background = new ImageIcon("game.jpg");
+        bgp = new BackgroundPanel(background.getImage(), BackgroundPanel.SCALED, 0.0f, 0.0f);
+        add(bgp);
     }
 
-    public void addMainMenu(MainMenu mainMenu) {
-        this.mainMenu = mainMenu;
+    public void startMainMenu() {
+        this.mainMenu = new MainMenu(this);
         this.bgp.add(mainMenu);
+    }
+
+    public void startEditorPanel() {
+        this.editorPanel = this.editorPanel == null ? new EditorPanel() : this.editorPanel;
+        this.editorPanel.setVisible(true);
+        bgp.add(this.editorPanel);
     }
 
     public BackgroundPanel getBackgroundPanel() {
@@ -36,5 +48,9 @@ public class MainFrame extends JFrame {
 
     public MainMenu getMainMenu() {
         return mainMenu;
+    }
+
+    public EditorPanel getEditorPanel() {
+        return editorPanel;
     }
 }

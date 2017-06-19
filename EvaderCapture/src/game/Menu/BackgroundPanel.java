@@ -38,6 +38,7 @@ public class BackgroundPanel extends JPanel {
         setImage(image);
         setStyle(style);
         setLayout(new BorderLayout());
+        setFocusable(true);
     }
 
     /*
@@ -49,6 +50,7 @@ public class BackgroundPanel extends JPanel {
         setImageAlignmentX(alignmentX);
         setImageAlignmentY(alignmentY);
         setLayout(new BorderLayout());
+        setFocusable(true);
     }
 
     /*
