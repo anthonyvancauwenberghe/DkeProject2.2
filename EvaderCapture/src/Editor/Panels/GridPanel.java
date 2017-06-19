@@ -1,6 +1,7 @@
 package Editor.Panels;
 
 import Map.Grid;
+import Map.GridObject;
 import Map.Objects.Wall;
 
 import javax.swing.*;
@@ -16,6 +17,17 @@ public class GridPanel extends JPanel implements MouseListener {
     private Grid grid;
     private MouseEvent mouse;
 
+    private EditorPanel editorPanel;
+
+    /**
+     * Constructor used for editor
+     *
+     * @param editorPanel
+     */
+    public GridPanel(EditorPanel editorPanel) {
+        this();
+        this.editorPanel = editorPanel;
+    }
 
     public GridPanel() {
         initGrid(20, 20);
@@ -63,7 +75,8 @@ public class GridPanel extends JPanel implements MouseListener {
         int y = Math.round(e.getY() / RECTANGLE_SIZE) - 1;
 
         if ((x != -1 && y != -1)) { //TODO ERROR CHECKING ON THE SIDES
-            grid.getGridArray()[x][y] = new Wall();
+            GridObject selectedObject = editorPanel.getSelectedObject();
+            grid.getGridArray()[x][y] = selectedObject;
         }
         this.repaint();
     }
