@@ -27,10 +27,16 @@ public class MainMenu extends Menu {
         exitButton = new JButton("EXIT");
         addButton(exitButton);
 
+        /**
+         * Add action listener to Create button to start Editor Panel.
+         */
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.startEditorPanel();
+                /**
+                 * Dispose of MainMenu
+                 */
                 setVisible(false);
             }
         });

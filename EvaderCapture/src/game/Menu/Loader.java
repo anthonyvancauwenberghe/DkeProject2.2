@@ -19,6 +19,9 @@ public class Loader {
         bootMenu();
     }
 
+    /**
+     * Start the loading screen
+     */
     private void startLoadingScreen() {
         ImageIcon myImage = new ImageIcon("logo.gif");
         loadScreen = new LoadScreen(myImage);
@@ -27,6 +30,9 @@ public class Loader {
         loadScreen.setScreenVisible(true);
     }
 
+    /**
+     * Dispose of the loading screen and start the mainframe.
+     */
     private void bootMenu() {
         final Runnable bootMenu = () -> {
             loadScreen.dispose();

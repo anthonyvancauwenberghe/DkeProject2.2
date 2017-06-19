@@ -13,6 +13,9 @@ public class MainFrame extends JFrame {
     private MainMenu mainMenu;
     private EditorPanel editorPanel;
 
+    /**
+     * Start a mainframe, automatically loads the backgroundpanel ontop of it.
+     */
     public MainFrame() {
         startBackgroundPanel();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -31,11 +34,17 @@ public class MainFrame extends JFrame {
         add(bgp);
     }
 
+    /**
+     * Start and add a Main Menu.
+     */
     public void startMainMenu() {
         this.mainMenu = new MainMenu(this);
         this.bgp.add(mainMenu);
     }
 
+    /**
+     * Start and add a Editor Panel
+     */
     public void startEditorPanel() {
         this.editorPanel = this.editorPanel == null ? new EditorPanel() : this.editorPanel;
         this.editorPanel.setVisible(true);
