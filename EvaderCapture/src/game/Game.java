@@ -40,7 +40,7 @@ public class Game {
         return mainFrame;
     }
 
-    public void setMainFrame(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public void startMainFrame() {
+        this.mainFrame = new MainFrame();
     }
 }

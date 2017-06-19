@@ -30,7 +30,7 @@ public class Loader {
     private void bootMenu() {
         final Runnable bootMenu = () -> {
             loadScreen.dispose();
-            game.setMainFrame(new MainFrame());
+            game.startMainFrame();
 
             /*
             Start main frame with main menu, can be changed if you want to directly go somewhere and skip menu.
@@ -46,10 +46,6 @@ public class Loader {
                 e.printStackTrace();
             }
         }, "Boot Actual game.Menu").start();
-    }
-
-    public LoadScreen getLoadScreen() {
-        return loadScreen;
     }
 
 
