@@ -53,4 +53,17 @@ abstract public class GridObject {
     public boolean isEntity() {
         return this instanceof Pursuiter || this instanceof Evader;
     }
+
+    public static GridObject getObjectFromString(String option) {
+        if (option == null) {
+            return null;
+        }
+        GridObject[] objects = new GridObject[]{new Evader(), new Wall(), new Pursuiter(), new Floor()};
+        for (GridObject obj : objects) {
+            if (obj.toString().equals(option)) {
+                return obj;
+            }
+        }
+        return null;
+    }
 }

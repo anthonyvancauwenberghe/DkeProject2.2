@@ -42,6 +42,11 @@ public class GridPanel extends JPanel implements MouseListener {
         return grid;
     }
 
+    public void setGrid(Grid grid) {
+        this.grid = grid;
+        repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
