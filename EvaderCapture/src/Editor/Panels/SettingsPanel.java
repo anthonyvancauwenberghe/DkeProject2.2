@@ -9,11 +9,20 @@ import java.awt.*;
  */
 public class SettingsPanel extends JPanel {
 
-    public SelectObjectPanel selectObjectPanel;
+    private SelectObjectPanel selectObjectPanel;
+    private LoadSavePanel loadSavePanel;
 
     public SettingsPanel() {
         setLayout(new BorderLayout());
         this.add(selectObjectPanel = new SelectObjectPanel(), BorderLayout.NORTH);
-        this.add(new LoadSavePanel(), BorderLayout.WEST);
+        this.add(loadSavePanel = new LoadSavePanel(), BorderLayout.WEST);
+    }
+
+    public SelectObjectPanel getSelectObjectPanel() {
+        return selectObjectPanel;
+    }
+
+    public LoadSavePanel getLoadSavePanel() {
+        return loadSavePanel;
     }
 }
