@@ -13,16 +13,12 @@ public class EditorPanel extends JPanel {
 
     public EditorPanel() {
         setLayout(new BorderLayout());
-        this.add(new GridPanel(this), BorderLayout.CENTER);
         this.add(settingsPanel = new SettingsPanel(), BorderLayout.EAST);
+        this.add(new GridPanel(settingsPanel.selectObjectPanel), BorderLayout.CENTER);
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-    }
-
-    public GridObject getSelectedObject() {
-        return settingsPanel.getSelectedObject();
     }
 }

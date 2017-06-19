@@ -17,6 +17,7 @@ public class Editor {
         frame.add(panel);
         frame.setVisible(true);
         frame.setSize(1024, 768);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args) {

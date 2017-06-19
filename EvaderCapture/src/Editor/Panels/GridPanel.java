@@ -17,16 +17,16 @@ public class GridPanel extends JPanel implements MouseListener {
     private Grid grid;
     private MouseEvent mouse;
 
-    private EditorPanel editorPanel;
+    private SelectObjectPanel selectObjectPanel;
 
     /**
      * Constructor used for editor
      *
      * @param editorPanel
      */
-    public GridPanel(EditorPanel editorPanel) {
+    public GridPanel(SelectObjectPanel editorPanel) {
         this();
-        this.editorPanel = editorPanel;
+        this.selectObjectPanel = editorPanel;
     }
 
     public GridPanel() {
@@ -75,7 +75,7 @@ public class GridPanel extends JPanel implements MouseListener {
         int y = Math.round(e.getY() / RECTANGLE_SIZE) - 1;
 
         if ((x != -1 && y != -1)) { //TODO ERROR CHECKING ON THE SIDES
-            GridObject selectedObject = editorPanel != null ? editorPanel.getSelectedObject() : new Wall();
+            GridObject selectedObject = selectObjectPanel != null ? selectObjectPanel.getSelectedOption() : new Wall();
             grid.getGridArray()[x][y] = selectedObject;
         }
         this.repaint();
