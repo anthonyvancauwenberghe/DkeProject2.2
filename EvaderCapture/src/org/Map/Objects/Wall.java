@@ -10,7 +10,7 @@ import java.awt.*;
 public class Wall extends GridObject {
 
     public Wall() {
-        super(1, "WALL", Color.red);
+        super(1, "WALL", Color.black);
     }
 
 }

@@ -1,13 +1,13 @@
 package org.game;
 
-import org.Map.Objects.Evader;
+import org.Map.Objects.Criminal;
 
 /**
  * Created by Krulvis on 20-Jun-17.
  */
-public class EvaderTurn extends Turn<Evader> {
+public class CriminalTurn extends Turn<Criminal> {
 
-    public EvaderTurn(Evader entity, boolean isBot) {
+    public CriminalTurn(Criminal entity, boolean isBot) {
         super(entity, isBot);
     }
 

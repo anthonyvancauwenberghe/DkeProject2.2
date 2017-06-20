@@ -1,8 +1,8 @@
 package org;
 
 import org.Map.Grid;
-import org.Map.Objects.Evader;
-import org.Map.Objects.Pursuiter;
+import org.Map.Objects.Criminal;
+import org.Map.Objects.Police;
 import org.panels.Loader;
 import org.panels.MainFrame;
 import org.panels.menu.PauseMenu;
@@ -18,8 +18,8 @@ public class Game {
     public static final int FRAME_WIDTH = 1200;
     public static final int FRAME_HEIGHT = 900;
     private Grid grid;
-    private LinkedList<Evader> evaders;
-    private LinkedList<Pursuiter> pursuiters;
+    private LinkedList<Criminal> evaders;
+    private LinkedList<Police> pursuiters;
 
     private MainFrame mainFrame;
 
@@ -47,19 +47,19 @@ public class Game {
         this.grid = grid;
     }
 
-    public LinkedList<Pursuiter> getPursuiters() {
+    public LinkedList<Police> getPursuiters() {
         return pursuiters;
     }
 
-    public void addPursuiter(Pursuiter pursuiter) {
+    public void addPursuiter(Police pursuiter) {
         pursuiters.add(pursuiter);
     }
 
-    public LinkedList<Evader> getEvaders() {
+    public LinkedList<Criminal> getEvaders() {
         return evaders;
     }
 
-    public void addEvader(Evader entity) {
+    public void addEvader(Criminal entity) {
         evaders.add(entity);
     }
 

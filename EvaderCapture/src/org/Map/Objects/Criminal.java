@@ -7,10 +7,10 @@ import java.awt.*;
 /**
  * Created by Tony on 17/06/2017.
  */
-public class Evader extends GridObject {
+public class Criminal extends GridObject {
 
-    public Evader() {
-        super(2, "EVADER", Color.blue);
+    public Criminal() {
+        super(2, "CRIMINAL", Color.yellow);
     }
 
 }

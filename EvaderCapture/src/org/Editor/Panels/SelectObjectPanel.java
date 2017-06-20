@@ -1,9 +1,9 @@
 package org.Editor.Panels;
 
 import org.Map.GridObject;
-import org.Map.Objects.Evader;
+import org.Map.Objects.Criminal;
 import org.Map.Objects.Floor;
-import org.Map.Objects.Pursuiter;
+import org.Map.Objects.Police;
 import org.Map.Objects.Wall;
 
 import javax.swing.*;
@@ -77,8 +77,8 @@ public class SelectObjectPanel extends JPanel {
         ArrayList<GridObject> objects = new ArrayList<>();
         objects.add(new Floor());
         objects.add(new Wall());
-        objects.add(new Pursuiter());
-        objects.add(new Evader());
+        objects.add(new Police());
+        objects.add(new Criminal());
 
         for (GridObject object : objects) {
             JRadioButton button = new JRadioButton(object.toString(), getEmptyIcon());
