@@ -1,4 +1,4 @@
-package org.game;
+package org.panels.keylistener;
 
 import org.Game;
 
@@ -8,17 +8,20 @@ import java.awt.event.KeyListener;
 /**
  * Created by Krulvis on 20-Jun-17.
  */
-public class GameKeyListener implements KeyListener {
+public class PauseMenuListener implements KeyListener {
 
     private Game game;
 
-    public GameKeyListener(Game game) {
+    public PauseMenuListener(Game game){
         this.game = game;
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        System.out.println(e);
+        if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
+            game.getMainFrame().startPauseMenu();
+        }
     }
 
     @Override

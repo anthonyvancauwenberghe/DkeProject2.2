@@ -3,6 +3,7 @@ package org.panels;
 import org.Editor.Panels.EditorPanel;
 import org.Game;
 import org.game.GameKeyListener;
+import org.panels.keylistener.PauseMenuListener;
 import org.panels.menu.MainMenu;
 import org.panels.menu.PauseMenu;
 import org.panels.menu.StartMenu;
@@ -49,6 +50,12 @@ public class MainFrame extends JFrame {
      */
     public void startMainMenu() {
         mainMenu = new MainMenu(this);
+        if (editorPanel != null) {
+            bgp.remove(editorPanel);
+        }
+        if (gridPanel != null) {
+            bgp.remove(gridPanel);
+        }
         bgp.add(mainMenu);
     }
 
@@ -67,8 +74,10 @@ public class MainFrame extends JFrame {
         if (pauseMenu != null) {
             pauseMenu.setVisible(true);
         } else {
+            System.out.println("Start pause menu");
             pauseMenu = new PauseMenu(game);
-            bgp.add(pauseMenu);
+            pauseMenu.setVisible(true);
+            bgp.add(pauseMenu, 0);
         }
     }
 
@@ -78,7 +87,7 @@ public class MainFrame extends JFrame {
     public void startGame() {
         gridPanel = new GridPanel(game.getGrid());
         bgp.add(gridPanel);
-        bgp.addKeyListener(new GameKeyListener(game));
+        bgp.addKeyListener(new PauseMenuListener(game));
     }
 
     /**
@@ -88,6 +97,7 @@ public class MainFrame extends JFrame {
         editorPanel = editorPanel == null ? new EditorPanel() : editorPanel;
         editorPanel.setVisible(true);
         bgp.add(editorPanel);
+        bgp.addKeyListener(new PauseMenuListener(game));
     }
 
     public BackgroundPanel getBackgroundPanel() {

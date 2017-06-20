@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/EvaderCapture/EvaderCapture.iml" filepath="$PROJECT_DIR$/EvaderCapture/EvaderCapture.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PoliceVsCriminals/PoliceVsCriminals.iml" filepath="$PROJECT_DIR$/PoliceVsCriminals/PoliceVsCriminals.iml" />
     </modules>
   </component>
 </project>

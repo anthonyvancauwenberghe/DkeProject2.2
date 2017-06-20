@@ -20,14 +20,11 @@ public class MainMenu extends Menu {
     public MainMenu(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         //PLAY button
-        playButton = new JButton("PLAY");
-        addButton(playButton);
+        addButton(playButton = new JButton("PLAY"));
         //Create YOur map button
-        createButton = new JButton("CREATE YOUR MAP");
-        addButton(createButton);
+        addButton(createButton = new JButton("CREATE YOUR MAP"));
         //EXIT button
-        exitButton = new JButton("EXIT");
-        addButton(exitButton);
+        addButton(exitButton = new JButton("EXIT"));
 
         /**
          * Add action listener to Create button to start Editor Panel.

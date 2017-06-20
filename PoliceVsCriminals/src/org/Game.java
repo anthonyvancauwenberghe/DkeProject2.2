@@ -35,10 +35,6 @@ public class Game {
         this.mainFrame = new MainFrame(this);
     }
 
-    public void startGameWithGrid(Grid grid) {
-
-    }
-
     public Grid getGrid() {
         return grid;
     }

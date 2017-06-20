@@ -33,6 +33,8 @@ public class Menu extends JPanel {
         menuPanel.setOpaque(false);
         add(Box.createRigidArea(new Dimension(0, FRAME_HEIGHT)));
         add(menuPanel);
+        menuPanel.setVisible(true);
+        setVisible(true);
     }
 
     /**
