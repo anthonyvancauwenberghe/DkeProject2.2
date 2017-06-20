@@ -3,6 +3,7 @@ package org.panels;
 import org.Editor.Panels.EditorPanel;
 import org.Editor.Panels.GridEditorPanel;
 import org.Game;
+import org.game.GameKeyListener;
 import org.panels.menu.MainMenu;
 import org.panels.menu.PauseMenu;
 import org.panels.menu.StartMenu;
@@ -78,6 +79,7 @@ public class MainFrame extends JFrame {
     public void startGame() {
         gridPanel = new GridPanel(game.getGrid());
         bgp.add(gridPanel);
+        bgp.addKeyListener(new GameKeyListener(game));
     }
 
     /**
@@ -101,7 +103,7 @@ public class MainFrame extends JFrame {
         return editorPanel;
     }
 
-    public PauseMenu getPauseMenu(){
+    public PauseMenu getPauseMenu() {
         return pauseMenu;
     }
 
