@@ -32,27 +32,6 @@ public class Grid {
         this.initGrid();
     }
 
-    private void initGrid() {
-        this.grid = new GridObject[this.width][this.height];
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
-                grid[i][j] = new Floor();
-            }
-        }
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public GridObject[][] getGridArray() {
-        return grid;
-    }
-
     public static Grid loadGrid(Properties p) {
         if (p == null) {
             return null;
@@ -83,5 +62,26 @@ public class Grid {
             }
         }
         return p;
+    }
+
+    private void initGrid() {
+        this.grid = new GridObject[this.width][this.height];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                grid[i][j] = new Floor();
+            }
+        }
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public GridObject[][] getGridArray() {
+        return grid;
     }
 }

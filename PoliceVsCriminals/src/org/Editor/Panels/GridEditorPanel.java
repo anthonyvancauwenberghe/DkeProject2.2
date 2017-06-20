@@ -1,6 +1,5 @@
 package org.Editor.Panels;
 
-import org.Map.Grid;
 import org.Map.GridObject;
 import org.Map.Objects.Wall;
 import org.panels.GridPanel;

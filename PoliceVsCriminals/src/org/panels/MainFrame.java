@@ -1,7 +1,6 @@
 package org.panels;
 
 import org.Editor.Panels.EditorPanel;
-import org.Editor.Panels.GridEditorPanel;
 import org.Game;
 import org.game.GameKeyListener;
 import org.panels.menu.MainMenu;

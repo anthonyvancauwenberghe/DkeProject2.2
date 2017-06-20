@@ -20,11 +20,6 @@ public class GridPanel extends JPanel {
         setGrid(grid);
     }
 
-    public void setGrid(Grid grid) {
-        this.grid = grid;
-        repaint();
-    }
-
     public void initGrid(int width, int height) {
         this.grid = new Grid(width, height);
     }
@@ -48,5 +43,10 @@ public class GridPanel extends JPanel {
 
     public Grid getGrid() {
         return grid;
+    }
+
+    public void setGrid(Grid grid) {
+        this.grid = grid;
+        repaint();
     }
 }

@@ -1,15 +1,9 @@
 package org.panels;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-
-import javax.swing.AbstractButton;
-import javax.swing.JComponent;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicButtonUI;
+import java.awt.*;
 
 public class StyledButtonUI extends BasicButtonUI {
 
