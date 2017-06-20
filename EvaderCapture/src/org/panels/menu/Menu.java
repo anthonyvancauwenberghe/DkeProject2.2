@@ -1,4 +1,6 @@
-package org.Menu;
+package org.panels.menu;
+
+import org.panels.StyledButtonUI;
 
 import javax.swing.*;
 import java.awt.*;

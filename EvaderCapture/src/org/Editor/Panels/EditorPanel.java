@@ -17,12 +17,12 @@ import java.util.Properties;
  */
 public class EditorPanel extends JPanel {
     private SettingsPanel settingsPanel;
-    private GridPanel gridPanel;
+    private GridEditorPanel gridEditorPanel;
 
     public EditorPanel() {
         setLayout(new BorderLayout());
         this.add(settingsPanel = new SettingsPanel(), BorderLayout.EAST);
-        this.add(gridPanel = new GridPanel(settingsPanel.getSelectObjectPanel()), BorderLayout.CENTER);
+        this.add(gridEditorPanel = new GridEditorPanel(settingsPanel.getSelectObjectPanel()), BorderLayout.CENTER);
         settingsPanel.getLoadSavePanel().getLoadButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -33,7 +33,7 @@ public class EditorPanel extends JPanel {
                     try {
                         p.load(new FileReader(jfc.getSelectedFile()));
                         Grid grid = Grid.loadGrid(p);
-                        gridPanel.setGrid(grid);
+                        gridEditorPanel.setGrid(grid);
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
@@ -44,7 +44,7 @@ public class EditorPanel extends JPanel {
         settingsPanel.getLoadSavePanel().getSaveButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Grid grid = gridPanel.getGrid();
+                Grid grid = gridEditorPanel.getGrid();
                 JFileChooser jfc = new JFileChooser(".");
                 int returnVal = jfc.showOpenDialog(null);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {

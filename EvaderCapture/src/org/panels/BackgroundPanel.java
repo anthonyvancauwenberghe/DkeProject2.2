@@ -1,4 +1,4 @@
-package org.Menu;
+package org.panels;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,8 +1,11 @@
-package org.Menu;
+package org.panels;
 
 import org.Editor.Panels.EditorPanel;
-import org.Editor.Panels.GridPanel;
+import org.Editor.Panels.GridEditorPanel;
 import org.Game;
+import org.panels.menu.MainMenu;
+import org.panels.menu.PauseMenu;
+import org.panels.menu.StartMenu;
 
 import javax.swing.*;
 
@@ -14,6 +17,7 @@ public class MainFrame extends JFrame {
     private BackgroundPanel bgp;
     private MainMenu mainMenu;
     private StartMenu startMenu;
+    private PauseMenu pauseMenu;
     private EditorPanel editorPanel;
     private GridPanel gridPanel;
     private Game game;
@@ -57,6 +61,18 @@ public class MainFrame extends JFrame {
     }
 
     /**
+     * Sets existing pauseMenu visible, or creates new pausemenu
+     */
+    public void startPauseMenu() {
+        if (pauseMenu != null) {
+            pauseMenu.setVisible(true);
+        } else {
+            pauseMenu = new PauseMenu(game);
+            bgp.add(pauseMenu);
+        }
+    }
+
+    /**
      * Starts a GridPanel with the Game.grid loading
      */
     public void startGame() {
@@ -83,6 +99,10 @@ public class MainFrame extends JFrame {
 
     public EditorPanel getEditorPanel() {
         return editorPanel;
+    }
+
+    public PauseMenu getPauseMenu(){
+        return pauseMenu;
     }
 
     public Game getGame() {

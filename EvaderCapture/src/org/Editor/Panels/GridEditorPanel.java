@@ -3,8 +3,8 @@ package org.Editor.Panels;
 import org.Map.Grid;
 import org.Map.GridObject;
 import org.Map.Objects.Wall;
+import org.panels.GridPanel;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,7 +13,7 @@ import java.awt.event.MouseMotionListener;
 /**
  * Created by Tony on 17/06/2017.
  */
-public class GridPanel extends JPanel implements MouseListener, MouseMotionListener {
+public class GridEditorPanel extends GridPanel implements MouseListener, MouseMotionListener {
     private final int RECTANGLE_SIZE = 30;
     private Grid grid;
     private MouseEvent mouse;
@@ -24,27 +24,11 @@ public class GridPanel extends JPanel implements MouseListener, MouseMotionListe
      *
      * @param editorPanel
      */
-    public GridPanel(SelectObjectPanel editorPanel) {
-        this();
+    public GridEditorPanel(SelectObjectPanel editorPanel) {
+        super();
         this.selectObjectPanel = editorPanel;
-    }
-
-    /**
-     * Use this to load a grid when starting a game
-     *
-     * @param grid
-     */
-    public GridPanel(Grid grid) {
-        setGrid(grid);
-    }
-
-    public GridPanel() {
-        initGrid(20, 20);
-        //If selectObjectPanel is null, it's not for editing
-        if (selectObjectPanel == null) {
-            addMouseListener(this);
-            addMouseMotionListener(this);
-        }
+        addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
     public void initGrid(int width, int height) {
@@ -63,22 +47,10 @@ public class GridPanel extends JPanel implements MouseListener, MouseMotionListe
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        for (int x = 0; x < grid.getGridArray().length; x++) {
-            for (int y = 0; y < grid.getGridArray()[x].length; y++) {
-                int cellX = RECTANGLE_SIZE + (x * RECTANGLE_SIZE);
-                int cellY = RECTANGLE_SIZE + (y * RECTANGLE_SIZE);
-                g.setColor(grid.getGridArray()[x][y].getColor());
-                g.fillRect(cellX, cellY, RECTANGLE_SIZE, RECTANGLE_SIZE);
-                g.setColor(Color.black);
-                g.drawRect(cellX, cellY, RECTANGLE_SIZE, RECTANGLE_SIZE);
-            }
-        }
         if (this.mouse != null) {
             g.drawString("X Location: " + this.mouse.getX(), 540, 650);
             g.drawString("Y Location: " + this.mouse.getY(), 540, 665);
         }
-
     }
 
     @Override

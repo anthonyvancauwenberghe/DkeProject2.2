@@ -1,4 +1,4 @@
-package org.Menu;
+package org.panels.menu;
 
 import org.Game;
 import org.Map.Grid;

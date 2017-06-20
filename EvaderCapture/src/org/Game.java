@@ -3,10 +3,12 @@ package org;
 import org.Map.Grid;
 import org.Map.Objects.Evader;
 import org.Map.Objects.Pursuiter;
-import org.Menu.Loader;
-import org.Menu.MainFrame;
+import org.panels.Loader;
+import org.panels.MainFrame;
+import org.panels.menu.PauseMenu;
 
 import java.util.LinkedList;
+
 
 /**
  * Created by s120619 on 18-6-2017.
@@ -15,7 +17,6 @@ public class Game {
 
     public static final int FRAME_WIDTH = 1200;
     public static final int FRAME_HEIGHT = 900;
-
     private Grid grid;
     private LinkedList<Evader> evaders;
     private LinkedList<Pursuiter> pursuiters;
@@ -61,4 +62,14 @@ public class Game {
     public void addEvader(Evader entity) {
         evaders.add(entity);
     }
+
+    public boolean isPaused() {
+        if (getMainFrame() != null) {
+            PauseMenu pauseMenu = getMainFrame().getPauseMenu();
+            return pauseMenu != null && pauseMenu.isVisible();
+        }
+        return false;
+    }
+
+
 }

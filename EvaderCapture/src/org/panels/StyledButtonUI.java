@@ -1,4 +1,4 @@
-package org.Menu;
+package org.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;
