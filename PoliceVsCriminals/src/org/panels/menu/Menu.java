@@ -25,7 +25,6 @@ public class Menu extends JPanel {
     }
 
     public Menu() {
-        setPreferredSize(new Dimension((int) (FRAME_WIDTH * 0.30), 400));
         setOpaque(true);
         //Tmp Panel for creating clean Opaque looks
         menuPanel = new JPanel();
@@ -33,12 +32,11 @@ public class Menu extends JPanel {
         menuPanel.setOpaque(false);
         add(Box.createRigidArea(new Dimension(0, FRAME_HEIGHT)));
         add(menuPanel);
-        menuPanel.setVisible(true);
-        setVisible(true);
     }
 
     /**
      * Adds a button with pre-specified styles
+     *
      * @param button
      */
     public void addButton(JButton button) {

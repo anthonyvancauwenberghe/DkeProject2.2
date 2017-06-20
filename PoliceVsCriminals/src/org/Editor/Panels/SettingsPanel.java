@@ -1,6 +1,5 @@
 package org.Editor.Panels;
 
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,6 +15,7 @@ public class SettingsPanel extends JPanel {
         setLayout(new BorderLayout());
         this.add(selectObjectPanel = new SelectObjectPanel(), BorderLayout.NORTH);
         this.add(loadSavePanel = new LoadSavePanel(), BorderLayout.WEST);
+        setFocusable(false);
     }
 
     public SelectObjectPanel getSelectObjectPanel() {

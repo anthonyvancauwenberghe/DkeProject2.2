@@ -19,7 +19,7 @@ public class SelectObjectPanel extends JPanel {
     private final int BI_WIDTH = 50;
     private final int FONTSIZE = 25;
     public ArrayList<JRadioButton> buttons;
-    private GridObject selectedObject;
+    private GridObject selectedObject = new Wall();
     private Icon selectedIcon;
 
     public SelectObjectPanel() {
@@ -79,7 +79,6 @@ public class SelectObjectPanel extends JPanel {
         objects.add(new Wall());
         objects.add(new Police());
         objects.add(new Criminal());
-
         for (GridObject object : objects) {
             JRadioButton button = new JRadioButton(object.toString(), getEmptyIcon());
             button.setSelectedIcon(getSelectedIcon(object));
@@ -87,6 +86,7 @@ public class SelectObjectPanel extends JPanel {
             button.setForeground(Color.darkGray);
             button.setFont(new Font("Century Gothic", Font.BOLD, FONTSIZE));
             button.addActionListener(e -> selectedObject = object);
+            button.setFocusable(false);
             buttons.add(button);
         }
 
@@ -100,7 +100,6 @@ public class SelectObjectPanel extends JPanel {
 
         buttons.get(0).setSelected(true);
         buttons.get(0).doClick();
-
         return panel;
     }
 

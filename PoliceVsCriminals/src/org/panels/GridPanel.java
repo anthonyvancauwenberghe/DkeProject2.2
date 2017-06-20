@@ -17,6 +17,7 @@ public class GridPanel extends JPanel {
     }
 
     public GridPanel(Grid grid) {
+        setOpaque(false);
         setGrid(grid);
     }
 
@@ -27,7 +28,6 @@ public class GridPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         for (int x = 0; x < grid.getGridArray().length; x++) {
             for (int y = 0; y < grid.getGridArray()[x].length; y++) {
                 int cellX = RECTANGLE_SIZE + (x * RECTANGLE_SIZE);
@@ -38,7 +38,6 @@ public class GridPanel extends JPanel {
                 g.drawRect(cellX, cellY, RECTANGLE_SIZE, RECTANGLE_SIZE);
             }
         }
-
     }
 
     public Grid getGrid() {

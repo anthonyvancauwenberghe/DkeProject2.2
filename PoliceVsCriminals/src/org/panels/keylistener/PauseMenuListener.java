@@ -1,6 +1,8 @@
 package org.panels.keylistener;
 
+import org.Editor.Panels.EditorPanel;
 import org.Game;
+import org.panels.GridPanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -12,7 +14,7 @@ public class PauseMenuListener implements KeyListener {
 
     private Game game;
 
-    public PauseMenuListener(Game game){
+    public PauseMenuListener(Game game) {
         this.game = game;
     }
 
@@ -20,7 +22,13 @@ public class PauseMenuListener implements KeyListener {
     public void keyTyped(KeyEvent e) {
         System.out.println(e);
         if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
-            game.getMainFrame().startPauseMenu();
+            if (game.getMainFrame().editorPanelVisible() || game.getMainFrame().gridPanelVisible()) {
+                System.out.println("editorVisible: " + game.getMainFrame().editorPanelVisible());
+                System.out.println("gridVisible: " + game.getMainFrame().gridPanelVisible());
+                game.getMainFrame().startPauseMenu();
+            } else {
+                game.getMainFrame().startMainMenu();
+            }
         }
     }
 

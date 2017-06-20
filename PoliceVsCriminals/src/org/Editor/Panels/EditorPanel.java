@@ -1,12 +1,14 @@
 package org.Editor.Panels;
 
 
+import org.Game;
 import org.Map.Grid;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,8 +20,9 @@ import java.util.Properties;
 public class EditorPanel extends JPanel {
     private SettingsPanel settingsPanel;
     private GridEditorPanel gridEditorPanel;
+    private Game game;
 
-    public EditorPanel() {
+    public EditorPanel(Game game) {
         setLayout(new BorderLayout());
         this.add(settingsPanel = new SettingsPanel(), BorderLayout.EAST);
         this.add(gridEditorPanel = new GridEditorPanel(settingsPanel.getSelectObjectPanel()), BorderLayout.CENTER);
@@ -57,6 +60,7 @@ public class EditorPanel extends JPanel {
                 }
             }
         });
+
     }
 
     public void paintComponent(Graphics g) {

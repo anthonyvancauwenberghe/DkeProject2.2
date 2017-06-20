@@ -25,6 +25,7 @@ public class LoadSavePanel extends JPanel {
         this.loadButton.setForeground(Color.darkGray);
         this.loadButton.setBorderPainted(false);
         this.loadButton.setFont(new Font("Century Gothic", Font.BOLD, 30));
+        this.loadButton.setFocusable(false);
     }
 
     private void initSaveButton() {
@@ -34,7 +35,10 @@ public class LoadSavePanel extends JPanel {
         this.saveButton.setBorderPainted(false);
         this.saveButton.setFont(new Font("Century Gothic", Font.BOLD, 30));
         this.saveButton.setSize(new Dimension(20, 20));
+        this.saveButton.setFocusable(false);
     }
+
+
 
     public JButton getSaveButton() {
         return saveButton;
@@ -43,4 +47,5 @@ public class LoadSavePanel extends JPanel {
     public JButton getLoadButton() {
         return loadButton;
     }
+
 }

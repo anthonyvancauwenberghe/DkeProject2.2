@@ -2,13 +2,13 @@ package org.panels;
 
 import org.Editor.Panels.EditorPanel;
 import org.Game;
-import org.game.GameKeyListener;
 import org.panels.keylistener.PauseMenuListener;
 import org.panels.menu.MainMenu;
 import org.panels.menu.PauseMenu;
 import org.panels.menu.StartMenu;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by s120619 on 19-6-2017.
@@ -19,6 +19,7 @@ public class MainFrame extends JFrame {
     private MainMenu mainMenu;
     private StartMenu startMenu;
     private PauseMenu pauseMenu;
+    private PauseMenuListener pauseMenuListener;
     private EditorPanel editorPanel;
     private GridPanel gridPanel;
     private Game game;
@@ -42,43 +43,59 @@ public class MainFrame extends JFrame {
     public void startBackgroundPanel() {
         ImageIcon background = new ImageIcon("game.jpg");
         bgp = new BackgroundPanel(background.getImage(), BackgroundPanel.SCALED, 0.0f, 0.0f);
-        add(bgp);
+        setContentPane(bgp);
+        pack();
     }
 
     /**
      * Start and add a Main Menu.
      */
     public void startMainMenu() {
-        mainMenu = new MainMenu(this);
         if (editorPanel != null) {
+            editorPanel.setVisible(false);
             bgp.remove(editorPanel);
         }
         if (gridPanel != null) {
+            gridPanel.setVisible(false);
             bgp.remove(gridPanel);
         }
-        bgp.add(mainMenu);
+        if (startMenu != null) {
+            startMenu.setVisible(false);
+            bgp.remove(startMenu);
+        }
+        if (mainMenu == null) {
+            mainMenu = new MainMenu(this);
+            bgp.add(mainMenu);
+        }
+
+        mainMenu.setVisible(true);
+        pack();
     }
 
     /**
      * Start and add a Start Menu.
      */
     public void startStartMenu() {
-        startMenu = new StartMenu(game);
-        bgp.add(startMenu);
+        if (startMenu == null) {
+            startMenu = new StartMenu(game);
+            bgp.add(startMenu);
+        }
+        startMenu.setVisible(true);
+        pack();
     }
 
     /**
      * Sets existing pauseMenu visible, or creates new pausemenu
      */
     public void startPauseMenu() {
-        if (pauseMenu != null) {
-            pauseMenu.setVisible(true);
-        } else {
-            System.out.println("Start pause menu");
+        if (pauseMenu == null) {
+            System.out.println("Start new pause menu");
             pauseMenu = new PauseMenu(game);
-            pauseMenu.setVisible(true);
-            bgp.add(pauseMenu, 0);
+            bgp.add(pauseMenu);
         }
+        bgp.setComponentZOrder(pauseMenu, 0);
+        pauseMenu.setVisible(true);
+        pack();
     }
 
     /**
@@ -86,30 +103,32 @@ public class MainFrame extends JFrame {
      */
     public void startGame() {
         gridPanel = new GridPanel(game.getGrid());
+        gridPanel.setVisible(true);
         bgp.add(gridPanel);
-        bgp.addKeyListener(new PauseMenuListener(game));
+        bgp.addKeyListener(pauseMenuListener = new PauseMenuListener(game));
     }
 
     /**
      * Start and add a Editor Panel
      */
     public void startEditorPanel() {
-        editorPanel = editorPanel == null ? new EditorPanel() : editorPanel;
+        editorPanel = editorPanel == null ? new EditorPanel(game) : editorPanel;
         editorPanel.setVisible(true);
         bgp.add(editorPanel);
-        bgp.addKeyListener(new PauseMenuListener(game));
+        bgp.addKeyListener(pauseMenuListener = new PauseMenuListener(game));
+        bgp.grabFocus();
     }
 
-    public BackgroundPanel getBackgroundPanel() {
-        return bgp;
+    public PauseMenuListener getPauseMenuListener() {
+        return pauseMenuListener;
     }
 
-    public MainMenu getMainMenu() {
-        return mainMenu;
+    public boolean gridPanelVisible() {
+        return gridPanel != null && gridPanel.isVisible();
     }
 
-    public EditorPanel getEditorPanel() {
-        return editorPanel;
+    public boolean editorPanelVisible() {
+        return editorPanel != null && editorPanel.isVisible();
     }
 
     public PauseMenu getPauseMenu() {
@@ -119,4 +138,10 @@ public class MainFrame extends JFrame {
     public Game getGame() {
         return game;
     }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(Game.FRAME_WIDTH, Game.FRAME_HEIGHT);
+    }
+
 }

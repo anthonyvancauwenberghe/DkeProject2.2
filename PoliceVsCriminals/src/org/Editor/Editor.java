@@ -10,7 +10,7 @@ import javax.swing.*;
 public class Editor {
 
     public Editor() {
-        JPanel panel = new EditorPanel();
+        JPanel panel = new EditorPanel(null);
         panel.setVisible(true);
 
         JFrame frame = new JFrame();
