@@ -1,4 +1,4 @@
-import game.Game;
+import org.Game;
 
 /**
  * Created by Tony on 17/06/2017.
