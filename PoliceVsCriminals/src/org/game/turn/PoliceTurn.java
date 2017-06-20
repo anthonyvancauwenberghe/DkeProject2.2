@@ -1,13 +1,13 @@
-package org.game;
+package org.game.turn;
 
 import org.map.objects.Criminal;
 
 /**
  * Created by Krulvis on 20-Jun-17.
  */
-public class CriminalTurn extends Turn<Criminal> {
+public class PoliceTurn extends Turn<Criminal> {
 
-    public CriminalTurn(Criminal entity, boolean isBot) {
+    public PoliceTurn(Criminal entity, boolean isBot) {
         super(entity, isBot);
     }
 
