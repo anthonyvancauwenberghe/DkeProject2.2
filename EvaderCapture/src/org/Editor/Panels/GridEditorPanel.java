@@ -30,18 +30,7 @@ public class GridEditorPanel extends GridPanel implements MouseListener, MouseMo
         addMouseMotionListener(this);
     }
 
-    public void initGrid(int width, int height) {
-        this.grid = new Grid(width, height);
-    }
 
-    public Grid getGrid() {
-        return grid;
-    }
-
-    public void setGrid(Grid grid) {
-        this.grid = grid;
-        repaint();
-    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -65,8 +54,8 @@ public class GridEditorPanel extends GridPanel implements MouseListener, MouseMo
 
         if ((x != -1 && y != -1)) { //TODO ERROR CHECKING ON THE SIDES
             GridObject selectedObject = selectObjectPanel != null ? selectObjectPanel.getSelectedOption() : new Wall();
-            if (grid.getWidth() > x && grid.getHeight() > y) {
-                grid.getGridArray()[x][y] = selectedObject;
+            if (getGrid().getWidth() > x && getGrid().getHeight() > y) {
+                getGrid().getGridArray()[x][y] = selectedObject;
                 this.repaint();
             }
         }
@@ -94,8 +83,8 @@ public class GridEditorPanel extends GridPanel implements MouseListener, MouseMo
 
         if ((x != -1 && y != -1)) {
             GridObject selectedObject = selectObjectPanel != null ? selectObjectPanel.getSelectedOption() : new Wall();
-            if (grid.getWidth() > x && grid.getHeight() > y) {
-                grid.getGridArray()[x][y] = selectedObject;
+            if (getGrid().getWidth() > x && getGrid().getHeight() > y) {
+                getGrid().getGridArray()[x][y] = selectedObject;
                 this.repaint();
             }
         }
