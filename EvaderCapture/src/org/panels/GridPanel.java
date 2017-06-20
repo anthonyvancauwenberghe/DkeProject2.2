@@ -10,7 +10,7 @@ import java.awt.*;
  */
 public class GridPanel extends JPanel {
     private final int RECTANGLE_SIZE = 30;
-    private Grid grid;
+    public Grid grid;
 
     public GridPanel() {
         initGrid(20, 20);

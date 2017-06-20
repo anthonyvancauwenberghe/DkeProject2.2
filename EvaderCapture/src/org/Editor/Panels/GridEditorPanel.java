@@ -15,7 +15,6 @@ import java.awt.event.MouseMotionListener;
  */
 public class GridEditorPanel extends GridPanel implements MouseListener, MouseMotionListener {
     private final int RECTANGLE_SIZE = 30;
-    private Grid grid;
     private MouseEvent mouse;
     private SelectObjectPanel selectObjectPanel;
 
