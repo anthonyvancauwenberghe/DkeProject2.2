@@ -1,6 +1,6 @@
 package org.panels;
 
-import org.Map.Grid;
+import org.map.Grid;
 
 import javax.swing.*;
 import java.awt.*;

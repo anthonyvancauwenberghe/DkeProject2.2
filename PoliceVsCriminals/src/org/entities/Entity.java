@@ -1,4 +1,4 @@
-package org.Entities;
+package org.entities;
 
 import java.awt.*;
 

@@ -1,9 +1,9 @@
-package org.Map;
+package org.map;
 
-import org.Map.Objects.Criminal;
-import org.Map.Objects.Floor;
-import org.Map.Objects.Police;
-import org.Map.Objects.Wall;
+import org.map.objects.Criminal;
+import org.map.objects.Floor;
+import org.map.objects.Police;
+import org.map.objects.Wall;
 
 import java.awt.*;
 

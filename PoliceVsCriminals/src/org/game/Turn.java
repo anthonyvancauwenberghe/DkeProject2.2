@@ -1,6 +1,6 @@
 package org.game;
 
-import org.Map.GridObject;
+import org.map.GridObject;
 
 /**
  * Created by Krulvis on 20-Jun-17.

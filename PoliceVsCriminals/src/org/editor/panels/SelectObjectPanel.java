@@ -1,10 +1,10 @@
-package org.Editor.Panels;
+package org.editor.panels;
 
-import org.Map.GridObject;
-import org.Map.Objects.Criminal;
-import org.Map.Objects.Floor;
-import org.Map.Objects.Police;
-import org.Map.Objects.Wall;
+import org.map.GridObject;
+import org.map.objects.Criminal;
+import org.map.objects.Floor;
+import org.map.objects.Police;
+import org.map.objects.Wall;
 
 import javax.swing.*;
 import java.awt.*;

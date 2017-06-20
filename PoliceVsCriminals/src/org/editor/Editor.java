@@ -1,6 +1,6 @@
-package org.Editor;
+package org.editor;
 
-import org.Editor.Panels.EditorPanel;
+import org.editor.panels.EditorPanel;
 
 import javax.swing.*;
 

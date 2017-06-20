@@ -1,6 +1,6 @@
-package org.Entities.Bots;
+package org.entities.bots;
 
-import org.Entities.Entity;
+import org.entities.Entity;
 
 /**
  * Created by Tony on 17/06/2017.

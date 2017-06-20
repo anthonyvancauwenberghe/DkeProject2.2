@@ -1,6 +1,6 @@
 package org.panels;
 
-import org.Editor.Panels.EditorPanel;
+import org.editor.panels.EditorPanel;
 import org.Game;
 import org.panels.keylistener.PauseMenuListener;
 import org.panels.menu.MainMenu;

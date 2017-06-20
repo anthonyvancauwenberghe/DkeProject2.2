@@ -1,8 +1,6 @@
 package org.panels.keylistener;
 
-import org.Editor.Panels.EditorPanel;
 import org.Game;
-import org.panels.GridPanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

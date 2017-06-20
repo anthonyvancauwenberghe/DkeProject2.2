@@ -1,6 +1,6 @@
 package org.game;
 
-import org.Map.Objects.Criminal;
+import org.map.objects.Criminal;
 
 /**
  * Created by Krulvis on 20-Jun-17.

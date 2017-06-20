@@ -1,4 +1,4 @@
-package org.Entities.Bots.Evader;
+package org.entities.bots.evader;
 
 /**
  * Created by Tony on 17/06/2017.

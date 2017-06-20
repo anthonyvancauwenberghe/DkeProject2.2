@@ -1,6 +1,6 @@
-package org.Entities.Players;
+package org.entities.players;
 
-import org.Entities.Entity;
+import org.entities.Entity;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

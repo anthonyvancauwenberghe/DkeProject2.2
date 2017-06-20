@@ -1,8 +1,8 @@
 package org;
 
-import org.Map.Grid;
-import org.Map.Objects.Criminal;
-import org.Map.Objects.Police;
+import org.map.Grid;
+import org.map.objects.Criminal;
+import org.map.objects.Police;
 import org.panels.Loader;
 import org.panels.MainFrame;
 import org.panels.menu.PauseMenu;

@@ -1,7 +1,7 @@
-package org.Editor.Panels;
+package org.editor.panels;
 
-import org.Map.GridObject;
-import org.Map.Objects.Wall;
+import org.map.GridObject;
+import org.map.objects.Wall;
 import org.panels.GridPanel;
 
 import java.awt.*;

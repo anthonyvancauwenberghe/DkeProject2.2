@@ -1,6 +1,6 @@
-package org.Map;
+package org.map;
 
-import org.Map.Objects.Floor;
+import org.map.objects.Floor;
 
 import java.util.Properties;
 

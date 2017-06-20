@@ -1,4 +1,4 @@
-package org.Editor.Panels;
+package org.editor.panels;
 
 import javax.swing.*;
 import java.awt.*;

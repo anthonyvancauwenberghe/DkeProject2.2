@@ -1,7 +1,7 @@
 package org.panels.menu;
 
 import org.Game;
-import org.Map.Grid;
+import org.map.Grid;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

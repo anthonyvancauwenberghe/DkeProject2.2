@@ -1,6 +1,6 @@
-package org.Map.Objects;
+package org.map.objects;
 
-import org.Map.GridObject;
+import org.map.GridObject;
 
 import java.awt.*;
 
