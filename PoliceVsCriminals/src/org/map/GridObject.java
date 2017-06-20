@@ -6,6 +6,7 @@ import org.map.objects.Police;
 import org.map.objects.Wall;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Created by Tony on 17/06/2017.
@@ -17,6 +18,12 @@ abstract public class GridObject {
     private int id;
 
     public GridObject(int id, String option, Color color) {
+        this.id = id;
+        this.option = option;
+        this.color = color;
+    }
+
+    public GridObject(int id, String option, Color color, BufferedImage image) {
         this.id = id;
         this.option = option;
         this.color = color;
@@ -66,4 +73,5 @@ abstract public class GridObject {
     public boolean isEntity() {
         return this instanceof Police || this instanceof Criminal;
     }
+
 }

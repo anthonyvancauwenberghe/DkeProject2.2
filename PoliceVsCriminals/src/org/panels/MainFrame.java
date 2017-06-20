@@ -1,7 +1,7 @@
 package org.panels;
 
-import org.editor.panels.EditorPanel;
 import org.Game;
+import org.editor.panels.EditorPanel;
 import org.panels.keylistener.PauseMenuListener;
 import org.panels.menu.MainMenu;
 import org.panels.menu.PauseMenu;
@@ -31,7 +31,7 @@ public class MainFrame extends JFrame {
         this.game = game;
         startBackgroundPanel();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setResizable(true);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -104,7 +104,7 @@ public class MainFrame extends JFrame {
     public void startGame() {
         gridPanel = new GridPanel(game.getGrid());
         gridPanel.setVisible(true);
-        bgp.add(gridPanel);
+        bgp.add(gridPanel, BorderLayout.CENTER);
         bgp.addKeyListener(pauseMenuListener = new PauseMenuListener(game));
     }
 

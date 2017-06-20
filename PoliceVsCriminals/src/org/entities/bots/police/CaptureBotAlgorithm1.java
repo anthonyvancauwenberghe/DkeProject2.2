@@ -1,4 +1,4 @@
-package org.entities.bots.capture;
+package org.entities.bots.police;
 
 /**
  * Created by Tony on 17/06/2017.

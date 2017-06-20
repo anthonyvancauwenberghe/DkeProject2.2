@@ -1,6 +1,9 @@
 package org.panels;
 
 import org.map.Grid;
+import org.map.objects.Criminal;
+import org.map.objects.Police;
+import org.map.objects.Wall;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,11 +35,32 @@ public class GridPanel extends JPanel {
             for (int y = 0; y < grid.getGridArray()[x].length; y++) {
                 int cellX = RECTANGLE_SIZE + (x * RECTANGLE_SIZE);
                 int cellY = RECTANGLE_SIZE + (y * RECTANGLE_SIZE);
-                g.setColor(grid.getGridArray()[x][y].getColor());
+
+
+                g.setColor(Color.lightGray);
                 g.fillRect(cellX, cellY, RECTANGLE_SIZE, RECTANGLE_SIZE);
                 g.setColor(Color.black);
                 g.drawRect(cellX, cellY, RECTANGLE_SIZE, RECTANGLE_SIZE);
+
+                g.setColor(grid.getGridArray()[x][y].getColor());
+
+                if (grid.getGridArray()[x][y].isPursuiter())
+                    g.drawImage(Police.getImage(), cellX + 3, cellY + 3, RECTANGLE_SIZE - 6, RECTANGLE_SIZE - 6, null);
+                else if (grid.getGridArray()[x][y].isEvader()) {
+                    g.drawImage(Criminal.getImage(), cellX + 3, cellY + 3, RECTANGLE_SIZE - 6, RECTANGLE_SIZE - 6, null);
+                } else if (grid.getGridArray()[x][y].isWall()) {
+                    g.drawImage(Wall.getImage(), cellX, cellY, RECTANGLE_SIZE, RECTANGLE_SIZE, null);
+                }
+
+                if (grid.getGridArray()[x][y].isFloor()) {
+                    g.setColor(grid.getGridArray()[x][y].getColor());
+                    g.fillRect(cellX, cellY, RECTANGLE_SIZE, RECTANGLE_SIZE);
+                }
+
+                g.setColor(Color.black);
+                g.drawRect(cellX, cellY, RECTANGLE_SIZE, RECTANGLE_SIZE);
             }
+
         }
     }
 
@@ -48,4 +72,5 @@ public class GridPanel extends JPanel {
         this.grid = grid;
         repaint();
     }
+
 }
