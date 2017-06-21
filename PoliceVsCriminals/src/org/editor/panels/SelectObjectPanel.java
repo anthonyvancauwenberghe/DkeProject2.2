@@ -1,13 +1,12 @@
 package org.editor.panels;
 
 import org.map.GridObject;
-import org.map.objects.Criminal;
-import org.map.objects.Floor;
-import org.map.objects.Police;
-import org.map.objects.Wall;
+import org.map.objects.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -21,8 +20,10 @@ public class SelectObjectPanel extends JPanel {
     public ArrayList<JRadioButton> buttons;
     private GridObject selectedObject = new Wall();
     private Icon selectedIcon;
+    private SettingsPanel settingsPanel;
 
-    public SelectObjectPanel() {
+    public SelectObjectPanel(SettingsPanel settingsPanel) {
+        this.settingsPanel = settingsPanel;
         setLayout(new BorderLayout());
         createControlPanel();
     }
@@ -85,7 +86,16 @@ public class SelectObjectPanel extends JPanel {
             button.setBackground(Color.white);
             button.setForeground(Color.darkGray);
             button.setFont(new Font("Century Gothic", Font.BOLD, FONTSIZE));
-            button.addActionListener(e -> selectedObject = object);
+            button.addActionListener(e -> {
+                selectedObject = object;
+                if (object instanceof Police) {
+                    settingsPanel.showCapturers();
+                } else if (object instanceof Criminal) {
+                    settingsPanel.showEvaders();
+                } else {
+                    settingsPanel.showNothing();
+                }
+            });
             button.setFocusable(false);
             buttons.add(button);
         }

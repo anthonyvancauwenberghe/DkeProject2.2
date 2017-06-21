@@ -1,6 +1,7 @@
 package org.editor.panels;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 /**
@@ -14,7 +15,7 @@ public class LoadSavePanel extends JPanel {
     public LoadSavePanel() {
         this.initLoadButton();
         this.initSaveButton();
-
+        setBorder(new LineBorder(Color.BLACK));
         this.add(getLoadButton());
         this.add(getSaveButton());
     }
@@ -37,7 +38,6 @@ public class LoadSavePanel extends JPanel {
         this.saveButton.setSize(new Dimension(20, 20));
         this.saveButton.setFocusable(false);
     }
-
 
 
     public JButton getSaveButton() {
