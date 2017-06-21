@@ -1,9 +1,10 @@
 package org.map;
 
-import org.map.objects.Criminal;
-import org.map.objects.Floor;
-import org.map.objects.Police;
-import org.map.objects.Wall;
+import org.entities.Entity;
+import org.entities.bots.criminal.EvadeBotAlgorithm1;
+import org.entities.bots.police.CaptureBotAlgorithm1;
+import org.entities.players.Player;
+import org.map.objects.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -29,13 +30,34 @@ abstract public class GridObject {
         this.color = color;
     }
 
+    /**
+     * Loads GridObject with it's corresponding Entity from a string.
+     * @param option
+     * @return
+     */
     public static GridObject getObjectFromString(String option) {
         if (option == null) {
             return null;
         }
+        /*
+        Make vars just for checking the names
+         */
         GridObject[] objects = new GridObject[]{new Criminal(), new Wall(), new Police(), new Floor()};
+        Entity[] entities = new Entity[]{new EvadeBotAlgorithm1(), new CaptureBotAlgorithm1(), new Player()};
+
         for (GridObject obj : objects) {
-            if (obj.toString().equals(option)) {
+            if (option.toUpperCase().contains(obj.toString())) {
+                if (obj instanceof Controllable && option.contains(",")) {
+                    String eString = option.substring(option.indexOf(",") + 1);
+                    if (eString.length() > 0) {
+                        for (Entity e : entities) {
+                            if (eString.toUpperCase().equals(e.toString())) {
+                                ((Controllable) obj).setEntity(e);
+                                break;
+                            }
+                        }
+                    }
+                }
                 return obj;
             }
         }
@@ -46,8 +68,14 @@ abstract public class GridObject {
         return id;
     }
 
+    @Override
     public String toString() {
-        return option;
+        StringBuilder str = new StringBuilder(option);
+        if (this instanceof Controllable) {
+            str.append(",");
+            str.append(((Controllable) this).getEntity().toString());
+        }
+        return str.toString().toUpperCase();
     }
 
     public Color getColor() {

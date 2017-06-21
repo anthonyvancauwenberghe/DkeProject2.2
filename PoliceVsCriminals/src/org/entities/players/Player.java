@@ -10,6 +10,10 @@ import java.awt.event.KeyListener;
  */
 public class Player extends Entity implements KeyListener {
 
+    public Player() {
+        super("PLAYER");
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 

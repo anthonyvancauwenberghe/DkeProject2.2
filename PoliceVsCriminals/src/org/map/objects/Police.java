@@ -1,5 +1,6 @@
 package org.map.objects;
 
+import org.entities.Entity;
 import org.map.GridObject;
 
 import javax.imageio.ImageIO;
@@ -10,9 +11,10 @@ import java.io.File;
 /**
  * Created by Tony on 17/06/2017.
  */
-public class Police extends GridObject {
+public class Police extends GridObject implements Controllable {
 
     private static BufferedImage image;
+    private Entity entity;
 
     public Police() {
         super(3, "POLICE", Color.blue);
@@ -33,4 +35,13 @@ public class Police extends GridObject {
     }
 
 
+    @Override
+    public Entity getEntity() {
+        return null;
+    }
+
+    @Override
+    public void setEntity(Entity entity) {
+        this.entity = entity;
+    }
 }

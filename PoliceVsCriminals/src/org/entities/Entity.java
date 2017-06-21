@@ -7,13 +7,15 @@ import java.awt.*;
  */
 public abstract class Entity {
 
+    private String name;
+
     /*
     Point on the grid that the entity is currently on
      */
     private Point location;
 
-    public Entity() {
-
+    public Entity(String name) {
+        this.name = name;
     }
 
     public Point getLocation() {
@@ -22,5 +24,10 @@ public abstract class Entity {
 
     public void setLocation(Point location) {
         this.location = location;
+    }
+
+    @Override
+    public String toString() {
+        return this.name.toUpperCase();
     }
 }

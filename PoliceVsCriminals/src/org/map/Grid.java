@@ -32,6 +32,12 @@ public class Grid {
         this.initGrid();
     }
 
+    /**
+     * Loads a Grid -> GridObject[][] from a Properties variable
+     * GridObject#getObjectFromString(String option) also checks for the Entity if GridObject is Controllable
+     * @param p
+     * @return
+     */
     public static Grid loadGrid(Properties p) {
         if (p == null) {
             return null;
