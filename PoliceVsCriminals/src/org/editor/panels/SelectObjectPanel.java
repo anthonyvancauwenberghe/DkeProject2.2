@@ -80,7 +80,7 @@ public class SelectObjectPanel extends JPanel {
         objects.add(new Police());
         objects.add(new Criminal());
         for (GridObject object : objects) {
-            JRadioButton button = new JRadioButton(object.toString(), getEmptyIcon());
+            JRadioButton button = new JRadioButton(object.getOption(), getEmptyIcon());
             button.setSelectedIcon(getSelectedIcon(object));
             button.setBackground(Color.white);
             button.setForeground(Color.darkGray);

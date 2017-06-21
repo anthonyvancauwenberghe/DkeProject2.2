@@ -68,6 +68,10 @@ abstract public class GridObject {
         return id;
     }
 
+    public String getOption(){
+        return option;
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder(option);
