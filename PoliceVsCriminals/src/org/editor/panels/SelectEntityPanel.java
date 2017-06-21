@@ -16,78 +16,66 @@ import java.awt.event.ActionListener;
  */
 public class SelectEntityPanel extends JPanel {
 
-    private JPanel criminalEntitiesPanel;
-    private JPanel policeEntitiesPanel;
-
-    private Entity selectedEntity;
+    private JComboBox<Entity> crimiComboBox;
+    private JComboBox<Entity> policeComboBox;
 
     public SelectEntityPanel() {
 
         setCriminalEntitiesPanel();
         setPoliceEntitiesPanel();
-        add(criminalEntitiesPanel);
-        add(policeEntitiesPanel);
+        add(crimiComboBox);
+        add(policeComboBox);
         showNothing();
         setBorder(new LineBorder(Color.BLACK));
         setVisible(true);
     }
 
     private void setCriminalEntitiesPanel() {
-        criminalEntitiesPanel = new JPanel();
         Entity[] evaders = new Entity[]{new EvadeBotAlgorithm1(), new Player()};
-        JComboBox<Entity> entityComboBox = new JComboBox<>(evaders);
-        entityComboBox.setBackground(Color.lightGray);
-        entityComboBox.setForeground(Color.darkGray);
-        entityComboBox.setFont(new Font("Century Gothic", Font.BOLD, 30));
-        entityComboBox.setFocusable(false);
-        entityComboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectedEntity = (Entity)entityComboBox.getSelectedItem();
-            }
-        });
-        criminalEntitiesPanel.add(entityComboBox);
+        crimiComboBox = new JComboBox<>(evaders);
+        crimiComboBox.setBackground(Color.lightGray);
+        crimiComboBox.setForeground(Color.darkGray);
+        crimiComboBox.setFont(new Font("Century Gothic", Font.BOLD, 30));
+        crimiComboBox.setFocusable(false);
+
 
     }
 
     private void setPoliceEntitiesPanel() {
-        policeEntitiesPanel = new JPanel();
         Entity[] captures = new Entity[]{new CaptureBotAlgorithm1(), new Player()};
-        JComboBox<Entity> entityComboBox = new JComboBox<>(captures);
-        entityComboBox.setBackground(Color.lightGray);
-        entityComboBox.setForeground(Color.darkGray);
-        entityComboBox.setFont(new Font("Century Gothic", Font.BOLD, 30));
-        entityComboBox.setFocusable(false);
-        entityComboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectedEntity = (Entity)entityComboBox.getSelectedItem();
-            }
-        });
-        policeEntitiesPanel.add(entityComboBox);
+        policeComboBox = new JComboBox<>(captures);
+        policeComboBox.setBackground(Color.lightGray);
+        policeComboBox.setForeground(Color.darkGray);
+        policeComboBox.setFont(new Font("Century Gothic", Font.BOLD, 30));
+        policeComboBox.setFocusable(false);
+
     }
 
     public void showNothing() {
-        selectedEntity = null;
-        criminalEntitiesPanel.setVisible(false);
-        policeEntitiesPanel.setVisible(false);
+        policeComboBox.setVisible(false);
+        crimiComboBox.setVisible(false);
     }
 
     public void showCapturers() {
-        selectedEntity = null;
-        criminalEntitiesPanel.setVisible(false);
-        policeEntitiesPanel.setVisible(true);
+        policeComboBox.setSelectedItem(0);
+        crimiComboBox.setVisible(false);
+        policeComboBox.setVisible(true);
     }
 
     public void showEvaders() {
-        selectedEntity = null;
-        criminalEntitiesPanel.setVisible(true);
-        policeEntitiesPanel.setVisible(false);
+        crimiComboBox.setSelectedIndex(0);
+        crimiComboBox.setVisible(true);
+        policeComboBox.setVisible(false);
     }
 
 
     public Entity getSelectedEntity() {
-        return selectedEntity;
+        if (crimiComboBox.isVisible()) {
+            return (Entity) crimiComboBox.getSelectedItem();
+        } else if (policeComboBox.isVisible()) {
+            return (Entity) policeComboBox.getSelectedItem();
+        }
+        return null;
     }
 
 }

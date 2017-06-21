@@ -1,5 +1,7 @@
 package org.editor.panels;
 
+import org.entities.Entity;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -17,7 +19,7 @@ public class SettingsPanel extends JPanel {
         setLayout(new BorderLayout());
         this.add(selectObjectPanel = new SelectObjectPanel(this), BorderLayout.NORTH);
         JPanel options = new JPanel();
-        options.setLayout(new GridLayout(2,0));
+        options.setLayout(new GridLayout(2, 0));
         options.add(loadSavePanel = new LoadSavePanel());
         options.add(selectEntityPanel = new SelectEntityPanel());
         this.add(options, BorderLayout.WEST);
@@ -40,6 +42,13 @@ public class SettingsPanel extends JPanel {
         if (selectEntityPanel != null) {
             selectEntityPanel.showCapturers();
         }
+    }
+
+    public Entity getSelectedEntity() {
+        if (selectEntityPanel != null) {
+            return selectEntityPanel.getSelectedEntity();
+        }
+        return null;
     }
 
 

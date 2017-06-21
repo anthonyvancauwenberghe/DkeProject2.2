@@ -1,5 +1,6 @@
 package org.editor.panels;
 
+import org.entities.Entity;
 import org.map.GridObject;
 import org.map.objects.*;
 
@@ -114,6 +115,11 @@ public class SelectObjectPanel extends JPanel {
     }
 
     public GridObject getSelectedOption() {
-        return selectedObject;
+        GridObject object = this.selectedObject;
+        if (object instanceof Controllable) {
+            Entity selectedEntity = settingsPanel.getSelectedEntity();
+            ((Controllable) object).setEntity(selectedEntity);
+        }
+        return object;
     }
 }

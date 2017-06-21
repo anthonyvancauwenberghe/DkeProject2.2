@@ -32,6 +32,7 @@ abstract public class GridObject {
 
     /**
      * Loads GridObject with it's corresponding Entity from a string.
+     *
      * @param option
      * @return
      */
@@ -68,7 +69,7 @@ abstract public class GridObject {
         return id;
     }
 
-    public String getOption(){
+    public String getOption() {
         return option;
     }
 
@@ -76,8 +77,14 @@ abstract public class GridObject {
     public String toString() {
         StringBuilder str = new StringBuilder(option);
         if (this instanceof Controllable) {
-            str.append(",");
-            str.append(((Controllable) this).getEntity().toString());
+            Entity e = ((Controllable) this).getEntity();
+            if (e != null) {
+                System.out.println("Entity of: " + option + " = " + e.toString());
+                str.append(",");
+                str.append(e.toString());
+            } else {
+                System.out.println("Entity of: " + option + " = null");
+            }
         }
         return str.toString().toUpperCase();
     }

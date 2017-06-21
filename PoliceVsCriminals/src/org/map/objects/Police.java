@@ -15,7 +15,6 @@ public class Police extends GridObject implements Controllable {
 
     private static BufferedImage image;
     private Entity entity;
-
     public Police() {
         super(3, "POLICE", Color.blue);
     }
@@ -37,7 +36,7 @@ public class Police extends GridObject implements Controllable {
 
     @Override
     public Entity getEntity() {
-        return null;
+        return entity;
     }
 
     @Override
