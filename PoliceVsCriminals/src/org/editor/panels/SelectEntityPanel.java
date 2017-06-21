@@ -8,8 +8,6 @@ import org.entities.players.Player;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Created by Krulvis on 21-Jun-17.
@@ -28,6 +26,7 @@ public class SelectEntityPanel extends JPanel {
         showNothing();
         setBorder(new LineBorder(Color.BLACK));
         setVisible(true);
+        setFocusable(false);
     }
 
     private void setCriminalEntitiesPanel() {
