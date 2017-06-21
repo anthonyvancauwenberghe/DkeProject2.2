@@ -1,6 +1,7 @@
 package org.editor.panels;
 
 import org.map.GridObject;
+import org.map.objects.Floor;
 import org.map.objects.Wall;
 import org.panels.GridPanel;
 
@@ -52,7 +53,7 @@ public class GridEditorPanel extends GridPanel implements MouseListener, MouseMo
         int y = Math.round(e.getY() / RECTANGLE_SIZE) - 1;
 
         if ((x != -1 && y != -1)) { //TODO ERROR CHECKING ON THE SIDES
-            GridObject selectedObject = selectObjectPanel != null ? selectObjectPanel.getSelectedOption() : new Wall();
+            GridObject selectedObject = selectObjectPanel != null && e.getButton() == MouseEvent.BUTTON1 ? selectObjectPanel.getSelectedOption() : new Floor();
             if (getGrid().getWidth() > x && getGrid().getHeight() > y) {
                 getGrid().getGridArray()[x][y] = selectedObject;
                 this.repaint();
