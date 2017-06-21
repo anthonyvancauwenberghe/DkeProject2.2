@@ -109,8 +109,8 @@ abstract public class GridObject {
         return this instanceof Police;
     }
 
-    public boolean isEntity() {
-        return this instanceof Police || this instanceof Criminal;
+    public boolean hasEntity() {
+        return this instanceof Controllable;
     }
 
 }

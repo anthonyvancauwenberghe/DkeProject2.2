@@ -78,7 +78,7 @@ public class GridEditorPanel extends GridPanel implements MouseListener, MouseMo
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (!selectObjectPanel.getSelectedOption().isEntity()) {
+        if (!selectObjectPanel.getSelectedOption().hasEntity()) {
             int x = Math.round(e.getX() / RECTANGLE_SIZE) - 1;
             int y = Math.round(e.getY() / RECTANGLE_SIZE) - 1;
 
