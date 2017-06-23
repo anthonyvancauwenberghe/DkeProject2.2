@@ -21,17 +21,16 @@ public class Game {
 
     public static final int FRAME_WIDTH = 1200;
     public static final int FRAME_HEIGHT = 900;
-    public boolean paused = true;
     private Grid grid;
-    private LinkedList<Criminal> criminal;
-    private LinkedList<Police> police;
+    private LinkedList<Criminal> criminals;
+    private LinkedList<Police> polices;
 
     private MainFrame mainFrame;
 
     public Game() {
         new Loader(this);
-        this.criminal = new LinkedList<>();
-        this.police = new LinkedList<>();
+        this.criminals = new LinkedList<>();
+        this.polices = new LinkedList<>();
     }
 
     public MainFrame getMainFrame() {
@@ -43,9 +42,9 @@ public class Game {
     }
 
     public void initGame() {
-        for (int i = 0; i < getGrid().getGridArray().length; i++) {
-            for (int j = 0; j < getGrid().getGridArray()[i].length; j++) {
-                GridObject obj = getGrid().getGridArray()[i][j];
+        for (int i = 0; i < grid.getGridArray().length; i++) {
+            for (int j = 0; j < grid.getGridArray()[i].length; j++) {
+                GridObject obj = grid.getGridArray()[i][j];
 
                 if (obj.isCriminal()) {
                     addCriminal((Criminal) obj);
@@ -71,20 +70,20 @@ public class Game {
         this.grid = grid;
     }
 
-    public LinkedList<Police> getPolice() {
-        return police;
+    public LinkedList<Police> getPolices() {
+        return polices;
     }
 
     public void addPolice(Police pursuiter) {
-        police.add(pursuiter);
+        polices.add(pursuiter);
     }
 
-    public LinkedList<Criminal> getCriminal() {
-        return criminal;
+    public LinkedList<Criminal> getCriminals() {
+        return criminals;
     }
 
     public void addCriminal(Criminal entity) {
-        criminal.add(entity);
+        criminals.add(entity);
     }
 
     public boolean isPaused() {
@@ -98,19 +97,19 @@ public class Game {
     }
 
     public void gameLoop() throws InterruptedException {
-        while (true) {
+        while (!isGameFinished()) {
 
             Thread.sleep(1000);
-            if (!paused) {
+            if (!isPaused()) {
 
-                for (Police police : getPolice()) {
+                for (Police police : getPolices()) {
                     Bot bot = (Bot) police.getEntity();
                     bot.move(getGrid());
                     mainFrame.getGamePanel().repaint();
                     Thread.sleep(2000);
                 }
 
-                for (Criminal criminal : getCriminal()) {
+                for (Criminal criminal : getCriminals()) {
                     Bot bot = (Bot) criminal.getEntity();
                     bot.move(getGrid());
                     mainFrame.getGamePanel().repaint();
@@ -118,6 +117,15 @@ public class Game {
                 }
             }
         }
+    }
+
+    public boolean isGameFinished() {
+        for (Criminal criminal : criminals) {
+            if (!criminal.isCaught()) {
+                return false;
+            }
+        }
+        return true;
     }
 
 

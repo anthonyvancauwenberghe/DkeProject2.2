@@ -12,8 +12,18 @@ import java.io.File;
  */
 public class Criminal extends EntityObject {
 
+    private boolean isCaught = false;
+
     public Criminal() {
         super(2, "CRIMINAL", Color.yellow, "images/criminal.png");
+    }
+
+    public boolean isCaught() {
+        return isCaught;
+    }
+
+    public void setCaught() {
+        isCaught = true;
     }
 
 }

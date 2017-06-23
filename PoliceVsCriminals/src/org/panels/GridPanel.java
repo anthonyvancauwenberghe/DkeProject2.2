@@ -12,6 +12,9 @@ import java.awt.image.BufferedImage;
  */
 public class GridPanel extends JPanel {
     private final int RECTANGLE_SIZE = 30;
+    /**
+     * Reset this Grid only for redrawing, don't edit it directly
+     */
     private Grid grid;
 
     public GridPanel() {
