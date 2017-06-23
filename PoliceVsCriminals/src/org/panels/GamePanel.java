@@ -25,6 +25,7 @@ public class GamePanel extends JPanel {
         add(gridPanel, BorderLayout.CENTER);
         add(optionsPanel = new OptionsPanel(game), BorderLayout.EAST);
 
+        game.initGame();
         /*
         Add action listener to pause menu, for presentation's sake
          */
