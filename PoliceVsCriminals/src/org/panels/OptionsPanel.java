@@ -3,6 +3,7 @@ package org.panels;
 import org.Game;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
@@ -13,6 +14,7 @@ public class OptionsPanel extends JPanel {
 
     private Game game;
     private JButton pauseButton;
+    private JButton startButton;
 
     public OptionsPanel(Game game) {
         this.game = game;
@@ -31,6 +33,8 @@ public class OptionsPanel extends JPanel {
     public JPanel createButtonPanel() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setOpaque(false);
+        //buttonPanel.setLayout(new BorderLayout());
+        buttonPanel.add(startButton = createButton("START"));
         buttonPanel.add(pauseButton = createButton("PAUSE"));
         return buttonPanel;
     }
@@ -53,5 +57,9 @@ public class OptionsPanel extends JPanel {
 
     public JButton getPauseButton() {
         return pauseButton;
+    }
+
+    public JButton getStartButton() {
+        return startButton;
     }
 }

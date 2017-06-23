@@ -34,6 +34,18 @@ public class GamePanel extends JPanel {
                 isPaused = !isPaused;
             }
         });
+
+        optionsPanel.getStartButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    game.startGameLoop();
+                } catch (InterruptedException a) {
+                    System.out.println("GAME INTERUPTED!");
+                    a.printStackTrace();
+                }
+            }
+        });
     }
 
     public boolean isPaused() {

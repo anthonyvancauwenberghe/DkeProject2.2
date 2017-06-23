@@ -56,7 +56,7 @@ public class Game {
             }
         }
         try {
-            this.gameLoop();
+            this.startGameLoop();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -96,7 +96,7 @@ public class Game {
         return false;
     }
 
-    public void gameLoop() throws InterruptedException {
+    public void startGameLoop() throws InterruptedException {
         while (!isGameFinished()) {
 
             Thread.sleep(1000);
