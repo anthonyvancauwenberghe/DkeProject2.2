@@ -52,12 +52,12 @@ abstract public class GridObject {
 
         for (GridObject obj : objects) {
             if (option.toUpperCase().contains(obj.toString())) {
-                if (obj instanceof Controllable && option.contains(",")) {
+                if (obj instanceof EntityObject && option.contains(",")) {
                     String eString = option.substring(option.indexOf(",") + 1);
                     if (eString.length() > 0) {
                         for (Entity e : entities) {
                             if (eString.toUpperCase().equals(e.toString())) {
-                                ((Controllable) obj).setEntity(e);
+                                ((EntityObject) obj).setEntity(e);
                                 break;
                             }
                         }
@@ -114,7 +114,7 @@ abstract public class GridObject {
     }
 
     public boolean hasEntity() {
-        return this instanceof Controllable;
+        return this instanceof EntityObject;
     }
 
     public BufferedImage getImage() {
