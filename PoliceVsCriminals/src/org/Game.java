@@ -5,6 +5,7 @@ import org.map.Grid;
 import org.map.GridObject;
 import org.map.objects.Criminal;
 import org.map.objects.Police;
+import org.panels.GamePanel;
 import org.panels.Loader;
 import org.panels.MainFrame;
 import org.panels.menu.PauseMenu;
@@ -89,7 +90,9 @@ public class Game {
     public boolean isPaused() {
         if (getMainFrame() != null) {
             PauseMenu pauseMenu = getMainFrame().getPauseMenu();
-            return pauseMenu != null && pauseMenu.isVisible();
+            GamePanel gamePanel = getMainFrame().getGamePanel();
+
+            return (pauseMenu != null && pauseMenu.isVisible()) || (gamePanel != null && gamePanel.isPaused());
         }
         return false;
     }
