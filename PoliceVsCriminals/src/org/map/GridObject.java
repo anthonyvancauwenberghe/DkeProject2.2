@@ -79,18 +79,15 @@ abstract public class GridObject {
 
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder(option);
+        StringBuilder sb = new StringBuilder(option);
         if (this instanceof EntityObject) {
             Entity e = ((EntityObject) this).getEntity();
             if (e != null) {
-                System.out.println("Entity of: " + option + " = " + e.toString());
-                str.append(",");
-                str.append(e.toString());
-            } else {
-                System.out.println("Entity of: " + option + " = null");
+                sb.append(",");
+                sb.append(e.toString());
             }
         }
-        return str.toString().toUpperCase();
+        return sb.toString().toUpperCase();
     }
 
     public Color getColor() {

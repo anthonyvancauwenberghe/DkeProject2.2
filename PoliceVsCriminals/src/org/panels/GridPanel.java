@@ -1,11 +1,7 @@
 package org.panels;
 
-import org.map.EntityObject;
 import org.map.Grid;
 import org.map.GridObject;
-import org.map.objects.Criminal;
-import org.map.objects.Police;
-import org.map.objects.Wall;
 
 import javax.swing.*;
 import java.awt.*;
