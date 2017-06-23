@@ -1,12 +1,15 @@
 package org.panels;
 
+import org.map.EntityObject;
 import org.map.Grid;
+import org.map.GridObject;
 import org.map.objects.Criminal;
 import org.map.objects.Police;
 import org.map.objects.Wall;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Created by Krulvis on 20-Jun-17.
@@ -20,7 +23,6 @@ public class GridPanel extends JPanel {
     }
 
     public GridPanel(Grid grid) {
-        setOpaque(false);
         setGrid(grid);
     }
 
@@ -36,24 +38,18 @@ public class GridPanel extends JPanel {
                 int cellX = RECTANGLE_SIZE + (x * RECTANGLE_SIZE);
                 int cellY = RECTANGLE_SIZE + (y * RECTANGLE_SIZE);
 
+                GridObject go = grid.getGridArray()[x][y];
 
                 g.setColor(Color.lightGray);
                 g.fillRect(cellX, cellY, RECTANGLE_SIZE, RECTANGLE_SIZE);
                 g.setColor(Color.black);
                 g.drawRect(cellX, cellY, RECTANGLE_SIZE, RECTANGLE_SIZE);
 
-                g.setColor(grid.getGridArray()[x][y].getColor());
-
-                if (grid.getGridArray()[x][y].isPolice())
-                    g.drawImage(Police.getImage(), cellX + 3, cellY + 3, RECTANGLE_SIZE - 6, RECTANGLE_SIZE - 6, null);
-                else if (grid.getGridArray()[x][y].isCriminal()) {
-                    g.drawImage(Criminal.getImage(), cellX + 3, cellY + 3, RECTANGLE_SIZE - 6, RECTANGLE_SIZE - 6, null);
-                } else if (grid.getGridArray()[x][y].isWall()) {
-                    g.drawImage(Wall.getImage(), cellX, cellY, RECTANGLE_SIZE, RECTANGLE_SIZE, null);
-                }
-
-                if (grid.getGridArray()[x][y].isFloor()) {
-                    g.setColor(grid.getGridArray()[x][y].getColor());
+                BufferedImage image = go.getImage();
+                if (image != null) {
+                    g.drawImage(image, cellX + 3, cellY + 3, RECTANGLE_SIZE - 6, RECTANGLE_SIZE - 6, null);
+                } else {
+                    g.setColor(go.getColor());
                     g.fillRect(cellX, cellY, RECTANGLE_SIZE, RECTANGLE_SIZE);
                 }
 

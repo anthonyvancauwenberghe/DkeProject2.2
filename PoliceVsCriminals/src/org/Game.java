@@ -103,14 +103,14 @@ public class Game {
                 for (Police police : getPolice()) {
                     Bot bot = (Bot) police.getEntity();
                     bot.move(getGrid());
-                    mainFrame.getGridPanel().repaint();
+                    mainFrame.getGamePanel().repaint();
                     Thread.sleep(2000);
                 }
 
                 for (Criminal criminal : getCriminal()) {
                     Bot bot = (Bot) criminal.getEntity();
                     bot.move(getGrid());
-                    mainFrame.getGridPanel().repaint();
+                    mainFrame.getGamePanel().repaint();
                     Thread.sleep(2000);
                 }
             }

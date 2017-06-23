@@ -12,24 +12,8 @@ import java.io.File;
  */
 public class Wall extends GridObject {
 
-    private static BufferedImage image;
-
     public Wall() {
-        super(1, "WALL", Color.black);
-    }
-
-    public static BufferedImage getImage() {
-        if (Wall.image == null) {
-            BufferedImage image = null;
-            try {
-                image = ImageIO.read(new File("images/wall.png"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Wall.image = image;
-        }
-
-        return Wall.image;
+        super(1, "WALL", Color.black, "images/wall.png");
     }
 
 }

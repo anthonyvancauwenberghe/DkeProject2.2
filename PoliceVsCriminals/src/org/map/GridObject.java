@@ -7,8 +7,10 @@ import org.entities.bots.police.CaptureBotAlgorithm1;
 import org.entities.players.Player;
 import org.map.objects.*;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 /**
  * Created by Tony on 17/06/2017.
@@ -18,17 +20,18 @@ abstract public class GridObject {
     private String option;
     private Color color;
     private int id;
+    private String imageLocation;
+    private BufferedImage image;
 
     public GridObject(int id, String option, Color color) {
-        this.id = id;
-        this.option = option;
-        this.color = color;
+        this(id, option, color, null);
     }
 
-    public GridObject(int id, String option, Color color, BufferedImage image) {
+    public GridObject(int id, String option, Color color, String imageLocation) {
         this.id = id;
         this.option = option;
         this.color = color;
+        this.imageLocation = imageLocation;
     }
 
     /**
@@ -77,8 +80,8 @@ abstract public class GridObject {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder(option);
-        if (this instanceof Controllable) {
-            Entity e = ((Controllable) this).getEntity();
+        if (this instanceof EntityObject) {
+            Entity e = ((EntityObject) this).getEntity();
             if (e != null) {
                 System.out.println("Entity of: " + option + " = " + e.toString());
                 str.append(",");
@@ -114,4 +117,16 @@ abstract public class GridObject {
         return this instanceof Controllable;
     }
 
+    public BufferedImage getImage() {
+        if (image == null && this.imageLocation != null) {
+            BufferedImage im = null;
+            try {
+                im = ImageIO.read(new File(this.imageLocation));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            image = im;
+        }
+        return image;
+    }
 }

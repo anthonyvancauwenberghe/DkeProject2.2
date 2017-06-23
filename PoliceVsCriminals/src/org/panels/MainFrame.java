@@ -21,7 +21,7 @@ public class MainFrame extends JFrame {
     private PauseMenu pauseMenu;
     private PauseMenuListener pauseMenuListener;
     private EditorPanel editorPanel;
-    private GridPanel gridPanel;
+    private GamePanel gamePanel;
     private Game game;
 
     /**
@@ -55,9 +55,9 @@ public class MainFrame extends JFrame {
             editorPanel.setVisible(false);
             bgp.remove(editorPanel);
         }
-        if (gridPanel != null) {
-            gridPanel.setVisible(false);
-            bgp.remove(gridPanel);
+        if (gamePanel != null) {
+            gamePanel.setVisible(false);
+            bgp.remove(gamePanel);
         }
         if (startMenu != null) {
             startMenu.setVisible(false);
@@ -78,9 +78,9 @@ public class MainFrame extends JFrame {
     public void startStartMenu() {
         if (startMenu == null) {
             startMenu = new StartMenu(game);
-            bgp.add(startMenu);
         }
         startMenu.setVisible(true);
+        bgp.add(startMenu);
         pack();
     }
 
@@ -102,9 +102,9 @@ public class MainFrame extends JFrame {
      * Starts a GridPanel with the Game.grid loading
      */
     public void startGame() {
-        gridPanel = new GridPanel(game.getGrid());
-        gridPanel.setVisible(true);
-        bgp.add(gridPanel, BorderLayout.CENTER);
+        gamePanel = new GamePanel(game);
+        gamePanel.setVisible(true);
+        bgp.add(gamePanel, BorderLayout.CENTER);
         bgp.addKeyListener(pauseMenuListener = new PauseMenuListener(game));
     }
 
@@ -119,8 +119,8 @@ public class MainFrame extends JFrame {
         bgp.grabFocus();
     }
 
-    public GridPanel getGridPanel() {
-        return gridPanel;
+    public GamePanel getGamePanel() {
+        return gamePanel;
     }
 
     public PauseMenuListener getPauseMenuListener() {
@@ -128,7 +128,7 @@ public class MainFrame extends JFrame {
     }
 
     public boolean gridPanelVisible() {
-        return gridPanel != null && gridPanel.isVisible();
+        return gamePanel != null && gamePanel.isVisible();
     }
 
     public boolean editorPanelVisible() {

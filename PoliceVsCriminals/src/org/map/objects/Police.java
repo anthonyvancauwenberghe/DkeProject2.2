@@ -12,23 +12,8 @@ import java.io.File;
  */
 public class Police extends EntityObject {
 
-    private static BufferedImage image;
     public Police() {
-        super(3, "POLICE", Color.blue);
+        super(3, "POLICE", Color.blue, "images/police.png");
     }
 
-
-    public static BufferedImage getImage() {
-        if (Police.image == null) {
-            BufferedImage image = null;
-            try {
-                image = ImageIO.read(new File("images/police.png"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Police.image = image;
-        }
-
-        return Police.image;
-    }
 }
