@@ -3,6 +3,7 @@ package org.panels;
 import org.Game;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 /**
@@ -16,19 +17,41 @@ public class OptionsPanel extends JPanel {
     public OptionsPanel(Game game) {
         this.game = game;
         setOpaque(false);
-        setLayout(new GridLayout(5, 0));
-        pauseButton = createButton("PAUSE");
-        add(pauseButton);
+        setBorder(new LineBorder(Color.BLACK, 1));
+        setLayout(new GridLayout(2, 0));
+
+        add(createButtonPanel());
     }
 
+    /**
+     * JPanel used to display Buttons neat and without having their size messed up
+     *
+     * @return
+     */
+    public JPanel createButtonPanel() {
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setOpaque(false);
+        buttonPanel.add(pauseButton = createButton("PAUSE"));
+        return buttonPanel;
+    }
+
+    /**
+     * Method for creating Buttons with general layout in ButtonPanel
+     *
+     * @param text
+     * @return
+     */
     public JButton createButton(String text) {
         JButton button = new JButton(text);
-
         button.setBackground(Color.lightGray);
         button.setForeground(Color.darkGray);
         button.setBorderPainted(false);
         button.setFont(new Font("Century Gothic", Font.BOLD, 30));
         button.setFocusable(false);
         return button;
+    }
+
+    public JButton getPauseButton() {
+        return pauseButton;
     }
 }

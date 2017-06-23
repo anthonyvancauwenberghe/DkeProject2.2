@@ -15,15 +15,16 @@ public class GridPanel extends JPanel {
     private Grid grid;
 
     public GridPanel() {
-        initGrid(20, 20);
+        this(new Grid(20, 20));
     }
 
     public GridPanel(Grid grid) {
         setGrid(grid);
     }
 
-    public void initGrid(int width, int height) {
-        this.grid = new Grid(width, height);
+    public void setGrid(Grid grid) {
+        this.grid = grid;
+        repaint();
     }
 
     @Override
@@ -58,11 +59,6 @@ public class GridPanel extends JPanel {
 
     public Grid getGrid() {
         return grid;
-    }
-
-    public void setGrid(Grid grid) {
-        this.grid = grid;
-        repaint();
     }
 
 }
