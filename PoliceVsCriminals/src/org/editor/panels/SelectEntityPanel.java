@@ -1,6 +1,7 @@
 package org.editor.panels;
 
 import org.entities.Entity;
+import org.entities.bots.RandomBotAlgorithm;
 import org.entities.bots.criminal.EvadeBotAlgorithm1;
 import org.entities.bots.police.CaptureBotAlgorithm1;
 import org.entities.players.Player;
@@ -30,7 +31,7 @@ public class SelectEntityPanel extends JPanel {
     }
 
     private void setCriminalEntitiesPanel() {
-        Entity[] evaders = new Entity[]{new EvadeBotAlgorithm1(), new Player()};
+        Entity[] evaders = new Entity[]{new EvadeBotAlgorithm1(), new Player(), new RandomBotAlgorithm()};
         crimiComboBox = new JComboBox<>(evaders);
         crimiComboBox.setBackground(Color.lightGray);
         crimiComboBox.setForeground(Color.darkGray);
@@ -41,7 +42,7 @@ public class SelectEntityPanel extends JPanel {
     }
 
     private void setPoliceEntitiesPanel() {
-        Entity[] captures = new Entity[]{new CaptureBotAlgorithm1(), new Player()};
+        Entity[] captures = new Entity[]{new CaptureBotAlgorithm1(), new Player(), new RandomBotAlgorithm()};
         policeComboBox = new JComboBox<>(captures);
         policeComboBox.setBackground(Color.lightGray);
         policeComboBox.setForeground(Color.darkGray);

@@ -44,9 +44,9 @@ public class GridPanel extends JPanel {
 
                 g.setColor(grid.getGridArray()[x][y].getColor());
 
-                if (grid.getGridArray()[x][y].isPursuiter())
+                if (grid.getGridArray()[x][y].isPolice())
                     g.drawImage(Police.getImage(), cellX + 3, cellY + 3, RECTANGLE_SIZE - 6, RECTANGLE_SIZE - 6, null);
-                else if (grid.getGridArray()[x][y].isEvader()) {
+                else if (grid.getGridArray()[x][y].isCriminal()) {
                     g.drawImage(Criminal.getImage(), cellX + 3, cellY + 3, RECTANGLE_SIZE - 6, RECTANGLE_SIZE - 6, null);
                 } else if (grid.getGridArray()[x][y].isWall()) {
                     g.drawImage(Wall.getImage(), cellX, cellY, RECTANGLE_SIZE, RECTANGLE_SIZE, null);

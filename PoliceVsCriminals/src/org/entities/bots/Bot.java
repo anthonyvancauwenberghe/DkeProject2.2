@@ -1,11 +1,12 @@
 package org.entities.bots;
 
+import org.entities.Algorithm;
 import org.entities.Entity;
 
 /**
  * Created by Tony on 17/06/2017.
  */
-public class Bot extends Entity {
+abstract public class Bot extends Entity implements Algorithm {
 
     public Bot(String name) {
         super(name);

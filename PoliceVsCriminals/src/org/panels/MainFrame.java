@@ -119,6 +119,10 @@ public class MainFrame extends JFrame {
         bgp.grabFocus();
     }
 
+    public GridPanel getGridPanel() {
+        return gridPanel;
+    }
+
     public PauseMenuListener getPauseMenuListener() {
         return pauseMenuListener;
     }
