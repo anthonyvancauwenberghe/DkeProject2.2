@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by Krulvis on 23-Jun-17.
  */
-public class GamePanel extends JPanel {
+public class GameFrame extends JPanel {
 
     private Game game;
     private GridPanel gridPanel;
@@ -18,7 +18,7 @@ public class GamePanel extends JPanel {
     private boolean isPaused = false;
     private int counter = 0;
 
-    public GamePanel(Game game) {
+    public GameFrame(Game game) {
         this.game = game;
         setLayout(new BorderLayout());
         add(optionsPanel = new OptionsPanel(game), BorderLayout.EAST);

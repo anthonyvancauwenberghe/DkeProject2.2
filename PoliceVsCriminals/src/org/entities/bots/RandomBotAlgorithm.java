@@ -20,7 +20,8 @@ public class RandomBotAlgorithm extends Bot {
         if (listLength == 0)
             System.out.println("no moves available you are trapped");
         else {
-            int moveIndex = ThreadLocalRandom.current().nextInt(0, listLength + 1);
+            int moveIndex = ThreadLocalRandom.current().nextInt(0, listLength);
+            System.out.println("executing move x:" + this.getAvailableNextLocations(grid).get(moveIndex).x + " y: " + this.getAvailableNextLocations(grid).get(moveIndex).y);
             this.setLocation(this.getAvailableNextLocations(grid).get(moveIndex), grid);
         }
     }

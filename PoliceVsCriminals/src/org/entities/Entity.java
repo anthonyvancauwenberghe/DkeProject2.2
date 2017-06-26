@@ -61,7 +61,7 @@ public abstract class Entity {
     }
 
     public boolean isPossibleMove(Point point, Grid grid) {
-        if (point.x >= 0 && point.y >= 0 && point.x > grid.getGridArray().length && point.y > grid.getGridArray().length)
+        if (point.x >= 0 && point.y >= 0 && point.x < grid.getGridArray().length && point.y < grid.getGridArray().length)
             return grid.getGridArray()[point.x][point.y].isFloor();
         else
             return false;

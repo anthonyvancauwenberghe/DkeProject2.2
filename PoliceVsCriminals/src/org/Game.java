@@ -21,7 +21,7 @@ public class Game {
 
     public static final int FRAME_WIDTH = 1200;
     public static final int FRAME_HEIGHT = 900;
-    private Grid grid;
+    public Grid grid;
     private LinkedList<Criminal> criminals;
     private LinkedList<Police> polices;
 
@@ -101,18 +101,17 @@ public class Game {
 
             Thread.sleep(1000);
             if (!isPaused()) {
-
                 for (Police police : getPolices()) {
                     Bot bot = (Bot) police.getEntity();
                     bot.move(getGrid());
-                    mainFrame.getGamePanel().repaint();
+                    mainFrame.getGamePanel().getGridPanel().setGrid(grid);
                     Thread.sleep(2000);
                 }
 
                 for (Criminal criminal : getCriminals()) {
                     Bot bot = (Bot) criminal.getEntity();
                     bot.move(getGrid());
-                    mainFrame.getGamePanel().repaint();
+                    mainFrame.getGamePanel().getGridPanel().setGrid(grid);
                     Thread.sleep(2000);
                 }
             }

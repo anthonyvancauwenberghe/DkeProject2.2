@@ -102,10 +102,18 @@ public class MainFrame extends JFrame {
      * Starts a GridPanel with the Game.grid loading
      */
     public void startGame() {
+        System.out.println("starting game");
+        resetGamePanel();
+    }
+
+    public void resetGamePanel() {
+
         gamePanel = new GamePanel(game);
         gamePanel.setVisible(true);
         bgp.add(gamePanel, BorderLayout.CENTER);
         bgp.addKeyListener(pauseMenuListener = new PauseMenuListener(game));
+        repaint();
+
     }
 
     /**

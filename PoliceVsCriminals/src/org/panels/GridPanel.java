@@ -25,11 +25,6 @@ public class GridPanel extends JPanel {
         setGrid(grid);
     }
 
-    public void setGrid(Grid grid) {
-        this.grid = grid;
-        repaint();
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -55,6 +50,8 @@ public class GridPanel extends JPanel {
 
                 g.setColor(Color.black);
                 g.drawRect(cellX, cellY, RECTANGLE_SIZE, RECTANGLE_SIZE);
+                g.setFont(new Font("TimesRoman", Font.PLAIN, 9));
+                g.drawString("[" + x + "," + y + "]", cellX + 2, cellY + 18);
             }
 
         }
@@ -62,6 +59,11 @@ public class GridPanel extends JPanel {
 
     public Grid getGrid() {
         return grid;
+    }
+
+    public void setGrid(Grid grid) {
+        this.grid = grid;
+        repaint();
     }
 
 }
