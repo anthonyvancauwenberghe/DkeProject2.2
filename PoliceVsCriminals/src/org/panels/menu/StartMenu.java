@@ -44,6 +44,7 @@ public class StartMenu extends Menu {
                         Grid grid = Grid.loadGrid(p);
                         if (grid != null) {
                             game.setGrid(grid);
+                            game.initGame();
                             startGameButton.setEnabled(true);
                         }
                     } catch (IOException e1) {

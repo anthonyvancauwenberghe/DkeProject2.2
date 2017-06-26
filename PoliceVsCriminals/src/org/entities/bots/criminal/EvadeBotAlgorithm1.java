@@ -1,5 +1,6 @@
 package org.entities.bots.criminal;
 
+import org.Game;
 import org.entities.bots.Bot;
 import org.map.Grid;
 
@@ -13,7 +14,7 @@ public class EvadeBotAlgorithm1 extends Bot {
     }
 
     @Override
-    public void move(Grid grid) {
+    public void move() {
 
     }
 }

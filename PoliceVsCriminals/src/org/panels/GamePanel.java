@@ -16,7 +16,6 @@ public class GamePanel extends JPanel {
     private GridPanel gridPanel;
     private OptionsPanel optionsPanel;
     private boolean isPaused = false;
-    private int counter = 0;
 
     public GamePanel(Game game) {
         this.game = game;
@@ -35,19 +34,7 @@ public class GamePanel extends JPanel {
         optionsPanel.getStartButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (counter == 0) {
-                    game.initGame();
-                    counter++;
-                } else {
-                    try {
-                        game.startGameLoop();
-                    } catch (InterruptedException a) {
-                        System.out.println("GAME INTERUPTED!");
-                        a.printStackTrace();
-                    }
-                }
-
-
+                game.startGameLoop();
             }
         });
         this.addGridPanel();

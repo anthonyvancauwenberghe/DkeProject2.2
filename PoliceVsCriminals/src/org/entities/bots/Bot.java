@@ -1,5 +1,6 @@
 package org.entities.bots;
 
+import org.Game;
 import org.entities.Algorithm;
 import org.entities.Entity;
 
@@ -8,7 +9,12 @@ import org.entities.Entity;
  */
 abstract public class Bot extends Entity implements Algorithm {
 
+
     public Bot(String name) {
         super(name);
+    }
+
+    public Bot(String name, Game game) {
+        super(name, game);
     }
 }

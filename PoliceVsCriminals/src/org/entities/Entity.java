@@ -1,5 +1,6 @@
 package org.entities;
 
+import org.Game;
 import org.map.EntityObject;
 import org.map.Grid;
 import org.map.objects.Floor;
@@ -13,14 +14,19 @@ import java.util.ArrayList;
 public abstract class Entity {
 
     private String name;
-
+    private Game game;
     /*
     Point on the grid that the entity is currently on
      */
     private Point location;
 
     public Entity(String name) {
+        this(name, null);
+    }
+
+    public Entity(String name, Game game) {
         this.name = name;
+        this.game = game;
     }
 
     public Point getLocation() {
@@ -28,14 +34,18 @@ public abstract class Entity {
     }
 
     public void setLocation(Point location) {
+        Grid grid = getGrid();
+        if (grid != null && this.location != null) {
+            EntityObject entityObject = (EntityObject) grid.getGridArray()[this.location.x][this.location.y];
+            grid.getGridArray()[this.location.x][this.location.y] = new Floor();
+            grid.getGridArray()[location.x][location.y] = entityObject;
+            System.out.println("Setting: " + toString() + " from[" + this.location.x + "][" + this.location.y + "], to[" + location.x + "][" + location.y + "]");
+        }
         this.location = location;
     }
 
-    public void setLocation(Point location, Grid grid) {
-        EntityObject entityObject = (EntityObject) grid.getGridArray()[this.location.x][this.location.y];
-        grid.getGridArray()[this.location.x][this.location.y] = new Floor();
-        grid.getGridArray()[location.x][location.y] = entityObject;
-        this.location = location;
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     @Override
@@ -65,6 +75,10 @@ public abstract class Entity {
             return grid.getGridArray()[point.x][point.y].isFloor();
         else
             return false;
+    }
+
+    public Grid getGrid() {
+        return game != null && game.getGrid() != null ? game.getGrid() : null;
     }
 
 }

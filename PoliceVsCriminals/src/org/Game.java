@@ -45,20 +45,20 @@ public class Game {
         for (int i = 0; i < grid.getGridArray().length; i++) {
             for (int j = 0; j < grid.getGridArray()[i].length; j++) {
                 GridObject obj = grid.getGridArray()[i][j];
-
                 if (obj.isCriminal()) {
-                    addCriminal((Criminal) obj);
-                    ((Criminal) obj).getEntity().setLocation(new Point(i, j));
+                    Criminal crim = (Criminal) obj;
+                    crim.getEntity().setGame(this);
+                    crim.getEntity().setLocation(new Point(i, j));
+                    addCriminal(crim);
+                    System.out.println("Added: " + crim.toString() + ", At: " + crim.getEntity().getLocation());
                 } else if (obj.isPolice()) {
-                    addPolice((Police) obj);
-                    ((Police) obj).getEntity().setLocation(new Point(i, j));
+                    Police pol = (Police) obj;
+                    pol.getEntity().setGame(this);
+                    pol.getEntity().setLocation(new Point(i, j));
+                    addPolice(pol);
+                    System.out.println("Added: " + pol.toString() + ", At: " + pol.getEntity().getLocation());
                 }
             }
-        }
-        try {
-            this.startGameLoop();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
@@ -96,26 +96,34 @@ public class Game {
         return false;
     }
 
-    public void startGameLoop() throws InterruptedException {
-        while (!isGameFinished()) {
-
-            Thread.sleep(1000);
-            if (!isPaused()) {
-                for (Police police : getPolices()) {
-                    Bot bot = (Bot) police.getEntity();
-                    bot.move(getGrid());
-                    mainFrame.getGamePanel().getGridPanel().setGrid(grid);
-                    Thread.sleep(2000);
-                }
-
-                for (Criminal criminal : getCriminals()) {
-                    Bot bot = (Bot) criminal.getEntity();
-                    bot.move(getGrid());
-                    mainFrame.getGamePanel().getGridPanel().setGrid(grid);
-                    Thread.sleep(2000);
+    public void startGameLoop() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (!isGameFinished()) {
+                        Thread.sleep(1000);
+                        if (!isPaused()) {
+                            for (Police police : getPolices()) {
+                                Bot bot = (Bot) police.getEntity();
+                                bot.move();
+                                mainFrame.getGamePanel().getGridPanel().setGrid(grid);
+                                Thread.sleep(2000);
+                            }
+                            for (Criminal criminal : getCriminals()) {
+                                Bot bot = (Bot) criminal.getEntity();
+                                bot.move();
+                                mainFrame.getGamePanel().getGridPanel().setGrid(grid);
+                                Thread.sleep(2000);
+                            }
+                        }
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
-        }
+        }).start();
+
     }
 
     public boolean isGameFinished() {

@@ -1,5 +1,6 @@
 package org.entities.players;
 
+import org.Game;
 import org.entities.Entity;
 
 import java.awt.event.KeyEvent;

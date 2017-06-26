@@ -1,5 +1,6 @@
 package org.entities.bots;
 
+import org.Game;
 import org.map.Grid;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -14,15 +15,18 @@ public class RandomBotAlgorithm extends Bot {
     }
 
     @Override
-    public void move(Grid grid) {
-        int listLength = this.getAvailableNextLocations(grid).size();
+    public void move() {
+        Grid grid = getGrid();
+        if (grid != null) {
+            int listLength = this.getAvailableNextLocations(grid).size();
 
-        if (listLength == 0)
-            System.out.println("no moves available you are trapped");
-        else {
-            int moveIndex = ThreadLocalRandom.current().nextInt(0, listLength);
-            System.out.println("executing move x:" + this.getAvailableNextLocations(grid).get(moveIndex).x + " y: " + this.getAvailableNextLocations(grid).get(moveIndex).y);
-            this.setLocation(this.getAvailableNextLocations(grid).get(moveIndex), grid);
+            if (listLength == 0) {
+                System.out.println("no moves available you are trapped");
+            } else {
+                int moveIndex = ThreadLocalRandom.current().nextInt(0, listLength);
+                System.out.println("executing move x:" + this.getAvailableNextLocations(grid).get(moveIndex).x + " y: " + this.getAvailableNextLocations(grid).get(moveIndex).y);
+                this.setLocation(this.getAvailableNextLocations(grid).get(moveIndex));
+            }
         }
     }
 

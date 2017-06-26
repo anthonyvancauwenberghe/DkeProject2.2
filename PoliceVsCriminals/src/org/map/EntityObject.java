@@ -26,4 +26,5 @@ public abstract class EntityObject extends GridObject {
     public void setEntity(Entity entity) {
         this.entity = entity;
     }
+
 }
