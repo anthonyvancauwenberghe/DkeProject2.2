@@ -22,6 +22,7 @@ public class Game {
     public static final int FRAME_WIDTH = 1200;
     public static final int FRAME_HEIGHT = 900;
     public Grid grid;
+    public int criminalIndex;
     private LinkedList<Criminal> criminals;
     private LinkedList<Police> polices;
 
@@ -114,10 +115,12 @@ public class Game {
                                 Bot bot = (Bot) criminal.getEntity();
                                 bot.move();
                                 mainFrame.getGamePanel().getGridPanel().setGrid(grid);
+                                removeCaughtCriminals();
                                 Thread.sleep(200);
                             }
                         }
                     }
+                    System.out.println("Game FINISHED!");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -127,12 +130,17 @@ public class Game {
     }
 
     public boolean isGameFinished() {
-        for (Criminal criminal : criminals) {
-            if (!criminal.isCaught()) {
-                return false;
+        return getCriminals().isEmpty();
+    }
+
+    public void removeCaughtCriminals() {
+        int index = 0;
+        for (Criminal criminal : getCriminals()) {
+            if (criminal.isCaught()) {
+                getCriminals().remove(index);
             }
+            index++;
         }
-        return true;
     }
 
 

@@ -3,6 +3,7 @@ package org.entities;
 import org.Game;
 import org.map.EntityObject;
 import org.map.Grid;
+import org.map.objects.Criminal;
 import org.map.objects.Floor;
 
 import java.awt.*;
@@ -33,15 +34,28 @@ public abstract class Entity {
         return location;
     }
 
-    public void setLocation(Point location) {
+    public void setLocation(Point nextLocation) {
         Grid grid = getGrid();
         if (grid != null && this.location != null) {
             EntityObject entityObject = (EntityObject) grid.getGridArray()[this.location.x][this.location.y];
-            grid.getGridArray()[this.location.x][this.location.y] = new Floor();
-            grid.getGridArray()[location.x][location.y] = entityObject;
-            System.out.println("Setting: " + toString() + " from[" + this.location.x + "][" + this.location.y + "], to[" + location.x + "][" + location.y + "]");
+
+            if (grid.getGridArray()[nextLocation.x][nextLocation.y].hasEntity()) {
+                if (grid.getGridArray()[this.location.x][this.location.y].isPolice()) {
+                    Criminal criminal = (Criminal) grid.getGridArray()[nextLocation.x][nextLocation.y];
+                    criminal.setCaught();
+                    grid.getGridArray()[nextLocation.x][nextLocation.y] = entityObject;
+                    grid.getGridArray()[this.location.x][this.location.y] = new Floor();
+                } else {
+                    grid.getGridArray()[this.location.x][this.location.y] = new Floor();
+                }
+
+
+            }
+
+
+            System.out.println("Setting: " + toString() + " from [" + this.location.x + "][" + this.location.y + "], to [" + nextLocation.x + "][" + nextLocation.y + "]");
         }
-        this.location = location;
+        this.location = nextLocation;
     }
 
     public void setGame(Game game) {
