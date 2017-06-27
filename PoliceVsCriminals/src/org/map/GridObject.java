@@ -4,6 +4,7 @@ import org.entities.Entity;
 import org.entities.bots.RandomBotAlgorithm;
 import org.entities.bots.criminal.EvadeBotAlgorithm1;
 import org.entities.bots.police.CaptureBotAlgorithm1;
+import org.entities.bots.police.MCTSBotAlgorithm;
 import org.entities.players.Player;
 import org.map.objects.*;
 
@@ -48,7 +49,7 @@ abstract public class GridObject {
         Make vars just for checking the names
          */
         GridObject[] objects = new GridObject[]{new Criminal(), new Wall(), new Police(), new Floor()};
-        Entity[] entities = new Entity[]{new EvadeBotAlgorithm1(), new CaptureBotAlgorithm1(), new Player(), new RandomBotAlgorithm()};
+        Entity[] entities = new Entity[]{new EvadeBotAlgorithm1(), new CaptureBotAlgorithm1(), new Player(), new RandomBotAlgorithm(),new MCTSBotAlgorithm()};
 
         for (GridObject obj : objects) {
             if (option.toUpperCase().contains(obj.toString())) {
