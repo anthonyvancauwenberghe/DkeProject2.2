@@ -28,7 +28,9 @@ public class MCTSBotAlgorithm extends Bot {
             if (listLength == 0) {
                 System.out.println("no moves available you are trapped");
             } else {
+                System.out.println("Start MCTS");
                 runMCTS(grid,getLocation().x,getLocation().y);
+                System.out.println("End MCTS");
             }
         }
     }
@@ -58,7 +60,7 @@ public class MCTSBotAlgorithm extends Bot {
                             moveLocation(polices,x,y,newx,newy);
                             removeLocation(criminals,newx,newy);
                         }
-                        int result = simulate(rawGrid,criminals,polices,1000);
+                        int result = simulate(rawGrid,criminals,polices,10000);
                         if(result<startLocationsCriminal.size()){
                             votes[i]++;
                         }
