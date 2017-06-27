@@ -60,7 +60,7 @@ public class MCTSBotAlgorithm extends Bot {
                             moveLocation(polices,x,y,newx,newy);
                             removeLocation(criminals,newx,newy);
                         }
-                        int result = simulate(rawGrid,criminals,polices,10000);
+                        int result = simulate(rawGrid,criminals,polices,1000);
                         if(result<startLocationsCriminal.size()){
                             votes[i]++;
                         }
@@ -68,8 +68,15 @@ public class MCTSBotAlgorithm extends Bot {
                 }
             }
         }
+        System.out.println("votes: "+votes[0]+" "+votes[1]+" "+votes[2]+" "+votes[3]);
         int bestMove = getMaxArrayIndex(votes);
-        setLocation(new Point(x+presetMoves[bestMove][0],y+presetMoves[bestMove][1]));
+        if(votes[bestMove]>0) {
+            setLocation(new Point(x + presetMoves[bestMove][0], y + presetMoves[bestMove][1]));
+        }
+        else
+        {
+            System.out.println("No usefull moves found");
+        }
     }
 
     private int simulate(int[][]rawGrid,  ArrayList<int[]> criminals,  ArrayList<int[]> polices, int depth){
