@@ -91,7 +91,7 @@ public class Grid {
         return grid;
     }
 
-    public int[][] getRawgrid() {
+    public int[][] getRawGrid() {
         int[][] rawGrid = new int[this.getWidth()][this.getHeight()];
         for (int x = 0; x < this.getWidth(); x++) {
             for (int y = 0; y < this.getHeight(); y++) {
