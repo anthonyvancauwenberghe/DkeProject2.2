@@ -37,9 +37,8 @@ public abstract class Entity {
     public void setLocation(Point nextLocation) {
         Grid grid = getGrid();
         if (grid != null && this.location != null) {
-            EntityObject entityObject = (EntityObject) grid.getGridArray()[this.location.x][this.location.y];
-
             if (grid.getGridArray()[nextLocation.x][nextLocation.y].hasEntity()) {
+                EntityObject entityObject = (EntityObject) grid.getGridArray()[this.location.x][this.location.y];
                 if (grid.getGridArray()[nextLocation.x][nextLocation.y].isCriminal()) {
                     Criminal criminal = (Criminal) grid.getGridArray()[nextLocation.x][nextLocation.y];
                     criminal.setCaught();
