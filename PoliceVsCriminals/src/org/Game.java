@@ -102,19 +102,19 @@ public class Game {
             public void run() {
                 try {
                     while (!isGameFinished()) {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                         if (!isPaused()) {
                             for (Police police : getPolices()) {
                                 Bot bot = (Bot) police.getEntity();
                                 bot.move();
                                 mainFrame.getGamePanel().getGridPanel().setGrid(grid);
-                                Thread.sleep(2000);
+                                Thread.sleep(200);
                             }
                             for (Criminal criminal : getCriminals()) {
                                 Bot bot = (Bot) criminal.getEntity();
                                 bot.move();
                                 mainFrame.getGamePanel().getGridPanel().setGrid(grid);
-                                Thread.sleep(2000);
+                                Thread.sleep(200);
                             }
                         }
                     }
