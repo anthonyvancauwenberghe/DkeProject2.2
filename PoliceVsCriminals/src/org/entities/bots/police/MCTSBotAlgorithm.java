@@ -29,13 +29,13 @@ public class MCTSBotAlgorithm extends Bot {
                 System.out.println("no moves available you are trapped");
             } else {
                 System.out.println("Start MCTS");
-                runMCTS(grid,getLocation().x,getLocation().y);
+                runMCTS(grid,getLocation().x,getLocation().y,100);
                 System.out.println("End MCTS");
             }
         }
     }
 
-    private void runMCTS(Grid grid, int x, int y){
+    private void runMCTS(Grid grid, int x, int y, int depth){
         ArrayList<int[]> startLocationsCriminal = getLocationVectors(grid, 2);
         ArrayList<int[]> startLocationsPolices = getLocationVectors(grid, 3);
         int[][] startRawGrid = grid.getRawGrid();
@@ -60,10 +60,7 @@ public class MCTSBotAlgorithm extends Bot {
                             moveLocation(polices,x,y,newx,newy);
                             removeLocation(criminals,newx,newy);
                         }
-                        int result = simulate(rawGrid,criminals,polices,1000);
-                        if(result<startLocationsCriminal.size()){
-                            votes[i]++;
-                        }
+                        votes[i] += depth-simulate(rawGrid,criminals,polices,depth);
                     }
                 }
             }
@@ -80,6 +77,7 @@ public class MCTSBotAlgorithm extends Bot {
     }
 
     private int simulate(int[][]rawGrid,  ArrayList<int[]> criminals,  ArrayList<int[]> polices, int depth){
+        int startCriminals = criminals.size();
         for(int i=0;i<depth;i++){
             for(int[] criminal : criminals){
                 moveEntityRandom(rawGrid, criminals,polices,criminal[0],criminal[1],4,false);
@@ -87,11 +85,11 @@ public class MCTSBotAlgorithm extends Bot {
             for(int[] police : polices){
                 moveEntityRandom(rawGrid, criminals,polices,police[0],police[1],4,true);
             }
-            if(criminals.size()==0){
-                return 0;
+            if(criminals.size()<startCriminals){
+                return i;
             }
         }
-        return criminals.size();
+        return depth;
     }
 
     private int moveEntityRandom(int[][] rawGrid,  ArrayList<int[]> criminals,  ArrayList<int[]> police, int x, int y, int tries, boolean isPolice){
@@ -101,9 +99,16 @@ public class MCTSBotAlgorithm extends Bot {
             int newy = y+presetMoves[moveIndex][1];
             if(newx>=0 && newy>=0 && newx<rawGrid.length && newy<rawGrid[0].length){
                 if(rawGrid[newx][newy]==0){
-                    rawGrid[newx][newy]=3;
                     rawGrid[x][y]=0;
-                    moveLocation(police,x,y,newx,newy);
+                    if(isPolice) {
+                        moveLocation(police, x, y, newx, newy);
+                        rawGrid[newx][newy]=3;
+                    }
+                    else
+                    {
+                        moveLocation(criminals, x, y, newx, newy);
+                        rawGrid[newx][newy]=2;
+                    }
                     return 1;
                 }else if(isPolice && rawGrid[newx][newy]==2){
                     rawGrid[newx][newy]=3;
