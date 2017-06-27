@@ -90,4 +90,14 @@ public class Grid {
     public GridObject[][] getGridArray() {
         return grid;
     }
+
+    public int[][] getRawgrid() {
+        int[][] rawGrid = new int[this.getWidth()][this.getHeight()];
+        for (int x = 0; x < this.getWidth(); x++) {
+            for (int y = 0; y < this.getHeight(); y++) {
+                rawGrid[x][y] = this.grid[x][y].getId();
+            }
+        }
+        return rawGrid;
+    }
 }
