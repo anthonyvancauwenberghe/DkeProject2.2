@@ -28,9 +28,7 @@ public class MCTSBotAlgorithm extends Bot {
             if (listLength == 0) {
                 System.out.println("no moves available you are trapped");
             } else {
-                System.out.println("Start MCTS");
-                runMCTS(grid,getLocation().x,getLocation().y,100);
-                System.out.println("End MCTS");
+                 runMCTS(grid,getLocation().x,getLocation().y,1000);
             }
         }
     }
@@ -46,7 +44,7 @@ public class MCTSBotAlgorithm extends Bot {
             int newy = y+presetMoves[i][1];
             if(newx>=0 && newy>=0 && newx<startRawGrid.length && newy<startRawGrid[0].length) {
                 if(startRawGrid[newx][newy]==0 || startRawGrid[newx][newy]==2) {
-                    for (int j = 0; j < 100; j++) {
+                    for (int j = 0; j < 1000; j++) {
                         int[][] rawGrid = copyRawGrid(startRawGrid);
                         ArrayList<int[]> criminals = copyLocationVectors(startLocationsCriminal);
                         ArrayList<int[]> polices = copyLocationVectors(startLocationsPolices);
@@ -65,7 +63,6 @@ public class MCTSBotAlgorithm extends Bot {
                 }
             }
         }
-        System.out.println("votes: "+votes[0]+" "+votes[1]+" "+votes[2]+" "+votes[3]);
         int bestMove = getMaxArrayIndex(votes);
         if(votes[bestMove]>0) {
             setLocation(new Point(x + presetMoves[bestMove][0], y + presetMoves[bestMove][1]));
@@ -79,11 +76,11 @@ public class MCTSBotAlgorithm extends Bot {
     private int simulate(int[][]rawGrid,  ArrayList<int[]> criminals,  ArrayList<int[]> polices, int depth){
         int startCriminals = criminals.size();
         for(int i=0;i<depth;i++){
-            for(int[] criminal : criminals){
-                moveEntityRandom(rawGrid, criminals,polices,criminal[0],criminal[1],4,false);
-            }
             for(int[] police : polices){
                 moveEntityRandom(rawGrid, criminals,polices,police[0],police[1],4,true);
+            }
+            for(int[] criminal : criminals){
+                moveEntityRandom(rawGrid, criminals,polices,criminal[0],criminal[1],4,false);
             }
             if(criminals.size()<startCriminals){
                 return i;
