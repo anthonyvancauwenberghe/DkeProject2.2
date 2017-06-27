@@ -40,16 +40,14 @@ public abstract class Entity {
             EntityObject entityObject = (EntityObject) grid.getGridArray()[this.location.x][this.location.y];
 
             if (grid.getGridArray()[nextLocation.x][nextLocation.y].hasEntity()) {
-                if (grid.getGridArray()[this.location.x][this.location.y].isPolice()) {
+                if (grid.getGridArray()[nextLocation.x][nextLocation.y].isCriminal()) {
                     Criminal criminal = (Criminal) grid.getGridArray()[nextLocation.x][nextLocation.y];
                     criminal.setCaught();
                     grid.getGridArray()[nextLocation.x][nextLocation.y] = entityObject;
                     grid.getGridArray()[this.location.x][this.location.y] = new Floor();
-                } else {
+                } else if (grid.getGridArray()[nextLocation.x][nextLocation.y].isPolice()) {
                     grid.getGridArray()[this.location.x][this.location.y] = new Floor();
                 }
-
-
             }
 
 
