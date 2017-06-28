@@ -9,6 +9,7 @@ import org.entities.Entity;
  */
 abstract public class Bot extends Entity implements Algorithm {
 
+    public boolean groupMoveAlgorithm = false;
 
     public Bot(String name) {
         super(name);

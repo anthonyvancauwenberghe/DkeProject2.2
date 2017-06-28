@@ -26,6 +26,7 @@ public class Game {
     public int criminalIndex;
     private LinkedList<Criminal> criminals;
     private LinkedList<Police> polices;
+    private LinkedList<Bot> policeGroup;
 
     private MainFrame mainFrame;
 
@@ -61,6 +62,13 @@ public class Game {
                     System.out.println("Added: " + pol.toString() + ", At: " + pol.getEntity().getLocation());
                 }
             }
+        }
+
+        policeGroup = new LinkedList<Bot>();
+        for (Police police : getPolices()) {
+            Bot bot = (Bot) police.getEntity();
+            if (bot.groupMoveAlgorithm)
+                policeGroup.add(bot);
         }
     }
 
@@ -103,31 +111,38 @@ public class Game {
             @Override
             public void run() {
                 try {
+
                     while (!isGameFinished()) {
-                        Thread.sleep(100);
+                        Thread.sleep(20);
                         if (!isPaused()) {
-                            /*for (Police police : getPolices()) {
-                                Bot bot = (Bot) police.getEntity();
-                                bot.move();
-                                mainFrame.getGamePanel().getGridPanel().setGrid(grid);
-                                Thread.sleep(200);
-                            }*/
-                            LinkedList<Bot> polices= new LinkedList<>();
+
+
+                            /* MOVE ALL INDIVIDUAL POLICES THAT ARE NOT PART OF A GROUP */
                             for (Police police : getPolices()) {
                                 Bot bot = (Bot) police.getEntity();
-                                polices.add(bot);
+                                if (!bot.groupMoveAlgorithm) {
+                                    bot.move();
+                                    mainFrame.getGamePanel().getGridPanel().setGrid(grid);
+                                    Thread.sleep(200);
+                                }
                             }
-                            MCTSBotAlgorithm.moveShared(polices);
-                            mainFrame.getGamePanel().getGridPanel().setGrid(grid);
-                            Thread.sleep(200);
 
+                            /* MOVE POLICE GROUPS */
+                            if (!policeGroup.isEmpty()) {
+                                MCTSBotAlgorithm.moveShared(policeGroup);
+                                mainFrame.getGamePanel().getGridPanel().setGrid(grid);
+                                Thread.sleep(2);
+                            }
+
+                             /* MOVE ALL CRIMINALS */
                             for (Criminal criminal : getCriminals()) {
                                 Bot bot = (Bot) criminal.getEntity();
                                 bot.move();
                                 mainFrame.getGamePanel().getGridPanel().setGrid(grid);
                                 removeCaughtCriminals();
-                                Thread.sleep(200);
+                                Thread.sleep(2);
                             }
+
                         }
                     }
                     System.out.println("Game FINISHED!");
