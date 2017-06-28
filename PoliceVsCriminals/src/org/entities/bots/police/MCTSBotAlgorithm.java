@@ -43,7 +43,7 @@ public class MCTSBotAlgorithm extends Bot {
                 }
             }
             if (movesLegal) {
-                for (int k = 0; k < 1000; k++) {
+                for (int k = 0; k < 10000; k++) {
                     int[][] rawGrid = copyRawGrid(startRawGrid);
                     ArrayList<int[]> criminals = copyLocationVectors(startLocationsCriminal);
                     ArrayList<int[]> polices = copyLocationVectors(startLocationsPolices);
