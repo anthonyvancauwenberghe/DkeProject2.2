@@ -131,17 +131,27 @@ public class Grid {
         double[][] intArray = new double[gridArray.length][gridArray[0].length];
         for (int x = 0; x < gridArray.length; x++) {
             for (int y = 0; y < gridArray[x].length; y++) {
-                if (gridArray[y][x].isWall())
-                    intArray[y][x] = -1;
-                else if (gridArray[y][x].isCriminal())
-                    intArray[y][x] = 0;
-                else if (gridArray[y][x].isPolice())
-                    intArray[y][x] = 2;
+                if (gridArray[x][y].isWall())
+                    intArray[x][y] = -1;
+                else if (gridArray[x][y].isCriminal())
+                    intArray[x][y] = 0;
+                else if (gridArray[x][y].isPolice())
+                    intArray[x][y] = 2;
                 else
-                    intArray[y][x] = 1;
+                    intArray[x][y] = 1;
             }
         }
         return intArray;
+    }
+
+    public double[][] swapArrayValues(double[][] array) {
+        double[][] newArray = new double[array[0].length][array.length];
+        for (int x = 0; x < array.length; x++) {
+            for (int y = 0; y < array[x].length; y++) {
+                newArray[y][x] = array[x][y];
+            }
+        }
+        return newArray;
     }
 
     private double[][] convertToIntArrayToLookForPolice() {
@@ -149,27 +159,27 @@ public class Grid {
         double[][] intArray = new double[gridArray.length][gridArray[0].length];
         for (int x = 0; x < gridArray.length; x++) {
             for (int y = 0; y < gridArray[x].length; y++) {
-                if (gridArray[y][x].isWall())
-                    intArray[y][x] = -1;
-                else if (gridArray[y][x].isCriminal())
-                    intArray[y][x] = 2;
-                else if (gridArray[y][x].isPolice())
-                    intArray[y][x] = 0;
+                if (gridArray[x][y].isWall())
+                    intArray[x][y] = -1;
+                else if (gridArray[x][y].isCriminal())
+                    intArray[x][y] = 2;
+                else if (gridArray[x][y].isPolice())
+                    intArray[x][y] = 0;
                 else
-                    intArray[y][x] = 1;
+                    intArray[x][y] = 1;
             }
         }
         return intArray;
     }
 
     public java.util.List<Grid2d.MapNode> findBestPathtoCriminal(Point start, Point end) {
-        double[][] map = convertToIntArrayToLookForCriminals();
+        double[][] map = swapArrayValues(convertToIntArrayToLookForCriminals());
         Grid2d map2d = new Grid2d(map, false);
         return map2d.findPath(start.x, start.y, end.x, end.y);
     }
 
     public java.util.List<Grid2d.MapNode> findBestPathtoPolice(Point start, Point end) {
-        double[][] map = convertToIntArrayToLookForPolice();
+        double[][] map = swapArrayValues(convertToIntArrayToLookForPolice());
         Grid2d map2d = new Grid2d(map, false);
         return map2d.findPath(start.x, start.y, end.x, end.y);
     }

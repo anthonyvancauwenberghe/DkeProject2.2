@@ -69,6 +69,10 @@ public abstract class Entity {
         return (EntityObject) getGrid().getGridArray()[this.currentLocation.x][this.currentLocation.y];
     }
 
+    public GridObject getGridObject() {
+        return getGrid().getGridArray()[this.currentLocation.x][this.currentLocation.y];
+    }
+
     public void setGame(Game game) {
         this.game = game;
     }
@@ -99,9 +103,9 @@ public abstract class Entity {
     }
 
     public boolean isPossibleMove(Point point, Grid grid) {
-        if (getEntityObject().isPolice())
+        if (getGridObject().isPolice())
             return point.x >= 0 && point.y >= 0 && point.x < grid.getGridArray().length && point.y < grid.getGridArray().length && (grid.getGridArray()[point.x][point.y].isFloor() || grid.getGridArray()[point.x][point.y].isCriminal());
-        else if (getEntityObject().isCriminal())
+        else if (getGridObject().isCriminal())
             return point.x >= 0 && point.y >= 0 && point.x < grid.getGridArray().length && point.y < grid.getGridArray().length && (grid.getGridArray()[point.x][point.y].isFloor() || grid.getGridArray()[point.x][point.y].isPolice());
         else
             return point.x >= 0 && point.y >= 0 && point.x < grid.getGridArray().length && point.y < grid.getGridArray().length && (grid.getGridArray()[point.x][point.y].isFloor());
