@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
  */
 public class GridPanel extends JPanel {
     private final int RECTANGLE_SIZE = 30;
+    private boolean debug = false;
     /**
      * Reset this Grid only for redrawing, don't edit it directly
      */
@@ -50,8 +51,12 @@ public class GridPanel extends JPanel {
 
                 g.setColor(Color.black);
                 g.drawRect(cellX, cellY, RECTANGLE_SIZE, RECTANGLE_SIZE);
-                g.setFont(new Font("TimesRoman", Font.PLAIN, 9));
-                g.drawString("[" + x + "," + y + "]", cellX + 2, cellY + 18);
+
+                if (debug) {
+                    g.setFont(new Font("TimesRoman", Font.PLAIN, 9));
+                    g.drawString("[" + x + "," + y + "]", cellX + 2, cellY + 18);
+                }
+
             }
 
         }

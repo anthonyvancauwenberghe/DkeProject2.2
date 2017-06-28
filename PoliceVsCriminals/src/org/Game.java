@@ -113,7 +113,6 @@ public class Game {
                 try {
 
                     while (!isGameFinished()) {
-                        Thread.sleep(20);
                         if (!isPaused()) {
 
 
@@ -123,7 +122,7 @@ public class Game {
                                 if (!bot.groupMoveAlgorithm) {
                                     bot.move();
                                     mainFrame.getGamePanel().getGridPanel().setGrid(grid);
-                                    Thread.sleep(200);
+                                    Thread.sleep(50);
                                 }
                             }
 
@@ -131,16 +130,20 @@ public class Game {
                             if (!policeGroup.isEmpty()) {
                                 MCTSBotAlgorithm.moveShared(policeGroup);
                                 mainFrame.getGamePanel().getGridPanel().setGrid(grid);
-                                Thread.sleep(2);
+                                Thread.sleep(50);
                             }
 
                              /* MOVE ALL CRIMINALS */
-                            for (Criminal criminal : getCriminals()) {
-                                Bot bot = (Bot) criminal.getEntity();
+                            int size = getCriminals().size();
+                            for (int i = 0; i < size; i++) {
+                                Bot bot = (Bot) getCriminals().get(i).getEntity();
                                 bot.move();
                                 mainFrame.getGamePanel().getGridPanel().setGrid(grid);
-                                removeCaughtCriminals();
-                                Thread.sleep(2);
+
+                                if (removeCaughtCriminals()) {
+                                    size = size - 1;
+                                }
+                                Thread.sleep(50);
                             }
 
                         }
@@ -158,14 +161,16 @@ public class Game {
         return getCriminals().isEmpty();
     }
 
-    public void removeCaughtCriminals() {
+    public boolean removeCaughtCriminals() {
         int index = 0;
         for (Criminal criminal : getCriminals()) {
             if (criminal.isCaught()) {
                 getCriminals().remove(index);
+                return true;
             }
             index++;
         }
+        return false;
     }
 
 
