@@ -128,6 +128,7 @@ public class Game {
 
                             /* MOVE POLICE GROUPS */
                             if (!policeGroup.isEmpty()) {
+                                System.out.println("here");
                                 MCTSBotAlgorithm.moveShared(policeGroup);
                                 mainFrame.getGamePanel().getGridPanel().setGrid(grid);
                                 Thread.sleep(50);

@@ -15,10 +15,10 @@ import java.util.concurrent.ThreadLocalRandom;
 public class MCTSBotAlgorithm extends Bot {
 
     private static int[][] presetMoves = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-    public boolean groupMoveAlgorithm = true;
 
     public MCTSBotAlgorithm() {
         super("MCTS");
+        groupMoveAlgorithm = true;
     }
 
     public static void moveShared(LinkedList<Bot> policesEntities) {
@@ -28,7 +28,7 @@ public class MCTSBotAlgorithm extends Bot {
         int[][] startRawGrid = grid.getRawGrid();
         ArrayList<int[]> moves = getMultiStartPresetMoves(policesEntities.size());
         int[] votes = new int[moves.size()];
-        int depth = 10000;
+        int depth = 1000;
         for (int i = 0; i < moves.size(); i++) {
             boolean movesLegal = true;
             for (int j = 0; j < policesEntities.size(); j++) {
@@ -43,7 +43,7 @@ public class MCTSBotAlgorithm extends Bot {
                 }
             }
             if (movesLegal) {
-                for (int k = 0; k < 10000; k++) {
+                for (int k = 0; k < 1000; k++) {
                     int[][] rawGrid = copyRawGrid(startRawGrid);
                     ArrayList<int[]> criminals = copyLocationVectors(startLocationsCriminal);
                     int amountOfCriminals = criminals.size();
