@@ -3,12 +3,11 @@ package org.panels;
 import org.Game;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
 /**
- * Created by Krulvis on 23-Jun-17.
+ * Created by Tony on 23-Jun-17.
  */
 public class OptionsPanel extends JPanel {
 

@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Created by pmmde on 27-Jun-17.
+ * Created by Tony on 27-Jun-17.
  */
 public class MCTSBotAlgorithm extends Bot {
 

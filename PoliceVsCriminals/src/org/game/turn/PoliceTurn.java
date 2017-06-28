@@ -3,7 +3,7 @@ package org.game.turn;
 import org.map.objects.Criminal;
 
 /**
- * Created by Krulvis on 20-Jun-17.
+ * Created by Tony on 20-Jun-17.
  */
 public class PoliceTurn extends Turn<Criminal> {
 

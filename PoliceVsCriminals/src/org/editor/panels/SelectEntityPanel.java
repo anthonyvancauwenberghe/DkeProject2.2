@@ -13,7 +13,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 /**
- * Created by Krulvis on 21-Jun-17.
+ * Created by Tony on 21-Jun-17.
  */
 public class SelectEntityPanel extends JPanel {
 

@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * Created by Krulvis on 19-Jun-17.
+ * Created by Tony on 19-Jun-17.
  */
 public class StartMenu extends Menu {
 

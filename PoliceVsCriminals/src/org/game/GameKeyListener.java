@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * Created by Krulvis on 20-Jun-17.
+ * Created by Tony on 20-Jun-17.
  */
 public class GameKeyListener implements KeyListener {
 

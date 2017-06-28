@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * Created by Krulvis on 20-Jun-17.
+ * Created by Tony on 20-Jun-17.
  */
 public class PauseMenu extends Menu {
 

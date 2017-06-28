@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by Krulvis on 23-Jun-17.
+ * Created by Tony on 23-Jun-17.
  */
 public class GamePanel extends JPanel {
 

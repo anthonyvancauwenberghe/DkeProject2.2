@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * Created by Krulvis on 20-Jun-17.
+ * Created by Tony on 20-Jun-17.
  */
 public class GridPanel extends JPanel {
     private final int RECTANGLE_SIZE = 30;
