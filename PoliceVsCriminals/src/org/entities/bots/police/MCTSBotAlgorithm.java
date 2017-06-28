@@ -28,7 +28,7 @@ public class MCTSBotAlgorithm extends Bot {
         int[][] startRawGrid = grid.getRawGrid();
         ArrayList<int[]> moves = getMultiStartPresetMoves(policesEntities.size());
         int[] votes = new int[moves.size()];
-        int depth = 1000;
+        int depth = 10000;
         for (int i = 0; i < moves.size(); i++) {
             boolean movesLegal = true;
             for (int j = 0; j < policesEntities.size(); j++) {
@@ -46,6 +46,7 @@ public class MCTSBotAlgorithm extends Bot {
                 for (int k = 0; k < 10000; k++) {
                     int[][] rawGrid = copyRawGrid(startRawGrid);
                     ArrayList<int[]> criminals = copyLocationVectors(startLocationsCriminal);
+                    int amountOfCriminals = criminals.size();
                     ArrayList<int[]> polices = copyLocationVectors(startLocationsPolices);
                     for (int j = 0; j < policesEntities.size(); j++) {
                         int x = startLocationsPolices.get(j)[0];
@@ -63,7 +64,7 @@ public class MCTSBotAlgorithm extends Bot {
                             removeLocation(criminals, newx, newy);
                         }
                     }
-                    votes[i] += depth - simulate(rawGrid, criminals, polices, depth);
+                    votes[i] += depth - simulate(rawGrid, criminals, polices, depth,amountOfCriminals);
                 }
             }
         }
@@ -79,8 +80,7 @@ public class MCTSBotAlgorithm extends Bot {
         }
     }
 
-    private static int simulate(int[][] rawGrid, ArrayList<int[]> criminals, ArrayList<int[]> polices, int depth) {
-        int startCriminals = criminals.size();
+    private static int simulate(int[][] rawGrid, ArrayList<int[]> criminals, ArrayList<int[]> polices, int depth, int amountOfCriminals) {
         for (int i = 0; i < depth; i++) {
             for (int[] police : polices) {
                 moveEntityRandom(rawGrid, criminals, polices, police[0], police[1], 4, true);
@@ -88,7 +88,7 @@ public class MCTSBotAlgorithm extends Bot {
             for (int[] criminal : criminals) {
                 moveEntityRandom(rawGrid, criminals, polices, criminal[0], criminal[1], 4, false);
             }
-            if (criminals.size() < startCriminals) {
+            if (criminals.size() < amountOfCriminals) {
                 return i;
             }
         }
@@ -246,9 +246,10 @@ public class MCTSBotAlgorithm extends Bot {
             int newy = y + presetMoves[i][1];
             if (newx >= 0 && newy >= 0 && newx < startRawGrid.length && newy < startRawGrid[0].length) {
                 if (startRawGrid[newx][newy] == 0 || startRawGrid[newx][newy] == 2) {
-                    for (int j = 0; j < 1000; j++) {
+                    for (int j = 0; j < 10000; j++) {
                         int[][] rawGrid = copyRawGrid(startRawGrid);
                         ArrayList<int[]> criminals = copyLocationVectors(startLocationsCriminal);
+                        int amountOfCriminals = criminals.size();
                         ArrayList<int[]> polices = copyLocationVectors(startLocationsPolices);
                         if (rawGrid[newx][newy] == 0) {
                             rawGrid[newx][newy] = 3;
@@ -260,7 +261,7 @@ public class MCTSBotAlgorithm extends Bot {
                             moveLocation(polices, x, y, newx, newy);
                             removeLocation(criminals, newx, newy);
                         }
-                        votes[i] += depth - simulate(rawGrid, criminals, polices, depth);
+                        votes[i] += depth - simulate(rawGrid, criminals, polices, depth,amountOfCriminals);
                     }
                 }
             }
