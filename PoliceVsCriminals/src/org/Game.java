@@ -1,6 +1,7 @@
 package org;
 
 import org.entities.bots.Bot;
+import org.entities.bots.police.MCTSBotAlgorithm;
 import org.map.Grid;
 import org.map.GridObject;
 import org.map.objects.Criminal;
@@ -105,12 +106,21 @@ public class Game {
                     while (!isGameFinished()) {
                         Thread.sleep(100);
                         if (!isPaused()) {
-                            for (Police police : getPolices()) {
+                            /*for (Police police : getPolices()) {
                                 Bot bot = (Bot) police.getEntity();
                                 bot.move();
                                 mainFrame.getGamePanel().getGridPanel().setGrid(grid);
                                 Thread.sleep(200);
+                            }*/
+                            LinkedList<Bot> polices= new LinkedList<>();
+                            for (Police police : getPolices()) {
+                                Bot bot = (Bot) police.getEntity();
+                                polices.add(bot);
                             }
+                            MCTSBotAlgorithm.moveShared(polices);
+                            mainFrame.getGamePanel().getGridPanel().setGrid(grid);
+                            Thread.sleep(200);
+
                             for (Criminal criminal : getCriminals()) {
                                 Bot bot = (Bot) criminal.getEntity();
                                 bot.move();
