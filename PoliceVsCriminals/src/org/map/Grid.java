@@ -1,7 +1,10 @@
 package org.map;
 
+import org.algorithms.pathfinding.Grid2d;
 import org.map.objects.Floor;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Properties;
 
 /**
@@ -35,8 +38,6 @@ public class Grid {
     /**
      * Loads a Grid -> GridObject[][] from a Properties variable
      * GridObject#getObjectFromString(String option) also checks for the Entity if GridObject is Controllable
-     * @param p
-     * @return
      */
     public static Grid loadGrid(Properties p) {
         if (p == null) {
@@ -99,5 +100,77 @@ public class Grid {
             }
         }
         return rawGrid;
+    }
+
+    public ArrayList<Point> getCriminalLocations() {
+        GridObject[][] gridArray = getGridArray();
+        ArrayList<Point> locations = new ArrayList<>();
+        for (int x = 0; x < gridArray.length; x++) {
+            for (int y = 0; y < gridArray[x].length; y++) {
+                if (gridArray[x][y].isCriminal())
+                    locations.add(new Point(x, y));
+            }
+        }
+        return locations;
+    }
+
+    public ArrayList<Point> getPoliceLocations() {
+        GridObject[][] gridArray = getGridArray();
+        ArrayList<Point> locations = new ArrayList<>();
+        for (int x = 0; x < gridArray.length; x++) {
+            for (int y = 0; y < gridArray[x].length; y++) {
+                if (gridArray[x][y].isPolice())
+                    locations.add(new Point(x, y));
+            }
+        }
+        return locations;
+    }
+
+    private double[][] convertToIntArrayToLookForCriminals() {
+        GridObject[][] gridArray = getGridArray();
+        double[][] intArray = new double[gridArray.length][gridArray[0].length];
+        for (int x = 0; x < gridArray.length; x++) {
+            for (int y = 0; y < gridArray[x].length; y++) {
+                if (gridArray[y][x].isWall())
+                    intArray[y][x] = -1;
+                else if (gridArray[y][x].isCriminal())
+                    intArray[y][x] = 0;
+                else if (gridArray[y][x].isPolice())
+                    intArray[y][x] = 2;
+                else
+                    intArray[y][x] = 1;
+            }
+        }
+        return intArray;
+    }
+
+    private double[][] convertToIntArrayToLookForPolice() {
+        GridObject[][] gridArray = getGridArray();
+        double[][] intArray = new double[gridArray.length][gridArray[0].length];
+        for (int x = 0; x < gridArray.length; x++) {
+            for (int y = 0; y < gridArray[x].length; y++) {
+                if (gridArray[y][x].isWall())
+                    intArray[y][x] = -1;
+                else if (gridArray[y][x].isCriminal())
+                    intArray[y][x] = 2;
+                else if (gridArray[y][x].isPolice())
+                    intArray[y][x] = 0;
+                else
+                    intArray[y][x] = 1;
+            }
+        }
+        return intArray;
+    }
+
+    public java.util.List<Grid2d.MapNode> findBestPathtoCriminal(Point start, Point end) {
+        double[][] map = convertToIntArrayToLookForCriminals();
+        Grid2d map2d = new Grid2d(map, false);
+        return map2d.findPath(start.x, start.y, end.x, end.y);
+    }
+
+    public java.util.List<Grid2d.MapNode> findBestPathtoPolice(Point start, Point end) {
+        double[][] map = convertToIntArrayToLookForPolice();
+        Grid2d map2d = new Grid2d(map, false);
+        return map2d.findPath(start.x, start.y, end.x, end.y);
     }
 }

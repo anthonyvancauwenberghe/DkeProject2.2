@@ -69,31 +69,6 @@ public abstract class Entity {
         return (EntityObject) getGrid().getGridArray()[this.currentLocation.x][this.currentLocation.y];
     }
 
-    public void setLocation2(Point nextLocation) {
-
-        Grid grid = getGrid();
-        if (grid != null && this.currentLocation != null) {
-            GridObject entityObject = grid.getGridArray()[this.currentLocation.x][this.currentLocation.y];
-            if (grid.getGridArray()[nextLocation.x][nextLocation.y].hasEntity()) {
-                if (grid.getGridArray()[nextLocation.x][nextLocation.y].isCriminal()) {
-                    Criminal criminal = (Criminal) grid.getGridArray()[nextLocation.x][nextLocation.y];
-                    criminal.setCaught();
-                    grid.getGridArray()[nextLocation.x][nextLocation.y] = entityObject;
-                    grid.getGridArray()[this.currentLocation.x][this.currentLocation.y] = new Floor();
-                } else if (grid.getGridArray()[nextLocation.x][nextLocation.y].isPolice()) {
-                    grid.getGridArray()[this.currentLocation.x][this.currentLocation.y] = new Floor();
-                }
-            } else {
-                grid.getGridArray()[this.currentLocation.x][this.currentLocation.y] = new Floor();
-                grid.getGridArray()[currentLocation.x][currentLocation.y] = entityObject;
-            }
-
-
-            System.out.println("Setting: " + toString() + " from [" + this.currentLocation.x + "][" + this.currentLocation.y + "], to [" + nextLocation.x + "][" + nextLocation.y + "]");
-        }
-        this.currentLocation = nextLocation;
-    }
-
     public void setGame(Game game) {
         this.game = game;
     }
@@ -104,6 +79,7 @@ public abstract class Entity {
     }
 
     public ArrayList<Point> getAvailableNextLocations(Grid grid) {
+
         Point location = this.getLocation();
         ArrayList<Point> availableLocations = new ArrayList<Point>();
 
@@ -134,5 +110,6 @@ public abstract class Entity {
     public Grid getGrid() {
         return game != null && game.getGrid() != null ? game.getGrid() : null;
     }
+
 
 }

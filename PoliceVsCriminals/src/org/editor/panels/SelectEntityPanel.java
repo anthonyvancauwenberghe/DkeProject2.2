@@ -5,6 +5,7 @@ import org.entities.bots.RandomBotAlgorithm;
 import org.entities.bots.criminal.EvadeBotAlgorithm1;
 import org.entities.bots.police.CaptureBotAlgorithm1;
 import org.entities.bots.police.MCTSBotAlgorithm;
+import org.entities.bots.police.ShortestPathBotAlgorithm;
 import org.entities.players.Player;
 
 import javax.swing.*;
@@ -43,7 +44,7 @@ public class SelectEntityPanel extends JPanel {
     }
 
     private void setPoliceEntitiesPanel() {
-        Entity[] captures = new Entity[]{new CaptureBotAlgorithm1(), new Player(), new RandomBotAlgorithm(), new MCTSBotAlgorithm()};
+        Entity[] captures = new Entity[]{new CaptureBotAlgorithm1(), new Player(), new RandomBotAlgorithm(), new MCTSBotAlgorithm(), new ShortestPathBotAlgorithm()};
         policeComboBox = new JComboBox<>(captures);
         policeComboBox.setBackground(Color.lightGray);
         policeComboBox.setForeground(Color.darkGray);
