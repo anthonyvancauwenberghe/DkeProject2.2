@@ -141,7 +141,7 @@ public class Grid {
                     intArray[x][y] = 1;
             }
         }
-        return intArray;
+        return swapArrayValues(intArray);
     }
 
     public double[][] swapArrayValues(double[][] array) {
@@ -169,17 +169,17 @@ public class Grid {
                     intArray[x][y] = 1;
             }
         }
-        return intArray;
+        return swapArrayValues(intArray);
     }
 
     public java.util.List<Grid2d.MapNode> findBestPathtoCriminal(Point start, Point end) {
-        double[][] map = swapArrayValues(convertToIntArrayToLookForCriminals());
+        double[][] map = convertToIntArrayToLookForCriminals();
         Grid2d map2d = new Grid2d(map, false);
         return map2d.findPath(start.x, start.y, end.x, end.y);
     }
 
     public java.util.List<Grid2d.MapNode> findBestPathtoPolice(Point start, Point end) {
-        double[][] map = swapArrayValues(convertToIntArrayToLookForPolice());
+        double[][] map = convertToIntArrayToLookForPolice();
         Grid2d map2d = new Grid2d(map, false);
         return map2d.findPath(start.x, start.y, end.x, end.y);
     }
