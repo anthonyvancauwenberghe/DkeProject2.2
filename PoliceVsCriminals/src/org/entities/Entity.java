@@ -38,7 +38,7 @@ public abstract class Entity {
     public void setLocation(Point nextLocation) {
         Grid grid = getGrid();
         if (grid != null && this.currentLocation != null) {
-            EntityObject movingEntity = (EntityObject) grid.getGridArray()[this.currentLocation.x][this.currentLocation.y];
+            GridObject movingEntity = grid.getGridArray()[this.currentLocation.x][this.currentLocation.y];
             GridObject moveToObject = grid.getGridArray()[nextLocation.x][nextLocation.y];
 
             if (moveToObject.hasEntity()) {

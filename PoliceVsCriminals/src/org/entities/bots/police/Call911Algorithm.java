@@ -9,9 +9,9 @@ import java.awt.*;
 /**
  * Created by Tony on 17/06/2017.
  */
-public class ShortestPathBotAlgorithm extends Bot {
+public class Call911Algorithm extends Bot {
 
-    public ShortestPathBotAlgorithm() {
+    public Call911Algorithm() {
         super("PATH");
     }
 
@@ -34,7 +34,7 @@ public class ShortestPathBotAlgorithm extends Bot {
         int previousDistanceToCriminal = 1000;
         int currentDistanceToCriminal = 0;
 
-        if(getGrid().getCriminalLocations().size()==0){
+        if (getGrid().getCriminalLocations().size() == 0) {
             return 0;
         }
 

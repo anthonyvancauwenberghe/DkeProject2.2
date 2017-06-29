@@ -2,10 +2,10 @@ package org.editor.panels;
 
 import org.entities.Entity;
 import org.entities.bots.RandomBotAlgorithm;
-import org.entities.bots.criminal.EvadeBotAlgorithm1;
+import org.entities.bots.criminal.SmartCriminal;
+import org.entities.bots.police.Call911Algorithm;
 import org.entities.bots.police.CaptureBotAlgorithm1;
 import org.entities.bots.police.MCTSBotAlgorithm;
-import org.entities.bots.police.ShortestPathBotAlgorithm;
 import org.entities.players.Player;
 
 import javax.swing.*;
@@ -33,7 +33,7 @@ public class SelectEntityPanel extends JPanel {
     }
 
     private void setCriminalEntitiesPanel() {
-        Entity[] evaders = new Entity[]{new EvadeBotAlgorithm1(), new Player(), new RandomBotAlgorithm()};
+        Entity[] evaders = new Entity[]{new SmartCriminal(), new Player(), new RandomBotAlgorithm()};
         crimiComboBox = new JComboBox<>(evaders);
         crimiComboBox.setBackground(Color.lightGray);
         crimiComboBox.setForeground(Color.darkGray);
@@ -44,7 +44,7 @@ public class SelectEntityPanel extends JPanel {
     }
 
     private void setPoliceEntitiesPanel() {
-        Entity[] captures = new Entity[]{new CaptureBotAlgorithm1(), new Player(), new RandomBotAlgorithm(), new MCTSBotAlgorithm(), new ShortestPathBotAlgorithm()};
+        Entity[] captures = new Entity[]{new CaptureBotAlgorithm1(), new Player(), new RandomBotAlgorithm(), new MCTSBotAlgorithm(), new Call911Algorithm()};
         policeComboBox = new JComboBox<>(captures);
         policeComboBox.setBackground(Color.lightGray);
         policeComboBox.setForeground(Color.darkGray);

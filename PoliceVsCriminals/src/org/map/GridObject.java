@@ -2,10 +2,10 @@ package org.map;
 
 import org.entities.Entity;
 import org.entities.bots.RandomBotAlgorithm;
-import org.entities.bots.criminal.EvadeBotAlgorithm1;
+import org.entities.bots.criminal.SmartCriminal;
+import org.entities.bots.police.Call911Algorithm;
 import org.entities.bots.police.CaptureBotAlgorithm1;
 import org.entities.bots.police.MCTSBotAlgorithm;
-import org.entities.bots.police.ShortestPathBotAlgorithm;
 import org.entities.players.Player;
 import org.map.objects.Criminal;
 import org.map.objects.Floor;
@@ -53,7 +53,7 @@ abstract public class GridObject {
         Make vars just for checking the names
          */
         GridObject[] objects = new GridObject[]{new Criminal(), new Wall(), new Police(), new Floor()};
-        Entity[] entities = new Entity[]{new EvadeBotAlgorithm1(), new CaptureBotAlgorithm1(), new Player(), new RandomBotAlgorithm(), new MCTSBotAlgorithm(), new ShortestPathBotAlgorithm()};
+        Entity[] entities = new Entity[]{new SmartCriminal(), new CaptureBotAlgorithm1(), new Player(), new RandomBotAlgorithm(), new MCTSBotAlgorithm(), new Call911Algorithm()};
 
         for (GridObject obj : objects) {
             if (option.toUpperCase().contains(obj.toString())) {
