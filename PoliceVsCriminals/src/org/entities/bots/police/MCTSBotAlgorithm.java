@@ -31,7 +31,7 @@ public class MCTSBotAlgorithm extends Bot {
         for(int i=0;i<policesEntities.size();i++){
             boolean criminalFound=false;
             for(int k=-4;k<5;k++){
-                for(int j=4;j<5;j++){
+                for(int j=-4;j<5;j++){
                     int x = policesEntities.get(i).getLocation().x+k;
                     int y = policesEntities.get(i).getLocation().y+j;
                     if (x >= 0 && y >= 0 && x < startRawGrid.length && y < startRawGrid[0].length) {
