@@ -3,6 +3,7 @@ package org.editor.panels;
 import org.entities.Entity;
 import org.entities.bots.RandomBotAlgorithm;
 import org.entities.bots.criminal.SmartCriminal;
+import org.entities.bots.criminal.SmartCriminalAdvanced;
 import org.entities.bots.police.Call911Algorithm;
 import org.entities.bots.police.CaptureBotAlgorithm1;
 import org.entities.bots.police.MCTSBotAlgorithm;
@@ -33,7 +34,7 @@ public class SelectEntityPanel extends JPanel {
     }
 
     private void setCriminalEntitiesPanel() {
-        Entity[] evaders = new Entity[]{new SmartCriminal(), new Player(), new RandomBotAlgorithm()};
+        Entity[] evaders = new Entity[]{new SmartCriminal(), new Player(), new RandomBotAlgorithm(), new SmartCriminalAdvanced()};
         crimiComboBox = new JComboBox<>(evaders);
         crimiComboBox.setBackground(Color.lightGray);
         crimiComboBox.setForeground(Color.darkGray);

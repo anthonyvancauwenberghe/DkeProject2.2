@@ -183,4 +183,82 @@ public class Grid {
         Grid2d map2d = new Grid2d(map, false);
         return map2d.findPath(start.x, start.y, end.x, end.y);
     }
+
+    private double[][] convertToWeightedIntArrayToLookForPolice() {
+        double[][] gridArray = convertToIntArrayToLookForPolice();
+        double[][] doubleArray = new double[gridArray.length][gridArray[0].length];
+        for (int x = 0; x < gridArray.length; x++) {
+            for (int y = 0; y < gridArray[x].length; y++) {
+                if (gridArray[x][y] == 2) {
+                    doubleArray = populateNeighbouringValues(gridArray, x, y, 2, 4);
+                } else if (gridArray[x][y] == 0) {
+                    doubleArray = populateNeighbouringValues(gridArray, x, y, 0, 10);
+                }
+            }
+        }
+        return doubleArray;
+    }
+
+    public java.util.List<Grid2d.MapNode> findBestWeightedPathAwayFromPolice(Point start) {
+        double[][] map = convertToWeightedIntArrayToLookForPolice();
+        Grid2d map2d = new Grid2d(map, false);
+        Point bestLocation = FindBestPossibleCriminalLocation();
+        return map2d.findPath(start.x, start.y, bestLocation.x, bestLocation.y);
+    }
+
+    public Point FindBestPossibleCriminalLocation() {
+        int bestLocationX = 0;
+        int bestLocationY = 0;
+        double LowestweightScore = 0;
+
+        double[][] gridArray = convertToWeightedIntArrayToLookForPolice();
+        for (int x = 0; x < gridArray.length; x++) {
+            for (int y = 0; y < gridArray[x].length; y++) {
+                if (gridArray[x][y] != -1) {
+                    if (gridArray[x][y] <= LowestweightScore) {
+                        bestLocationX = x;
+                        bestLocationY = y;
+                        LowestweightScore = gridArray[x][y];
+                    }
+
+                }
+            }
+        }
+        return new Point(bestLocationX, bestLocationY);
+    }
+
+    private double[][] populateNeighbouringValues(double[][] grid, int x, int y, double targetValue, double newValue) {
+        double[][] gridArray = grid;
+
+        if (gridArray[x][y] == targetValue) {
+            gridArray = setGridValue(grid, x, y, newValue, 1);
+
+            gridArray = setGridValue(grid, x + 1, y, newValue, 0.8);
+            gridArray = setGridValue(grid, x, y + 1, newValue, 0.8);
+            gridArray = setGridValue(grid, x - 1, y, newValue, 0.8);
+            gridArray = setGridValue(grid, x, y - 1, newValue, 0.8);
+
+            gridArray = setGridValue(grid, x + 2, y, newValue, 0.6);
+            gridArray = setGridValue(grid, x, y + 2, newValue, 0.6);
+            gridArray = setGridValue(grid, x - 2, y, newValue, 0.6);
+            gridArray = setGridValue(grid, x, y - 2, newValue, 0.6);
+
+            gridArray = setGridValue(grid, x + 1, y + 1, newValue, 0.6);
+            gridArray = setGridValue(grid, x - 1, y - 1, newValue, 0.6);
+            gridArray = setGridValue(grid, x - 1, y + 1, newValue, 0.6);
+            gridArray = setGridValue(grid, x + 1, y - 1, newValue, 0.6);
+
+
+        }
+        return gridArray;
+    }
+
+    private double[][] setGridValue(double[][] grid, int x, int y, double newValue, double modifier) {
+        if (x >= 0 && x < grid.length && y >= 0 && y < grid[0].length && grid[x][y] != -1)
+            grid[x][y] = newValue * modifier;
+
+        return grid;
+
+    }
+
 }
