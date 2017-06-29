@@ -1,5 +1,6 @@
 package org.entities.bots.police;
 
+import org.algorithms.pathfinding.Grid2d;
 import org.entities.bots.Bot;
 import org.map.Grid;
 import org.map.GridObject;
@@ -23,15 +24,40 @@ public class MCTSBotAlgorithm extends Bot {
 
     public static void moveShared(LinkedList<Bot> policesEntities) {
         Grid grid = policesEntities.get(0).getGrid();
-        ArrayList<int[]> startLocationsCriminal = getLocationVectors(grid, 2);
-        ArrayList<int[]> startLocationsPolices = getLocationVectors(policesEntities);
         int[][] startRawGrid = grid.getRawGrid();
-        ArrayList<int[]> moves = getMultiStartPresetMoves(policesEntities.size());
+        ArrayList<int[]> startLocationsCriminal = getLocationVectors(grid, 2);
+        ArrayList<int[]> startLocationsPolices = new ArrayList<>();
+        boolean[] policeMCTSUsed = new boolean[policesEntities.size()];
+        for(int i=0;i<policesEntities.size();i++){
+            boolean criminalFound=false;
+            for(int k=-4;k<5;k++){
+                for(int j=4;j<5;j++){
+                    int x = policesEntities.get(i).getLocation().x+k;
+                    int y = policesEntities.get(i).getLocation().y+j;
+                    if (x >= 0 && y >= 0 && x < startRawGrid.length && y < startRawGrid[0].length) {
+                        if (startRawGrid[x][y] == 2) {
+                            criminalFound = true;
+                        }
+                    }
+                }
+            }
+            if(criminalFound){
+                policeMCTSUsed[i]=true;
+                startLocationsPolices.add(new int[]{policesEntities.get(i).getLocation().x,policesEntities.get(i).getLocation().y});
+            }
+            else
+            {
+                policeMCTSUsed[i]=false;
+                policesEntities.get(i).setLocation(policesEntities.get(i).getAvailableNextLocations(grid)
+                        .get(getMove(policesEntities.get(i))));
+            }
+        }
+        ArrayList<int[]> moves = getMultiStartPresetMoves(startLocationsPolices.size());
         int[] votes = new int[moves.size()];
         int depth = 1000;
         for (int i = 0; i < moves.size(); i++) {
             boolean movesLegal = true;
-            for (int j = 0; j < policesEntities.size(); j++) {
+            for (int j = 0; j < startLocationsPolices.size(); j++) {
                 int newx = startLocationsPolices.get(j)[0] + presetMoves[moves.get(i)[j]][0];
                 int newy = startLocationsPolices.get(j)[1] + presetMoves[moves.get(i)[j]][1];
                 if (newx >= 0 && newy >= 0 && newx < startRawGrid.length && newy < startRawGrid[0].length) {
@@ -48,7 +74,7 @@ public class MCTSBotAlgorithm extends Bot {
                     ArrayList<int[]> criminals = copyLocationVectors(startLocationsCriminal);
                     int amountOfCriminals = criminals.size();
                     ArrayList<int[]> polices = copyLocationVectors(startLocationsPolices);
-                    for (int j = 0; j < policesEntities.size(); j++) {
+                    for (int j = 0; j < startLocationsPolices.size(); j++) {
                         int x = startLocationsPolices.get(j)[0];
                         int y = startLocationsPolices.get(j)[1];
                         int newx = startLocationsPolices.get(j)[0] + presetMoves[moves.get(i)[j]][0];
@@ -70,10 +96,14 @@ public class MCTSBotAlgorithm extends Bot {
         }
         int bestMove = getMaxArrayIndex(votes);
         if (votes[bestMove] > 0) {
+            int counter=0;
             for (int i = 0; i < policesEntities.size(); i++) {
-                int newx = policesEntities.get(i).getLocation().x + presetMoves[moves.get(bestMove)[i]][0];
-                int newy = policesEntities.get(i).getLocation().y + presetMoves[moves.get(bestMove)[i]][1];
-                policesEntities.get(i).setLocation(new Point(newx, newy));
+                if(policeMCTSUsed[i]) {
+                    int newx = policesEntities.get(i).getLocation().x + presetMoves[moves.get(bestMove)[counter]][0];
+                    int newy = policesEntities.get(i).getLocation().y + presetMoves[moves.get(bestMove)[counter]][1];
+                    policesEntities.get(i).setLocation(new Point(newx, newy));
+                    counter++;
+                }
             }
         } else {
             System.out.println("No usefull moves found");
@@ -122,6 +152,41 @@ public class MCTSBotAlgorithm extends Bot {
         }
 
         return 2;
+    }
+
+    private static int getMove(Bot bot) {
+
+        int closestCriminalIndex = 0;
+        int previousDistanceToCriminal = 1000;
+        int currentDistanceToCriminal = 0;
+
+        if(bot.getGrid().getCriminalLocations().size()==0){
+            return 0;
+        }
+
+        int index = 0;
+        for (Point criminalLocation : bot.getGrid().getCriminalLocations()) {
+            java.util.List<Grid2d.MapNode> pathfindingmoves = bot.getGrid().findBestPathtoCriminal(bot.getLocation(), criminalLocation);
+            currentDistanceToCriminal = pathfindingmoves.size();
+            if (currentDistanceToCriminal < previousDistanceToCriminal)
+                closestCriminalIndex = index;
+            index++;
+        }
+
+        Point move = bot.getGrid().findBestPathtoCriminal(bot.getLocation(),
+                bot.getGrid().getCriminalLocations().get(closestCriminalIndex)).get(1).toPoint();
+
+
+        index = 0;
+        int bestMoveIndex = 0;
+        for (Point availableMove : bot.getAvailableMoves()) {
+            if (availableMove.equals(move)) {
+                bestMoveIndex = index;
+            }
+            index++;
+
+        }
+        return bestMoveIndex;
     }
 
     private static ArrayList<int[]> getLocationVectors(Grid grid, int retrieveId) {

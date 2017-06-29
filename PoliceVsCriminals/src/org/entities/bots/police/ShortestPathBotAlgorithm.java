@@ -34,6 +34,10 @@ public class ShortestPathBotAlgorithm extends Bot {
         int previousDistanceToCriminal = 1000;
         int currentDistanceToCriminal = 0;
 
+        if(getGrid().getCriminalLocations().size()==0){
+            return 0;
+        }
+
         int index = 0;
         for (Point criminalLocation : this.getGrid().getCriminalLocations()) {
             java.util.List<Grid2d.MapNode> pathfindingmoves = getGrid().findBestPathtoCriminal(this.getLocation(), criminalLocation);
